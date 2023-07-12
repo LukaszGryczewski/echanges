@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -14,25 +14,25 @@ class Address extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['street','number','city','municipalitie','postal_code'];
+    protected $fillable = [
+        'name',
+    ];
 
     /**
-     * The table addresses associated with the model Address.
+     * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'addresses';
+    protected $table = 'roles';
 
-    /**
+   /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
-
 }
