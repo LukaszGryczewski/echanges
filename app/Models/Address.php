@@ -14,7 +14,7 @@ class Address extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['street','numer','city','municipalitie','postal_code'];
+    protected $fillable = ['street','number','city','municipalitie','postal_code'];
 
     /**
      * The table addresses associated with the model Address.
@@ -29,5 +29,10 @@ class Address extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
 }

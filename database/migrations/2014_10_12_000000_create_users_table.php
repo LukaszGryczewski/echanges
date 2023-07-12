@@ -15,13 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('firstname',60);
             $table->string('lastname',60);
-            $table->string('address',255);
+            $table->foreignId('address_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone',60);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('address_id')
+                  ->references('id')
+                  ->on('addresses')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
+
         });
     }
 
