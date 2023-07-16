@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Les Pop! Vinyl de Funko sont des figurines de collection produites sous licence officielle qui représentent une énorme gamme de franchises et séries issues de la culture populaire.',
                 'quantity' => 1,
                 'edition' => 'funko pop',
-                //'type_id' => '',
+                'type_id' => 1,
                 'condition' => 'Trés bon',
                 'image' => '',
                 'isAvailable' => true,

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Type extends Model
 {
     use HasFactory;
 
@@ -14,23 +14,25 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name','description','quantity','edition','type_id','condition','image','isAvailable'];
+    protected $fillable = [
+        'type',
+    ];
 
     /**
-     * The table addresses associated with the model Address.
+     * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'products';
+    protected $table = 'types';
 
-    /**
+   /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
-    public function type(){
-        return $this->BelongsTo(Type::class);
+    public function products(){
+        return $this->HasToMany(Product::class);
     }
 }

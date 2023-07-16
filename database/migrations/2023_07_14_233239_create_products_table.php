@@ -17,11 +17,17 @@ return new class extends Migration
             $table->text('description',255);
             $table->integer('quantity');
             $table->string('edition',60);
-            //$table->foreignId('type_id');
+            $table->foreignId('type_id');
             $table->string('condition',255);
             $table->string('image',255);
             $table->boolean('isAvailable');
             $table->timestamps();
+
+            $table->foreign('type_id')
+                  ->references('id')
+                  ->on('types')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
         });
     }
 
