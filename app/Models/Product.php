@@ -14,7 +14,7 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name','description','quantity','edition','type_id','condition','image','type_transaction','isAvailable'];
+    protected $fillable = ['name','description','price','quantity','edition','user_id','type_id','condition','image','type_transaction','isAvailable'];
 
     /**
      * The table addresses associated with the model Address.
@@ -36,5 +36,9 @@ class Product extends Model
 
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

@@ -23,14 +23,15 @@ class ProductSeeder extends Seeder
 
         // Utiliser la bibliothèque Faker pour générer des données aléatoires
         $faker = Faker::create();
-        $typeId = $faker->numberBetween(1, 4);
         $products = [
             [
                 'name' => 'Goku',
                 'description' => 'Les Pop! Vinyl de Funko sont des figurines de collection produites sous licence officielle qui représentent une énorme gamme de franchises et séries issues de la culture populaire.',
+                'price' => 42,
                 'quantity' => $faker->numberBetween(1, 10),
                 'edition' => 'funko pop',
-                'type_id' => $typeId,
+                'user_id' => 1,
+                'type_id' => $faker->numberBetween(1, 4),
                 'condition' => $faker->randomElement(['Neuf', 'Parfait', 'Très bon', 'Bon', 'Moyen', 'Mauvais', 'Très Mauvais']),
                 'image' => '',
                 'type_transaction' => $faker->randomElement(['Vente', 'Echange', 'Enchere']),

@@ -68,7 +68,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    /*public function comments(){
-        return $this->hasMany(Comment::class);
-    }*/
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
