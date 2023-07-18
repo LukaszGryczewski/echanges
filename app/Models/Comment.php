@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class Comment extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,9 @@ class Type extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
+        //'user_id',
+        'product_id',
+        'comment',
     ];
 
     /**
@@ -23,16 +25,22 @@ class Type extends Model
      *
      * @var string
      */
-    protected $table = 'types';
+    protected $table = 'comments';
 
    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
-    public function products(){
-        return $this->hasMany(Product::class);
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
+
+    /*public function user(){
+        return $this->belongsTo(User::class);
+    }*/
+
+
 }
