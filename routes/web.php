@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -34,5 +35,9 @@ Route::get('/user', [UserController::class, 'index'])
 Route::get('/user/{id}', [UserController::class, 'show'])
 	->where('id', '[0-9]+')->name('user.show');
 
+Route::get('/product', [ProductController::class, 'index'])
+    ->name('product.index');
+Route::get('/product/{id}', [ProductController::class, 'show'])
+	->where('id', '[0-9]+')->name('product.show');
 
 require __DIR__.'/auth.php';
