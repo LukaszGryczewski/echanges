@@ -33,7 +33,8 @@
                             </tr>
                             <tr>
                                 <td><strong>Utilisateur</strong></td>
-                                <td>{{ $product->user->login }}</td>
+                                <td><a href="{{ route('user.show', $product->user->id) }}">{{ $product->user->login }}</a></td>
+
                             </tr>
                             <tr>
                                 <td><strong>Condition</strong></td>
