@@ -16,18 +16,19 @@ return new class extends Migration
             //$table->foreignId('user_id');
             $table->foreignId('product_id');
             $table->string('comment',255);
+            $table->unsignedTinyInteger('score',)->nullable();
             $table->timestamps();
 
-            /*$table->foreign('user_id')
+            $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('restrict')
-                  ->onUpdate('cascade');*/
+                  ->onUpdate('restrict');
             $table->foreign('product_id')
                   ->references('id')
                   ->on('products')
                   ->onDelete('restrict')
-                  ->onUpdate('cascade');
+                  ->onUpdate('restrict');
         });
     }
 

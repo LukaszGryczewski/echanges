@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -15,9 +16,10 @@ class Comment extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        //'user_id',
+        'user_id',
         'product_id',
         'comment',
+        'score',
     ];
 
     /**
@@ -34,13 +36,20 @@ class Comment extends Model
      */
     public $timestamps = true;
 
+    public function getValidationRules()
+    {
+        return [
+            'score' => ['nullable', Rule::in([1, 2, 3, 4, 5])],
+        ];
+    }
+
     public function product(){
         return $this->belongsTo(Product::class);
     }
 
-    /*public function user(){
+    public function user(){
         return $this->belongsTo(User::class);
-    }*/
+    }
 
 
 }
