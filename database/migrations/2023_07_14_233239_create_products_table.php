@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',255);
             $table->text('description',255);
-            $table->integer('price');
+            $table->double('price');
             $table->integer('quantity');
             $table->string('edition',60);
             $table->foreignId('user_id');
