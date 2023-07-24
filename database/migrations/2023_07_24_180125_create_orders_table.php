@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->foreignId('cart_id');
             $table->double('total_price');
             $table->dateTime('order_date');
             $table->string('delivery_address');
@@ -22,6 +23,11 @@ return new class extends Migration
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
+            $table->foreign('cart_id')
+                  ->references('id')
+                  ->on('carts')
                   ->onDelete('restrict')
                   ->onUpdate('restrict');
         });

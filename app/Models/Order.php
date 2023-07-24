@@ -16,6 +16,7 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
+        'cart_id',
         'total_price',
         'order_date',
         'delivery_address',
@@ -41,8 +42,8 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function products()
+    public function carts()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Cart::class);
     }
 }
