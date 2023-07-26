@@ -21,12 +21,29 @@ class CommentSeeder extends Seeder
 
         $comments = [
             [
-                //'user_id' => 1,
+                'user_id' => 1,
                 'product_id' => 1,
                 'comment' => 'Tres bon produit',
                 'created_at' => now(),
-            ]
-
+            ],
+            [
+                'user_id' => 1,
+                'product_id' => 1,
+                'comment' => 'Parfait',
+                'created_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'product_id' => 1,
+                'comment' => 'La livraison à eu du retard',
+                'created_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'product_id' => 1,
+                'comment' => 'j\'adore',
+                'created_at' => now(),
+            ],
         ];
 
         DB::table('comments')->insert($comments);
