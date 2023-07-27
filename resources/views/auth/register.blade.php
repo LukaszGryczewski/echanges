@@ -1,109 +1,159 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="shadow-sm card">
+                    <div class="text-white card-header bg-primary">{{ __('Register') }}</div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
 
-        <!-- Login -->
-        <div>
-            <x-input-label for="login" :value="__('Login')" />
-            <x-text-input id="login" class="block w-full mt-1" type="text" name="login" :value="old('login')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('login')" class="mt-2" />
+                            <!-- Login -->
+                            <div class="mb-3">
+                                <label for="login" class="form-label">{{ __('Login') }}</label>
+                                <input id="login" class="form-control @error('login') is-invalid @enderror" type="text" name="login" value="{{ old('login') }}" required autofocus autocomplete="name" />
+                                @error('login')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Firstname -->
+                            <div class="mb-3">
+                                <label for="firstname" class="form-label">{{ __('Firstname') }}</label>
+                                <input id="firstname" class="form-control @error('firstname') is-invalid @enderror" type="text" name="firstname" value="{{ old('firstname') }}" required autocomplete="name" />
+                                @error('firstname')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Lastname -->
+                            <div class="mb-3">
+                                <label for="lastname" class="form-label">{{ __('Lastname') }}</label>
+                                <input id="lastname" class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" value="{{ old('lastname') }}" required autocomplete="name" />
+                                @error('lastname')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Address of the user -->
+                            <div class="row">
+                                <!-- Street -->
+                                <div class="mb-3 col-md-6">
+                                    <label for="street" class="form-label">{{ __('Street') }}</label>
+                                    <input id="street" class="form-control @error('street') is-invalid @enderror" type="text" name="street" value="{{ old('street') }}" required autocomplete="name" />
+                                    @error('street')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <!-- Number -->
+                                <div class="mb-3 col-md-6">
+                                    <label for="number" class="form-label">{{ __('Number') }}</label>
+                                    <input id="number" class="form-control @error('number') is-invalid @enderror" type="text" name="number" value="{{ old('number') }}" required autocomplete="name" />
+                                    @error('number')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- City -->
+                            <div class="mb-3">
+                                <label for="city" class="form-label">{{ __('City') }}</label>
+                                <input id="city" class="form-control @error('city') is-invalid @enderror" type="text" name="city" value="{{ old('city') }}" required autocomplete="name" />
+                                @error('city')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Municipalitie -->
+                            <div class="mb-3">
+                                <label for="municipalitie" class="form-label">{{ __('Municipalitie') }}</label>
+                                <input id="municipalitie" class="form-control @error('municipalitie') is-invalid @enderror" type="text" name="municipalitie" value="{{ old('municipalitie') }}" required autocomplete="name" />
+                                @error('municipalitie')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Postal Code -->
+                            <div class="mb-3">
+                                <label for="postal_code" class="form-label">{{ __('Postal code') }}</label>
+                                <input id="postal_code" class="form-control @error('postal_code') is-invalid @enderror" type="text" name="postal_code" value="{{ old('postal_code') }}" required autocomplete="name" />
+                                @error('postal_code')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Email Address -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">{{ __('Email') }}</label>
+                                <input id="email" class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" />
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">{{ __('Password') }}</label>
+                                <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="new-password" />
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
+                                <input id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" type="password" name="password_confirmation" required autocomplete="new-password" />
+                                @error('password_confirmation')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">{{ __('Phone') }}</label>
+                                <input id="phone" class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{ old('phone') }}" required autocomplete="name" />
+                                @error('phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="text-center card-footer">
+                        <a class="btn btn-link" href="{{ route('login') }}">{{ __('Already registered?') }}</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Firstname -->
-        <div>
-            <x-input-label for="firstname" :value="__('Firstname')" />
-            <x-text-input id="firstname" class="block w-full mt-1" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
-        </div>
-
-        <!-- Lastname -->
-        <div>
-            <x-input-label for="lastname" :value="__('Lastname')" />
-            <x-text-input id="lastname" class="block w-full mt-1" type="text" name="lastname" :value="old('lastname')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
-        </div>
-
-        <!----------Address of the user---------->
-
-        <!-- Street -->
-        <div>
-            <x-input-label for="street" :value="__('Street')" />
-            <x-text-input id="street" class="block w-full mt-1" type="text" name="street" :value="old('street')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('street')" class="mt-2" />
-        </div>
-
-        <!-- Number -->
-        <div>
-            <x-input-label for="number" :value="__('Number')" />
-            <x-text-input id="number" class="block w-full mt-1" type="text" name="number" :value="old('number')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('number')" class="mt-2" />
-        </div>
-
-        <!-- City -->
-        <div>
-            <x-input-label for="city" :value="__('City')" />
-            <x-text-input id="city" class="block w-full mt-1" type="text" name="city" :value="old('city')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('city')" class="mt-2" />
-        </div>
-        <!-- Municipalitie -->
-        <div>
-            <x-input-label for="municipalitie" :value="__('Municipalitie')" />
-            <x-text-input id="municipalitie" class="block w-full mt-1" type="text" name="municipalitie" :value="old('municipalitie')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('municipalitie')" class="mt-2" />
-        </div>
-        <!-- Postal Code -->
-        <div>
-            <x-input-label for="postal_code" :value="__('Postal code')" />
-            <x-text-input id="postal_code" class="block w-full mt-1" type="text" name="postal_code" :value="old('postal_code')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('postal_code')" class="mt-2" />
-        </div>
-
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block w-full mt-1"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block w-full mt-1"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <!-- Phone -->
-        <div>
-            <x-input-label for="phone" :value="__('Phone')" />
-            <x-text-input id="phone" class="block w-full mt-1" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>
