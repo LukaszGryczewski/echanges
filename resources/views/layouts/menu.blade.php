@@ -9,6 +9,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url('/product') }}">Produit</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url('/my-product') }}">Mes Produit</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/user') }}">Utilisateurs</a>
             </li>

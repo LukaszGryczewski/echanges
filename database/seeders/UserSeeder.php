@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
                 'lastname' => 'Didier',
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'tom@gmail.com',
-                'password' => 'rootroot',
+                'password' => Hash::make('rootroot'),
                 'phone' => '0412345678',
                 'created_at' => now(),
             ],
@@ -39,7 +40,7 @@ class UserSeeder extends Seeder
                 'lastname' => 'Mettio',
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'marc@gmail.com',
-                'password' => 'rootroot',
+                'password' => Hash::make('rootroot'),
                 'phone' => '0475189642',
                 'created_at' => now(),
             ],
@@ -49,7 +50,7 @@ class UserSeeder extends Seeder
                 'lastname' => 'Pilihp',
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'philip@gmail.com',
-                'password' => 'rootroot',
+                'password' => Hash::make('rootroot'),
                 'phone' => '0436184275',
                 'created_at' => now(),
             ],
@@ -59,7 +60,7 @@ class UserSeeder extends Seeder
                 'lastname' => 'Krik',
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'eric@gmail.com',
-                'password' => 'rootroot',
+                'password' => Hash::make('rootroot'),
                 'phone' => '0464891587',
                 'created_at' => now(),
             ],
@@ -69,7 +70,7 @@ class UserSeeder extends Seeder
                 'lastname' => 'Laubo',
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'mathieu@gmail.com',
-                'password' => 'rootroot',
+                'password' => Hash::make('rootroot'),
                 'phone' => '0441574157',
                 'created_at' => now(),
             ],
@@ -79,7 +80,7 @@ class UserSeeder extends Seeder
                 'lastname' => 'Paco',
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'enrico@gmail.com',
-                'password' => 'rootroot',
+                'password' => Hash::make('rootroot'),
                 'phone' => '0465412348',
                 'created_at' => now(),
             ],
