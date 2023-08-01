@@ -39,5 +39,8 @@ Route::get('/product', [ProductController::class, 'index'])
     ->name('product.index');
 Route::get('/product/{id}', [ProductController::class, 'show'])
 	->where('id', '[0-9]+')->name('product.show');
+Route::get('/my-product', [ProductController::class, 'showProductsPerUser'])
+    ->middleware('auth')
+    ->name('product.userProduct');
 
 require __DIR__.'/auth.php';

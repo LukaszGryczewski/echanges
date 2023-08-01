@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -72,5 +73,16 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showProductsPerUser()
+    {
+        // Retrieve logged in user by session
+        $connectedUser = auth()->user();
+
+        // Load products associated with logged in user
+        $myProducts = Product::where('user_id', $connectedUser->id)->get();
+        //dd($myProducts);
+        return view('product.userProduct', compact('myProducts'));
     }
 }
