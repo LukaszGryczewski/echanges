@@ -16,9 +16,9 @@
                 <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
             </li>
         </ul>
-    </div>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav me-auto">
 
