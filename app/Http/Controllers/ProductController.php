@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -26,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+        return view('product.create', compact('types'));
     }
 
     /**
@@ -34,7 +37,52 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric'],
+            'quantity' => ['required', 'integer'],
+            'edition' => ['required', 'string', 'max:60'],
+            'condition' => ['required', 'string', 'max:255'],
+            //'image' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image'],
+            'type_transaction' => ['required', 'string', 'max:60'],
+
+        ]);
+
+        $user = Auth::user(); // Get the authenticated user
+
+        // Récupérez l'ID du type à partir de la requête
+        $typeId = $request->input('type');
+        // Trouvez le type correspondant dans la base de données
+        $type = Type::findOrFail($typeId);
+
+        // Traitement de l'upload de l'image
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = 'default_image.png'; // Utiliser une image par défaut si aucune n'a été téléchargée
+        }
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'edition' => $request->edition,
+            'user_id' => $user->id,
+            'type_id' => $type->id,
+            'condition' => $request->condition,
+            'image' => $imagePath,
+            'type_transaction' => $request->type_transaction,
+            'isAvailable' => true,
+        ]);
+
+
+    $product->save();
+
+        return redirect()->route('product.index')
+                         ->with('success', 'Product created successfully.');
+
     }
 
     /**

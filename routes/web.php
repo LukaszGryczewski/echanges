@@ -39,6 +39,9 @@ Route::get('/product', [ProductController::class, 'index'])
     ->name('product.index');
 Route::get('/product/{id}', [ProductController::class, 'show'])
 	->where('id', '[0-9]+')->name('product.show');
+Route::get('/create-product', [ProductController::class, 'create'])
+    ->name('product.create');
+Route::post('/product', [ProductController::class, 'store'])->name('product.store');
 Route::get('/my-product', [ProductController::class, 'showProductsPerUser'])
     ->middleware('auth')
     ->name('product.userProduct');

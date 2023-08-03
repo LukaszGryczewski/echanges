@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('type_id');
             $table->string('condition',255);
-            $table->string('image',255);
+            $table->string('image',255)->default('default_image.png');;
             $table->string('type_transaction',60);
             $table->boolean('isAvailable');
             $table->timestamps();

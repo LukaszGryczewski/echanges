@@ -51,4 +51,13 @@ class Product extends Model
     {
         return $this->belongsToMany(Cart::class);
     }
+
+    public function getImageUrlAttribute()
+{
+    if ($this->image) {
+        return asset('storage/' . $this->image);
+    } else {
+        return asset('storage/default_image.png');
+    }
+}
 }

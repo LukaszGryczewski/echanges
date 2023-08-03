@@ -22,7 +22,7 @@
                     <tr>
                         <td>
                             @if ($product->image)
-                                <img src="{{ $product->image }}" alt="{{ $product->name }}" class="img-thumbnail" style="max-width: 100px;">
+                                <img src="{{ $product->image_url  }}" alt="{{ $product->name }}" class="img-thumbnail" style="max-width: 100px;">
                             @endif
                         </td>
                         <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
