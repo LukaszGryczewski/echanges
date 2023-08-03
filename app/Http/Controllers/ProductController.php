@@ -43,10 +43,10 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],
             'edition' => ['required', 'string', 'max:60'],
-            'condition' => ['required', 'string', 'max:255'],
+            'condition' => ['required', 'string','in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
             //'image' => ['required', 'string', 'max:255'],
             'image' => ['required', 'image'],
-            'type_transaction' => ['required', 'string', 'max:60'],
+            'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
 
         ]);
 

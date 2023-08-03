@@ -74,10 +74,15 @@
 
         <div>
             <label for="condition">Condition</label>
-            <input type="text" id="condition" name="condition"
-                @if (old('condition')) value="{{ old('condition') }}" @endif
-                class="@error('condition') is-invalid @enderror">
-
+            <select id="condition" name="condition" class="@error('condition') is-invalid @enderror">
+                <option value="Neuf">Neuf</option>
+                <option value="Parfait">Parfait</option>
+                <option value="Très bon">Très bon</option>
+                <option value="Bon">Bon</option>
+                <option value="Moyen">Moyen</option>
+                <option value="Mauvais">Mauvais</option>
+                <option value="Très Mauvais">Très Mauvais</option>
+            </select>
             @error('condition')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -92,9 +97,10 @@
         </div>
         <div>
             <label for="type_transaction">Type de transaction</label>
-            <input type="text" id="type_transaction" name="type_transaction"
-                @if (old('type_transaction')) value="{{ old('type_transaction') }}" @endif
-                class="@error('type_transaction') is-invalid @enderror">
+            <select id="type_transaction" name="type_transaction" class="@error('type_transaction') is-invalid @enderror">
+                <option value="Vente">Vente</option>
+                <option value="Echange">Échange</option>
+            </select>
 
             @error('type_transaction')
                 <div class="alert alert-danger">{{ $message }}</div>
