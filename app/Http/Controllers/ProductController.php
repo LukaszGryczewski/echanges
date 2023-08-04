@@ -89,9 +89,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::find($id);
-
-        //Récupérer les artistes du spectacle et les grouper par type
+        $product = Product::with('comments.user')->find($id);
 
         return view('product.show',[
             'product' => $product
@@ -147,7 +145,20 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        Product::destroy($id);
+        $product = Product::with('comments')->find($id);
+
+    if ($product) {
+        // Supprimer les commentaires associés au produit
+        foreach ($product->comments as $comment) {
+            $comment->delete();
+        }
+
+        // Supprimer le produit
+        $product->delete();
+    }
+        return redirect()->route('product.userProduct');
     }
 
     public function showProductsPerUser()

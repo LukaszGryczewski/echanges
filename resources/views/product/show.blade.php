@@ -51,6 +51,28 @@
                         </tbody>
                     </table>
                     <div><a href="{{ route('product.edit',$product->id) }}">Modifer</a></div>
+                    <form method="post" action="{{ route('product.delete', $product->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="method" value="DELETE">
+                        <button>Supprimer</button>
+                    </form>
+                    <h3>Commentaires</h3>
+                    <ul class="list-group">
+                        @foreach ($product->comments as $comment)
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="font-weight-bold"><a href="{{ route('user.show', $comment->user->id) }}">{{ $comment->user->login }}</a> :</span> {{ $comment->comment }}
+                                    </div>
+                                    <div class="text-muted">
+                                        {{ $comment->score }} / 5
+                                        <small class="d-block">{{ $comment->created_at }}</small>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

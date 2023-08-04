@@ -49,5 +49,7 @@ Route::get('/product/edit/{id}', [ProductController::class, 'edit'])
 	->where('id', '[0-9]+')->name('product.edit');
 Route::put('/product/{id}', [ProductController::class, 'update'])
 	->where('id', '[0-9]+')->name('product.update');
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])
+	->where('id', '[0-9]+')->name('product.delete');
 
 require __DIR__.'/auth.php';
