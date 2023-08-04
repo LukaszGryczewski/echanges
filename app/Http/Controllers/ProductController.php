@@ -24,7 +24,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * product the form for creating a new resource.
      */
     public function create()
     {
@@ -44,7 +44,6 @@ class ProductController extends Controller
             'quantity' => ['required', 'integer'],
             'edition' => ['required', 'string', 'max:60'],
             'condition' => ['required', 'string','in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
-            //'image' => ['required', 'string', 'max:255'],
             'image' => ['required', 'image'],
             'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
 
@@ -100,11 +99,15 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * product the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('product.edit',[
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -112,7 +115,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Validation des données du formulaire
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric'],
+            'quantity' => ['required', 'integer'],
+            'edition' => ['required', 'string', 'max:60'],
+            'condition' => ['required', 'string','in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
+            'image' => ['required', 'image'],
+            'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
+
+        ]);
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $validated['image'] = $imagePath;
+        }
+
+	   //Le formulaire a été validé, nous récupérons l’artiste à modifier
+        $product = Product::find($id);
+        $product->fill($validated); // Remplit les attributs modifiés
+        $product->save(); // Enregistre les modifications
+
+        return view('product.show',[
+            'product' => $product,
+        ]);
     }
 
     /**

@@ -50,8 +50,7 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <hr> <!-- Ajout d'une séparation -->
+                    <div><a href="{{ route('product.edit',$product->id) }}">Modifer</a></div>
                 </div>
             </div>
         </div>

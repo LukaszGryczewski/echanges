@@ -45,5 +45,9 @@ Route::post('/product', [ProductController::class, 'store'])->name('product.stor
 Route::get('/my-product', [ProductController::class, 'showProductsPerUser'])
     ->middleware('auth')
     ->name('product.userProduct');
+Route::get('/product/edit/{id}', [ProductController::class, 'edit'])
+	->where('id', '[0-9]+')->name('product.edit');
+Route::put('/product/{id}', [ProductController::class, 'update'])
+	->where('id', '[0-9]+')->name('product.update');
 
 require __DIR__.'/auth.php';
