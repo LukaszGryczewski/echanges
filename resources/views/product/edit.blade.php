@@ -83,7 +83,6 @@
                                 <option value="Moyen" {{ $product->condition === 'Moyen' ? 'selected' : '' }}>Moyen</option>
                                 <option value="Mauvais" {{ $product->condition === 'Mauvais' ? 'selected' : '' }}>Mauvais</option>
                                 <option value="Très Mauvais" {{ $product->condition === 'Très Mauvais' ? 'selected' : '' }}>Très Mauvais</option>
-                                <!-- ... Autres options ... -->
                             </select>
                             @error('condition')
                                 <span class="invalid-feedback" role="alert">

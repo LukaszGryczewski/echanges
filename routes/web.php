@@ -25,34 +25,55 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+    ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+    ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+    ->name('profile.destroy');
 });
 
 Route::get('/user', [UserController::class, 'index'])
     ->name('user.index');
 Route::get('/user/{id}', [UserController::class, 'show'])
-	->where('id', '[0-9]+')->name('user.show');
+	->where('id', '[0-9]+')
+    ->name('user.show');
 
 Route::get('/product', [ProductController::class, 'index'])
     ->name('product.index');
 Route::get('/product/{id}', [ProductController::class, 'show'])
-	->where('id', '[0-9]+')->name('product.show');
+	->where('id', '[0-9]+')
+    ->name('product.show');
 Route::get('/create-product', [ProductController::class, 'create'])
     ->name('product.create');
-Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+Route::post('/product', [ProductController::class, 'store'])
+    ->name('product.store');
 Route::get('/my-product', [ProductController::class, 'showProductsPerUser'])
     ->middleware('auth')
     ->name('product.userProduct');
 Route::get('/product/edit/{id}', [ProductController::class, 'edit'])
-	->where('id', '[0-9]+')->name('product.edit');
+	->where('id', '[0-9]+')
+    ->name('product.edit');
 Route::put('/product/{id}', [ProductController::class, 'update'])
-	->where('id', '[0-9]+')->name('product.update');
+	->where('id', '[0-9]+')
+    ->name('product.update');
 Route::delete('/product/{id}', [ProductController::class, 'destroy'])
-	->where('id', '[0-9]+')->name('product.delete');
+	->where('id', '[0-9]+')
+    ->name('product.delete');
 
 Route::post('/product/{product_id}/comment', [CommentController::class, 'store'])
-    ->where('product_id', '[0-9]+')->name('comment.store');
+    ->where('product_id', '[0-9]+')
+    ->name('comment.store');
+Route::get('/comment/{id}/edit', [CommentController::class, 'edit'])
+    ->where('id', '[0-9]+')
+    ->middleware('auth')
+    ->name('comment.edit');
+Route::put('/comment/{id}', [CommentController::class, 'update'])
+    ->where('id', '[0-9]+')
+    ->middleware('auth')
+    ->name('comment.update');
+Route::delete('/comment/{id}', [CommentController::class, 'destroy'])
+	->where('id', '[0-9]+')
+    ->name('comment.delete');
 
 require __DIR__.'/auth.php';

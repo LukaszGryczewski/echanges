@@ -69,6 +69,15 @@
                                         {{ $comment->score }} / 5
                                         <small class="d-block">{{ $comment->created_at }}</small>
                                     </div>
+                                    @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                <a href="{{ route('comment.edit', $comment->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                <form method="post" action="{{ route('comment.delete', $comment->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" name="method" value="DELETE">
+                    <button>Supprimer</button>
+                </form>
+            @endif
                                 </div>
                             </li>
                         @endforeach
