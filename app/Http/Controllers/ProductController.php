@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('product.index',[
+        return view('product.index', [
             'products' => $products,
             'resource' => 'produits',
         ]);
@@ -43,7 +43,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],
             'edition' => ['required', 'string', 'max:60'],
-            'condition' => ['required', 'string','in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
+            'condition' => ['required', 'string', 'in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
             'image' => ['required', 'image'],
             'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
 
@@ -77,11 +77,10 @@ class ProductController extends Controller
         ]);
 
 
-    $product->save();
+        $product->save();
 
         return redirect()->route('product.index')
-                         ->with('success', 'Product created successfully.');
-
+            ->with('success', 'Product created successfully.');
     }
 
     /**
@@ -91,7 +90,7 @@ class ProductController extends Controller
     {
         $product = Product::with('comments.user')->find($id);
 
-        return view('product.show',[
+        return view('product.show', [
             'product' => $product
         ]);
     }
@@ -103,7 +102,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        return view('product.edit',[
+        return view('product.edit', [
             'product' => $product,
         ]);
     }
@@ -120,7 +119,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],
             'edition' => ['required', 'string', 'max:60'],
-            'condition' => ['required', 'string','in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
+            'condition' => ['required', 'string', 'in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
             'image' => ['required', 'image'],
             'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
 
@@ -130,12 +129,12 @@ class ProductController extends Controller
             $validated['image'] = $imagePath;
         }
 
-	   //Le formulaire a été validé, nous récupérons l’artiste à modifier
+        //Le formulaire a été validé, nous récupérons l’artiste à modifier
         $product = Product::find($id);
         $product->fill($validated); // Remplit les attributs modifiés
         $product->save(); // Enregistre les modifications
 
-        return view('product.show',[
+        return view('product.show', [
             'product' => $product,
         ]);
     }
@@ -148,16 +147,15 @@ class ProductController extends Controller
 
         Product::destroy($id);
         $product = Product::with('comments')->find($id);
+        if ($product) {
+            // Supprimer les commentaires associés au produit
+            foreach ($product->comments as $comment) {
+                $comment->delete();
+            }
 
-    if ($product) {
-        // Supprimer les commentaires associés au produit
-        foreach ($product->comments as $comment) {
-            $comment->delete();
+            // Supprimer le produit
+            $product->delete();
         }
-
-        // Supprimer le produit
-        $product->delete();
-    }
         return redirect()->route('product.userProduct');
     }
 

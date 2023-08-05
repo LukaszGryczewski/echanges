@@ -57,20 +57,10 @@ class RegisteredUserController extends Controller
             'postal_code' => $request->postal_code,
         ]);
 
-        // Vérifiez si le rôle "user" existe, sinon créez-le
-    /*$userRole = Role::where('name', 'user')->first();
-    if (!$userRole) {
-        $userRole = Role::create([
-            'role' => 'user',
-            'name' => 'User',
-        ]);
-    }*/
-
         $user = User::create([
             'login' => $request->login,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            //'role_id' => $userRole->id,
             'role_id' => 2,
             'address_id' => $address->id,
             'email' => $request->email,
