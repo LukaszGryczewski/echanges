@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,5 +51,8 @@ Route::put('/product/{id}', [ProductController::class, 'update'])
 	->where('id', '[0-9]+')->name('product.update');
 Route::delete('/product/{id}', [ProductController::class, 'destroy'])
 	->where('id', '[0-9]+')->name('product.delete');
+
+Route::post('/product/{product_id}/comment', [CommentController::class, 'store'])
+    ->where('product_id', '[0-9]+')->name('comment.store');
 
 require __DIR__.'/auth.php';

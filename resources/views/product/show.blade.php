@@ -73,6 +73,37 @@
                             </li>
                         @endforeach
                     </ul>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Ajouter un commentaire</h5>
+                            <form action="{{ route('comment.store', ['product_id' => $product->id]) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}"> <!-- Ajoutez cette ligne -->
+                                <div class="form-group">
+                                    <label for="comment">Commentaire</label>
+                                    <textarea class="form-control @error('comment') is-invalid @enderror" id="comment" name="comment" rows="3"></textarea>
+                                    @error('comment')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="score">Score</label>
+                                    <select class="form-control @error('score') is-invalid @enderror" id="score" name="score">
+                                        <option value="" disabled selected>Choisissez une note</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    @error('score')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ajouter le commentaire</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
