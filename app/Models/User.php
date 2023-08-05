@@ -21,6 +21,7 @@ class User extends Authenticatable
         'login',
         'firstname',
         'lastname',
+        'role_id',
         'address_id',
         'email',
         'password',
@@ -66,7 +67,7 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function products(){

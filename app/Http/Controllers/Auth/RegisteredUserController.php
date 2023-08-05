@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Address;
 use Illuminate\View\View;
@@ -47,7 +48,7 @@ class RegisteredUserController extends Controller
             'postal_code' => ['required', 'string', 'max:15'],
             'phone' => ['required', 'string', 'max:60'],
         ]);
-
+        //$role = Role::find($request->role);
         $address = Address::create([
             'street' => $request->street,
             'number' => $request->number,
@@ -56,48 +57,27 @@ class RegisteredUserController extends Controller
             'postal_code' => $request->postal_code,
         ]);
 
+        // Vérifiez si le rôle "user" existe, sinon créez-le
+    /*$userRole = Role::where('name', 'user')->first();
+    if (!$userRole) {
+        $userRole = Role::create([
+            'role' => 'user',
+            'name' => 'User',
+        ]);
+    }*/
+
         $user = User::create([
             'login' => $request->login,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
+            //'role_id' => $userRole->id,
+            'role_id' => 2,
             'address_id' => $address->id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
 
         ]);
-
-       /* $user = User::create([
-            //'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'address_id' =>$request->input('address_id'),
-
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required','string','max:255'],
-            'address_id' => ['required','array'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['required','string','max:60'],
-        ]);*/
-
-        /*$address = new Address();
-        $address->street = $request->input('street');
-        $address->number = $request->input('number');
-        $address->city = $request->input('city');
-        $address->municipalitie = $request->input('municipalitie');
-        $address->postal_code = $request->input('postal_code');
-        $address->save();*/
-
-        /*$user = User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'address_id' => $request->address_id,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-
-        ]);*/
 
         event(new Registered($user));
 

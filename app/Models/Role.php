@@ -15,6 +15,7 @@ class Role extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'role',
         'name',
     ];
 
@@ -33,6 +34,6 @@ class Role extends Model
     public $timestamps = false;
 
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('login',60)->unique();
             $table->string('firstname',60);
             $table->string('lastname',60);
+            $table->foreignId('role_id');
             $table->foreignId('address_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,6 +25,11 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
+            $table->foreign('role_id')
+                  ->references('id')
+                  ->on('roles')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
             $table->foreign('address_id')
                   ->references('id')
                   ->on('addresses')
