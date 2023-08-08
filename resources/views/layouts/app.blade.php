@@ -16,9 +16,15 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- Chargement des scripts Bootstrap et autres scripts personnalisés -->
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <!-- Chargement des styles Bootstrap -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+    <!--style css-->
+
+    <link rel="stylesheet" href="{{ asset('css/video_style.css') }}">
+    @stack('styles')
     @vite(['resources/js/app.js'])
 </head>
 
@@ -29,8 +35,6 @@
             @yield('content')
         </main>
     </div>
-    <!-- Chargement des scripts Bootstrap et autres scripts personnalisés -->
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

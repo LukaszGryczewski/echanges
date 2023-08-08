@@ -45,6 +45,9 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <a class="nav-link" href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">Modifier le profil</a>
+
                     </div>
                 </div>
             </div>

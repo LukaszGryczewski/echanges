@@ -9,9 +9,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url('/product') }}">Produit</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ url('/my-product') }}">Mes Produit</a>
-            </li>
+            @auth
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('/my-product') }}">Mes Produit</a>
+                </li>
+            @endauth
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/user') }}">Utilisateurs</a>
             </li>
@@ -43,24 +45,25 @@
                     </li>
                 @endif
             @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->login }}
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->login }}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('user.profile') }}">Mon Profile</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
                     </a>
 
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
             @endguest
         </ul>
     </div>

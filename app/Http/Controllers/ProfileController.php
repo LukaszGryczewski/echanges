@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Product;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -47,6 +48,9 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        // Supprimer tous les produits associés à cet utilisateur
+        Product::where('user_id', $user->id)->delete();
 
         Auth::logout();
 

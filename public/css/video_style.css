@@ -1,0 +1,14 @@
+/* video-style.css */
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000; /* Couleur de fond en cas d'échec de chargement de la vidéo */
+}
+
+.video-container video {
+    max-width: 100%;
+    max-height: 100%;
+}

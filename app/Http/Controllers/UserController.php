@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(20);
-        return view('user.index',[
+        return view('user.index', [
             'users'    => $users,
             'resource' => 'Utilisateurs'
         ]);
@@ -43,7 +43,19 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('user.show',[
+        return view('user.show', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Display the authentified user profil.
+     */
+    public function profile()
+    {
+        $user = auth()->user();
+
+        return view('user.profile', [
             'user' => $user
         ]);
     }
@@ -53,7 +65,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+
+        return view('user.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -61,7 +77,33 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Validation des données du formulaire
+        $validated = $request->validate([
+            //'login' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string'],
+            'password' => ['required', 'string'],
+            'phone' => ['required', 'string', 'max:20'],
+        ]);
+
+        $user = user::find($id);
+        $user->fill($validated); // Remplit les attributs modifiés
+
+        // Vérifier si un nouveau mot de passe est fourni
+    if ($request->has('password')) {
+        $user->password = bcrypt($request->password); // Hasher le nouveau mot de passe
+    }
+
+        $user->save(); // Enregistre les modifications
+
+        return view('user.show', [
+            'user' => $user,
+        ]);
+        /*return view('user.show', [
+            'user' => $updatedUser,
+            'status' => 'Profile updated successfully.'
+        ]);*/
     }
 
     /**

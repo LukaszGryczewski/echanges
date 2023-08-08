@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Auth\PasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,11 +34,24 @@ Route::middleware('auth')->group(function () {
     ->name('profile.destroy');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/change-password', [PasswordController::class, 'showChangePasswordForm'])->name('profile.change-password');
+    Route::put('/profile/update-password', [PasswordController::class, 'update'])->name('profile.update-password');
+});
+
 Route::get('/user', [UserController::class, 'index'])
     ->name('user.index');
 Route::get('/user/{id}', [UserController::class, 'show'])
 	->where('id', '[0-9]+')
     ->name('user.show');
+Route::get('/profile', [UserController::class, 'profile'])
+    ->name('user.profile');
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])
+	->where('id', '[0-9]+')
+    ->name('user.edit');
+Route::put('/user/{id}', [UserController::class, 'update'])
+	->where('id', '[0-9]+')
+    ->name('user.update');
 
 Route::get('/product', [ProductController::class, 'index'])
     ->name('product.index');

@@ -129,7 +129,6 @@ class ProductController extends Controller
             $validated['image'] = $imagePath;
         }
 
-        //Le formulaire a été validé, nous récupérons l’artiste à modifier
         $product = Product::find($id);
         $product->fill($validated); // Remplit les attributs modifiés
         $product->save(); // Enregistre les modifications
