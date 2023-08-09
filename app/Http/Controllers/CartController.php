@@ -16,7 +16,7 @@ class CartController extends Controller
     {
         $user = Auth::user();
         $quantityToAdd = $request->input('quantity', 1);
-            $product = Product::find($productId);
+        $product = Product::find($productId);
         // Trouver le panier pour cet utilisateur
         $cart = Cart::firstOrCreate(['user_id' => $user->id]);
 
@@ -26,12 +26,12 @@ class CartController extends Controller
             'product_id' => $productId,
         ])->first();
 
-            // Vérifier la quantité disponible
-            $quantityInCart = $cartEntry ? $cartEntry->quantity : 0;
-            $availableQuantity = $product->quantity - $quantityInCart;
-            if ($quantityToAdd > $availableQuantity) {
+        // Vérifier la quantité disponible
+        $quantityInCart = $cartEntry ? $cartEntry->quantity : 0;
+        $availableQuantity = $product->quantity - $quantityInCart;
+        if ($quantityToAdd > $availableQuantity) {
             return redirect()->back()->withErrors(['quantity' => 'Quantité non disponible']);
-            }
+        }
 
         // Si l'entrée n'existe pas, créez-la
         if (!$cartEntry) {

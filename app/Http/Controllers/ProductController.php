@@ -192,7 +192,6 @@ class ProductController extends Controller
 
         // Load products associated with logged in user
         $myProducts = Product::where('user_id', $connectedUser->id)->get();
-        //dd($myProducts);
         return view('product.userProduct', compact('myProducts'));
     }
 }

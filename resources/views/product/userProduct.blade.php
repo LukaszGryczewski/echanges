@@ -40,12 +40,12 @@
                             <td>
                                 <div><a href="{{ route('product.edit', $product->id) }}">Modifer</a></div>
                                 @if (Auth::check() && $product->user_id === Auth::user()->id)
-                                <form method="post" action="{{ route('product.delete', $product->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="method" value="DELETE">
-                                    <button>Supprimer</button>
-                                </form>
+                                    <form method="post" action="{{ route('product.delete', $product->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="method" value="DELETE">
+                                        <button>Supprimer</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
