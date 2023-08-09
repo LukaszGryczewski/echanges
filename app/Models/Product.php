@@ -47,11 +47,16 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }*/
 
-    public function carts()
+    /*public function carts()
     {
         return $this->belongsToMany(Cart::class);
-    }
-
+    }*/
+    public function carts()
+    {
+    return $this->belongsToMany(Cart::class, 'product_cart')
+                    ->withPivot('quantity', 'unit_price')
+                    ->withTimestamps();
+                }
     public function getImageUrlAttribute()
 {
     if ($this->image) {

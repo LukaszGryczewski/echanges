@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Product;
@@ -14,14 +15,40 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    /*public function index()
     {
         $products = Product::all();
         return view('product.index', [
             'products' => $products,
             'resource' => 'produits',
         ]);
+    }*/
+
+    public function index()
+{
+    $user = Auth::user();
+    $products = Product::all();
+
+    // Récupérez le panier de l'utilisateur
+    $cart = Cart::where('user_id', $user->id)->first();
+    $maxQuantities = [];
+    if ($cart) {
+        foreach ($products as $product) {
+            $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
+            $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
+        }
+    } else {
+        foreach ($products as $product) {
+            $maxQuantities[$product->id] = $product->quantity;
+        }
     }
+
+    return view('product.index', [
+        'products' => $products,
+        'resource' => 'produits',
+        'maxQuantities' => $maxQuantities,
+    ]);
+}
 
     /**
      * product the form for creating a new resource.

@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('product_cart', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
             $table->foreignId('cart_id');
-            $table->integer('quantity');
+            $table->foreignId('product_id');
+            $table->integer('quantity')->default(1);
             $table->double('unit_price');
 
-            $table->foreign('product_id')
-                  ->references('id')
-                  ->on('products')
-                  ->onDelete('restrict')
-                  ->onUpdate('restrict');
             $table->foreign('cart_id')
                   ->references('id')
                   ->on('carts')
+                  ->onDelete('restrict')
+                  ->onUpdate('restrict');
+            $table->foreign('product_id')
+                  ->references('id')
+                  ->on('products')
                   ->onDelete('restrict')
                   ->onUpdate('restrict');
 

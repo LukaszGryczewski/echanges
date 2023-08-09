@@ -31,7 +31,24 @@
                         <td>{{ $product->condition }}</td>
                         <td>{{ $product->type_transaction }}</td>
                         <td>{{ $product->price }}</td>
+                        @auth
+                        <td>
+
+                            <form action="{{ route('cart.addProduct', $product->id) }}" method="POST">
+                                @csrf
+                                <label for="quantity">Quantité :</label>
+                                @if ($maxQuantities[$product->id] == 0)
+            <input type="number" name="quantity" id="quantity" min="0" max="0" value="0" disabled>
+            <span>Produit épuisé</span>
+        @else
+            <input type="number" name="quantity" id="quantity" min="1" max="{{ $maxQuantities[$product->id] }}" value="1">
+            <button type="submit">Ajouter au panier</button>
+        @endif
+                            </form>
+                    </td>
+                    @endauth
                     </tr>
+
                 @endforeach
             </tbody>
         </table>

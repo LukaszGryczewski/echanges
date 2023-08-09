@@ -13,15 +13,21 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
-            $table->integer('quantity');
-            $table->integer('price');
+            //$table->foreignId('product_id');
+            $table->foreignId('user_id');
+            //$table->integer('quantity');
+            //$table->integer('price');
 
-            $table->foreign('product_id')
+            $table->foreign('user_id')
+              ->references('id')
+              ->on('users')
+              ->onDelete('restrict')
+              ->onUpdate('restrict');
+            /*$table->foreign('product_id')
                   ->references('id')
                   ->on('products')
                   ->onDelete('restrict')
-                  ->onUpdate('restrict');
+                  ->onUpdate('restrict');*/
         });
     }
 

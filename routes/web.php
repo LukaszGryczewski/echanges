@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
@@ -89,5 +90,15 @@ Route::put('/comment/{id}', [CommentController::class, 'update'])
 Route::delete('/comment/{id}', [CommentController::class, 'destroy'])
 	->where('id', '[0-9]+')
     ->name('comment.delete');
+
+
+Route::post('/cart/add/{productId}', [CartController::class, 'addProduct'])
+    ->name('cart.addProduct');
+Route::delete('/cart/remove/{productId}', [CartController::class, 'removeProduct'])
+    ->name('cart.removeProduct');
+    Route::post('/cart/{productId}/update', [CartController::class, 'updateProduct'])
+    ->name('cart.updateProduct');
+Route::get('/cart', [CartController::class, 'show'])
+    ->name('cart.show');
 
 require __DIR__.'/auth.php';
