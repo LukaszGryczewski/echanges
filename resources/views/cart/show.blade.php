@@ -22,7 +22,7 @@
                                 @csrf
                                 <select name="quantity" onchange="this.form.submit()">
 
-                                    @for ($i = 1; $i <= min($product->quantity, 10); $i++) <!-- Utilisez la quantité en stock ici -->
+                                    @for ($i = 1; $i <= min($product->quantity, 10); $i++)
                                         <option value="{{ $i }}" {{ $product->pivot->quantity == $i ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
                                 </select>
@@ -44,7 +44,7 @@
         <p>Prix total: {{ $totalPrice }} €</p>
     </table>
     <p>Prix total: {{ $totalPrice }} €</p>
-    <form action="{{ route('') }}" method="GET">
+    <form action="{{ route('order.confirm') }}" method="GET">
         <button type="submit" class="btn btn-success">Valider le panier</button>
     </form>
 @endsection

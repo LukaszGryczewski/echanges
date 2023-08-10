@@ -6,34 +6,38 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductCart;
 use Illuminate\Http\Request;
+use App\Services\CartService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    protected $cartService;
+
+    public function __construct(CartService $cartService) {
+        $this->cartService = $cartService;
+    }
 
     public function addProduct(Request $request, $productId)
     {
         $user = Auth::user();
         $quantityToAdd = $request->input('quantity', 1);
         $product = Product::find($productId);
-        // Trouver le panier pour cet utilisateur
+        // Find the cart for this user
         $cart = Cart::firstOrCreate(['user_id' => $user->id]);
 
-        // Rechercher une entrée dans la table pivot pour ce produit et ce panier
         $cartEntry = ProductCart::where([
             'cart_id' => $cart->id,
             'product_id' => $productId,
         ])->first();
 
-        // Vérifier la quantité disponible
+        // Verifi the quantity available
         $quantityInCart = $cartEntry ? $cartEntry->quantity : 0;
         $availableQuantity = $product->quantity - $quantityInCart;
         if ($quantityToAdd > $availableQuantity) {
             return redirect()->back()->withErrors(['quantity' => 'Quantité non disponible']);
         }
 
-        // Si l'entrée n'existe pas, créez-la
         if (!$cartEntry) {
             $product = Product::find($productId);
             $cartEntry = ProductCart::create([
@@ -59,7 +63,7 @@ class CartController extends Controller
         $cart = Cart::where('user_id', $user->id)->first();
 
         if ($cart) {
-            // Supprimer le produit du panier
+            // Delete product from cart
             $cart->products()->detach($productId);
         }
 
@@ -92,22 +96,9 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
-    {
-        $user = Auth::user();
-        $cart = Cart::where('user_id', $user->id)->with('products')->first();
-
-        if (!$cart) {
-            return view('cart.show')->with('cart', null);
-        } else {
-            // Récupère les produits du panier avec les détails de la relation pivot
-            $products = ProductCart::with('product')->where('cart_id', $cart->id)->get();
-        }
-
-        $totalPrice = 0;
-        foreach ($cart->products as $product) {
-            $totalPrice += $product->pivot->unit_price * $product->pivot->quantity;
-        }
+    public function show() {
+        $cart = $this->cartService->getCart();
+        $totalPrice = $this->cartService->getTotalPrice($cart);
 
         return view('cart.show', ['cart' => $cart, 'totalPrice' => $totalPrice]);
     }

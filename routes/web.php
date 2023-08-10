@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -100,5 +101,14 @@ Route::delete('/cart/remove/{productId}', [CartController::class, 'removeProduct
     ->name('cart.updateProduct');
 Route::get('/cart', [CartController::class, 'show'])
     ->name('cart.show');
+
+Route::get('/order/confirm', [OrderController::class,'confirm'])
+    ->name('order.confirm');
+Route::get('/order/address-payment', [OrderController::class,'addressPayment'])
+    ->name('order.address-payment');
+Route::post('/order/finalize', [OrderController::class, 'finalize'])
+    ->name('order.finalize');
+Route::get('/order/success', [OrderController::class, 'success'])
+    ->name('order.success');
 
 require __DIR__.'/auth.php';
