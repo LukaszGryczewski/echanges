@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordController;
@@ -108,7 +109,20 @@ Route::get('/order/address-payment', [OrderController::class,'addressPayment'])
     ->name('order.address-payment');
 Route::post('/order/finalize', [OrderController::class, 'finalize'])
     ->name('order.finalize');
-Route::get('/order/success', [OrderController::class, 'success'])
-    ->name('order.success');
+//Route::get('/order/success', [OrderController::class, 'success'])
+//    ->name('order.success');
 
+//Route::post('/payment/process', [PaymentController::class, 'processPayment'])
+ //   ->name('payment.process');
+    // 3. Afficher le formulaire de paiement Stripe
+//Route::get('/payment/{order}', [PaymentController::class,'showForm'])->name('payment.form');
+
+// 4. Traiter le paiement Stripe
+Route::post('/payment/{orderId}', [PaymentController::class,'processPayment'])->name('payment.process');
+Route::get('/payment/form/{orderId}', [PaymentController::class,'showPaymentForm'])
+->name('payment.show');
+Route::get('/payment/success', [PaymentController::class, 'success'])
+    ->name('payment.success');
+    Route::get('/payment/failed', [PaymentController::class, 'failed'])
+    ->name('payment.failed');
 require __DIR__.'/auth.php';

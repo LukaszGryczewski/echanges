@@ -21,6 +21,11 @@
                         <td>{{ $product->pivot->unit_price * $product->pivot->quantity }} €</td>
                     </tr>
                 @endforeach
+            @else
+                <tr>
+                    <td colspan="4">Votre panier est vide.</td>
+                </tr>
+            @endif
         </tbody>
     </table>
     <p>Prix total: {{ $totalPrice }} €</p>
