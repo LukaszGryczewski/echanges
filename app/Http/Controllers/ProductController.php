@@ -27,7 +27,8 @@ class ProductController extends Controller
     public function index()
 {
     $user = Auth::user();
-    $products = Product::all();
+    //$products = Product::all();
+    $products = Product::where('isAvailable', 1)->get();
 
     // Récupérez le panier de l'utilisateur
     $cart = Cart::where('user_id', $user->id)->first();

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Stripe\Charge;
 use Stripe\Stripe;
+use App\Models\Cart;
 use App\Models\Order;
-use App\Models\Invoice;
 //use Barryvdh\DomPDF\Facade as PDF;
+use App\Models\Invoice;
+use App\Models\Product;
 use Barryvdh\DomPDF\PDF;
 use App\Mail\InvoiceMail;
 use Illuminate\Http\Request;
@@ -34,6 +36,8 @@ class PaymentController extends Controller
     {
         $order = Order::findOrFail($orderId);
         $cart = $order->cart;
+        $cartProducts = $cart->products;
+
         try {
             // Payment with Stripe
             Stripe::setApiKey(config('services.stripe.secret'));
@@ -48,6 +52,21 @@ class PaymentController extends Controller
 
             // If payement is succesfull update the variable order_status
             $order->update(['order_status' => 'paid']);
+
+            foreach($cartProducts as $cartProduct) {
+                $product = Product::find($cartProduct->pivot->product_id);
+    //dd($product);
+                // Déduire la quantité achetée
+                $product->quantity -= $cartProduct->pivot->quantity;
+
+                // Vérifier si le produit est épuisé
+                if ($product->quantity <= 0) {
+                    $product->isAvailable = 0;
+                    $product->quantity = 0; // pour garantir que la quantité ne devienne pas négative
+                }
+
+                $product->save();
+            }
 
             // Create a invoice for the order
             $invoice = new Invoice([
@@ -77,9 +96,14 @@ class PaymentController extends Controller
             $invoice->invoice_path = $path;
             $invoice->save();
 
+            if ($order->order_status === 'paid') {
+                $this->emptyUserCart($order->user_id);
+            }
+
             //Send mail in format PDF
-            $invoiceMail = new InvoiceMail($invoice, $pdf);
-            Mail::to($order->user->email)->send($invoiceMail);
+            /*$invoiceMail = new InvoiceMail($invoice, $pdf);
+            Mail::to($order->user->email)->send($invoiceMail);*/
+
             return redirect()->route('payment.success');
         } catch (\Stripe\Exception\CardException $e) {
             return redirect()->route('payment.failed')
@@ -89,6 +113,14 @@ class PaymentController extends Controller
                 ->withErrors('Erreur : ' . $e->getMessage());
         }
     }
+
+    protected function emptyUserCart($userId)
+{
+    $cart = Cart::where('user_id', $userId)->first();
+    if ($cart) {
+        $cart->products()->detach();
+    }
+}
 
     public function success()
     {
