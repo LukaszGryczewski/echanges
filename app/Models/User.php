@@ -82,6 +82,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
     //relation OneToOne betwen Cart and User
     public function cart()
     {

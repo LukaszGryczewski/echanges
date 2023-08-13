@@ -14,7 +14,8 @@ class CartController extends Controller
 {
     protected $cartService;
 
-    public function __construct(CartService $cartService) {
+    public function __construct(CartService $cartService)
+    {
         $this->cartService = $cartService;
     }
 
@@ -96,8 +97,14 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show() {
+    public function show()
+    {
         $cart = $this->cartService->getCart();
+
+        if (!$cart) {
+            $cart = new Cart();  // Créez une instance vide si $cart est null
+        }
+
         $totalPrice = $this->cartService->getTotalPrice($cart);
 
         return view('cart.show', ['cart' => $cart, 'totalPrice' => $totalPrice]);

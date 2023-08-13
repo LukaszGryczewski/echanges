@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @if ($cart)
+            @if ($cart && $cart->products->count())
                 @foreach ($cart->products as $product)
                     <tr>
                         <td>{{ $product->name }}</td>
@@ -23,7 +23,9 @@
                                 <select name="quantity" onchange="this.form.submit()">
 
                                     @for ($i = 1; $i <= min($product->quantity, 10); $i++)
-                                        <option value="{{ $i }}" {{ $product->pivot->quantity == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                        <option value="{{ $i }}"
+                                            {{ $product->pivot->quantity == $i ? 'selected' : '' }}>{{ $i }}
+                                        </option>
                                     @endfor
                                 </select>
                             </form>
@@ -37,14 +39,17 @@
                         </td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td colspan="4">
+                        <p>Prix total: {{ $totalPrice }} €</p>
+                        <form action="{{ route('order.confirm') }}" method="GET">
+                            <button type="submit" class="btn btn-success">Valider le panier</button>
+                        </form>
+                    </td>
+                </tr>
             @else
                 <p>Votre panier est vide.</p>
             @endif
         </tbody>
-        <p>Prix total: {{ $totalPrice }} €</p>
     </table>
-    <p>Prix total: {{ $totalPrice }} €</p>
-    <form action="{{ route('order.confirm') }}" method="GET">
-        <button type="submit" class="btn btn-success">Valider le panier</button>
-    </form>
 @endsection
