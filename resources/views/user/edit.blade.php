@@ -10,7 +10,8 @@
                     <div class="card-header">{{ __('Modifier son prodile') }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('user.update', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('user.update', ['id' => $user->id]) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -56,9 +57,9 @@
                                     {{ __('Change Password') }}
                                 </a>
                                 @error('old_password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
 
