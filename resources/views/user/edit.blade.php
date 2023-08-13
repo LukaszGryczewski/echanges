@@ -10,8 +10,7 @@
                     <div class="card-header">{{ __('Modifier son prodile') }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('user.update', ['id' => $user->id]) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('user.update', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -53,32 +52,15 @@
 
                             <div class="form-group">
                                 <label for="old_password">{{ __('Ancien mot de passe') }}</label>
-                                <input type="password" id="old_password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" required>
+                                <a href="{{ route('user.update-password', $user->id) }}" class="btn btn-primary">
+                                    {{ __('Change Password') }}
+                                </a>
                                 @error('old_password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
                             </div>
-                            <a href="{{ route('profile.update-password') }}" class="btn btn-primary">
-                                {{ __('Change Password') }}
-                            </a>
-
-                            <div class="form-group">
-                                <label for="new_password">{{ __('Nouveau mot de passe') }}</label>
-                                <input type="password" id="new_password" name="new_password" class="form-control @error('new_password') is-invalid @enderror">
-                                @error('new_password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="new_password_confirmation">{{ __('Confirmation du nouveau mot de passe') }}</label>
-                                <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control">
-                            </div>
-
 
                             <div class="form-group">
                                 <label for="phone">{{ __('Telephone') }}</label>
@@ -92,6 +74,10 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="image">Image de profil</label>
+                                <input type="file" name="profile_image" id="image">
+                            </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>
@@ -115,6 +101,4 @@
             </div>
         </div>
     </div>
-    <!-- Include the app.js script with defer attribute -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
