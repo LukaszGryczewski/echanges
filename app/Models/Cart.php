@@ -16,9 +16,6 @@ class Cart extends Model
      */
     protected $fillable = [
         'user_id',
-        //'produit_id',
-        //'quantity',
-        //'price',
     ];
 
     /**
@@ -28,32 +25,37 @@ class Cart extends Model
      */
     protected $table = 'carts';
 
-   /**
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
-    public function order()
+    /*public function order()
     {
         return $this->belongsTo(Order::class);
+    }*/
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     /*public function produits()
     {
         return $this->belongsToMany(Produit::class);
     }*/
+
     //relation OneToOne betwen Cart and User
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_cart')
-                    ->withPivot('quantity', 'unit_price');
-
+            ->withPivot('quantity', 'unit_price');
     }
 
     public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    {
+        return $this->belongsTo(User::class);
+    }
 }

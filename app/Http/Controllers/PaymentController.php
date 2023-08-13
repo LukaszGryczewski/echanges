@@ -5,26 +5,37 @@ namespace App\Http\Controllers;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\Models\Order;
+use App\Models\Invoice;
+//use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\PDF;
+use App\Mail\InvoiceMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 
 class PaymentController extends Controller
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function showPaymentForm($orderId)
     {
         $order = Order::find($orderId);
-        // Passez la commande à la vue
         return view('payment.payment', compact('order'));
     }
 
     public function processPayment(Request $request, $orderId)
     {
-        $order = Order::find($orderId);
-
+        $order = Order::findOrFail($orderId);
+        $cart = $order->cart;
         try {
-            // Tentative de paiement via Stripe
+            // Payment with Stripe
             Stripe::setApiKey(config('services.stripe.secret'));
             $token = $request->input('stripeToken');
 
@@ -35,34 +46,74 @@ class PaymentController extends Controller
                 'source' => $token,
             ]);
 
-            // Si le paiement réussit, mettez à jour le statut
+            // If payement is succesfull update the variable order_status
             $order->update(['order_status' => 'paid']);
 
-            return redirect()->route('payment.success');  // Redirection vers la vue de succès
+            // Create a invoice for the order
+            $invoice = new Invoice([
+                'order_id' => $order->id,
+                'payment_id' => $charge->id, // ID du paiement Stripe
+                'amount' => $order->total_price,
+                'currency' => 'eur',
+                'billing_date' => now(),
+                'details' => 'Détails de la facture' // Ajoutez les détails nécessaires
+            ]);
+            $invoice->save();
+
+            // Generate PDF
+            /** @var \Barryvdh\DomPDF\PDF $pdf */
+            $pdfService = app('dompdf.wrapper');
+
+            $pdf = $pdfService->loadView('invoice.show', [
+                'invoice' => $invoice,
+                'order' => $order,
+                'cart' => $cart
+            ]);
+
+            $path = 'public/fonts/' . $invoice->id . '.pdf';
+            Storage::put($path, $pdf->output());
+
+            // Stock the way from PDF un the database
+            $invoice->invoice_path = $path;
+            $invoice->save();
+
+            //Send mail in format PDF
+            $invoiceMail = new InvoiceMail($invoice, $pdf);
+            Mail::to($order->user->email)->send($invoiceMail);
+            return redirect()->route('payment.success');
         } catch (\Stripe\Exception\CardException $e) {
-            return redirect()->route('payment.failed')  // Redirection vers la vue d'échec
-                  ->withErrors('Erreur de paiement : ' . $e->getError()->message);
+            return redirect()->route('payment.failed')
+                ->withErrors('Erreur de paiement : ' . $e->getError()->message);
         } catch (\Exception $e) {
-            return redirect()->route('payment.failed')  // Redirection vers la vue d'échec
-                  ->withErrors('Erreur : ' . $e->getMessage());
+            return redirect()->route('payment.failed')
+                ->withErrors('Erreur : ' . $e->getMessage());
         }
-        /*    return redirect()->route('order.success');
-        } catch (\Stripe\Exception\CardException $e) {
-            return back()->withErrors('Erreur de paiement : ' . $e->getError()->message);
-        } catch (\Exception $e) {
-            return back()->withErrors('Erreur : ' . $e->getMessage());
-        }*/
     }
 
     public function success()
-{
-    return view('payment.success');
-}
+    {
+        $userId = auth()->id();
+        $order = Order::where('user_id', $userId)
+            ->where('order_status', 'paid')
+            ->orderBy('order_date', 'desc')
+            ->first();
 
-public function failed()
-{
-    return view('payment.failed');
-}
+        if (!$order) {
+            return redirect()->route('product.index');
+        }
+
+        $invoice = Invoice::where('order_id', $order->id)->first();
+
+        if (!$invoice) {
+            return redirect()->route('home')->with('error', 'Aucune facture trouvée.');
+        }
+        return view('payment.success', compact('order', 'invoice'));
+    }
+
+    public function failed()
+    {
+        return view('payment.failed');
+    }
 
     /**
      * Display a listing of the resource.

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -35,7 +36,7 @@ class User extends Authenticatable
      */
     protected $table = 'users';
 
-   /**
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -66,11 +67,13 @@ class User extends Authenticatable
         return $this->belongsTo(Address::class);
     }
 
-    public function roles(){
+    public function roles()
+    {
         return $this->belongsTo(Role::class);
     }
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 
@@ -80,7 +83,7 @@ class User extends Authenticatable
     }
     //relation OneToOne betwen Cart and User
     public function cart()
-{
-    return $this->hasOne(Cart::class);
-}
+    {
+        return $this->hasOne(Cart::class);
+    }
 }

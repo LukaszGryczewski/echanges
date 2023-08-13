@@ -30,7 +30,7 @@ class Order extends Model
      */
     protected $table = 'orders';
 
-   /**
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -42,8 +42,17 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function carts()
+    /*public function carts()
     {
         return $this->hasMany(Cart::class);
+    }*/
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
     }
 }
