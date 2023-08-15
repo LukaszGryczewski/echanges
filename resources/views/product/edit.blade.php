@@ -112,6 +112,12 @@
                                     </span>
                                 @enderror
                             </div>
+                            @if($product->image)
+    <div class="mb-3">
+        <label>{{ __('Image actuelle') }}</label>
+        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="200" class="img-thumbnail">
+    </div>
+@endif
 
                             <div class="form-group">
                                 <label for="image">{{ __('Image') }}</label>

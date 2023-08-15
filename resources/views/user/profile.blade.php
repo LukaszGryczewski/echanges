@@ -46,7 +46,7 @@
 
                         <a class="nav-link" href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">{{ __('Modifier le profil') }}</a>
                         <form action="{{ route('user.destroy', auth()->user()->id) }}" method="POST"
-                            onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.'') }}'';">
+                            onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.') }}'">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">{{ __('Supprimer mon compte') }}</button>

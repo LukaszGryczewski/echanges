@@ -148,7 +148,7 @@ class ProductController extends Controller
             'quantity' => ['required', 'integer'],
             'edition' => ['required', 'string', 'max:60'],
             'condition' => ['required', 'string', 'in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
-            'image' => ['required', 'image'],
+            'image' => ['nullable', 'image'],
             'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
 
         ]);
