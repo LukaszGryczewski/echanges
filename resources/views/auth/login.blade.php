@@ -1,4 +1,8 @@
-<x-guest-layout>
+@extends('layouts.app')
+
+@section('description', __('Login') )
+
+@section('content')
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -21,7 +25,7 @@
 
                             <!-- Password -->
                             <div class="mb-3">
-                                <label for="password" class="form-label">{{ __('Password') }}</label>
+                                <label for="password" class="form-label">{{ __('Mot de Passe') }}</label>
                                 <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password" />
                                 @error('password')
                                     <div class="invalid-feedback">
@@ -33,18 +37,18 @@
                             <!-- Remember Me -->
                             <div class="mb-3 form-check">
                                 <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                                <label class="form-check-label" for="remember_me">{{ __('Remember me') }}</label>
+                                <label class="form-check-label" for="remember_me">{{ __('Souvient toi de moi') }}</label>
                             </div>
 
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Authentifier') }}</button>
                             </div>
                         </form>
                     </div>
                     <div class="text-center card-footer">
                         @if (Route::has('password.request'))
                             <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
+                                {{ __('Mot de Passe oubliée?') }}
                             </a>
                         @endif
                     </div>
@@ -52,4 +56,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+@endsection

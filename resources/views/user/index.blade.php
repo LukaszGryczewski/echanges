@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Liste des artistes')
+@section('title', __('Liste des utilisateurs'))
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
+    <h1>{{ __('Liste des ') }} {{ $resource }}</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>{{ __('Prénom') }}</th>
+                <th>{{ __('Nom') }}</th>
             </tr>
         </thead>
         <tbody>

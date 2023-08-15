@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
-@section('title', 'Liste des Produits')
+@section('title', __('Liste des Produits') )
 
 @section('content')
 
     <ul>
-        <li><a href="{{ route('product.create') }}">Ajouter Produit</a></li>
+        <li><a href="{{ route('product.create') }}">{{ __('Ajouter Produit') }}</a></li>
     </ul>
-    <h1>Mes Produits</h1>
+    <h1>{{ __('Mes Produits') }}</h1>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Nom du produit</th>
-                    <th>Edition</th>
-                    <th>Utilisateur</th>
-                    <th>Condition</th>
-                    <th>Transaction</th>
-                    <th>Prix (€)</th>
+                    <th>{{ __('Image') }}</th>
+                    <th>{{ __('Nom du produit') }}</th>
+                    <th>{{ __('Edition') }}</th>
+                    <th>{{ __('Utilisateur') }}</th>
+                    <th>{{ __('Condition') }}</th>
+                    <th>{{ __('Transaction') }}</th>
+                    <th>{{ __('Prix ') }}(€)</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,20 +38,20 @@
                             <td>{{ $product->type_transaction }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
-                                <div><a href="{{ route('product.edit', $product->id) }}">Modifer</a></div>
+                                <div><a href="{{ route('product.edit', $product->id) }}">{{ __('Modifer') }}</a></div>
                                 @if (Auth::check() && $product->user_id === Auth::user()->id)
                                     <form method="post" action="{{ route('product.delete', $product->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="method" value="DELETE">
-                                        <button>Supprimer</button>
+                                        <button>{{ __('Supprimer') }}</button>
                                     </form>
                                 @endif
                             </td>
                         </tr>
                     @endforeach
                 @else
-                    <p>Aucun produit trouvé pour cet utilisateur.</p>
+                    <p>{{ __('Aucun produit trouvé pour cet utilisateur') }}.</p>
                 @endif
             </tbody>
         </table>

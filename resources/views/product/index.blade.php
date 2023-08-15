@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', 'Liste des Produits')
+@section('title', __('Liste des Produits'))
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
+    <h1>{{ __('Liste des :resource', ['resource' => $resource]) }}</h1>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Nom du produit</th>
-                    <th>Edition</th>
-                    <th>Utilisateur</th>
-                    <th>Condition</th>
-                    <th>Transaction</th>
-                    <th>Prix (€)</th>
+                    <th>{{ __('Image') }}</th>
+                    <th>{{ __('Nom du produit') }}</th>
+                    <th>{{ __('Edition') }}</th>
+                    <th>{{ __('Utilisateur') }}</th>
+                    <th>{{ __('Condition') }}</th>
+                    <th>{{ __('Transaction') }}</th>
+                    <th>{{ __('Prix (€)') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,18 +34,17 @@
                         <td>{{ $product->price }}</td>
                         @auth
                             <td>
-
                                 <form action="{{ route('cart.addProduct', $product->id) }}" method="POST">
                                     @csrf
-                                    <label for="quantity">Quantité :</label>
+                                    <label for="quantity">{{ __('Quantité :') }}</label>
                                     @if ($maxQuantities[$product->id] == 0)
                                         <input type="number" name="quantity" id="quantity" min="0" max="0"
                                             value="0" disabled>
-                                        <span>Produit épuisé</span>
+                                        <span>{{ __('Produit épuisé') }}</span>
                                     @else
                                         <input type="number" name="quantity" id="quantity" min="1"
                                             max="{{ $maxQuantities[$product->id] }}" value="1">
-                                        <button type="submit">Ajouter au panier</button>
+                                        <button type="submit">{{ __('Ajouter au panier') }}</button>
                                     @endif
                                 </form>
                             </td>

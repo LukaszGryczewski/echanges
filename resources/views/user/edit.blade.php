@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('email', 'Modifier son profile')
+@section('email', __('Modifier son profile'))
 
 @section('content')
     <div class="container">
@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image">Image de profil</label>
+                                <label for="image">{{ __('Image de profil') }}</label>
                                 <input type="file" name="profile_image" id="image">
                             </div>
 

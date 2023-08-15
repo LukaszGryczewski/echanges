@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('quantity', 'Modifier un produit')
+@section('quantity', __('Modifier un produit'))
 
 @section('content')
     <div class="container">
@@ -90,20 +90,20 @@
                                 <label for="condition">{{ __('Condition') }}</label>
                                 <select id="condition" name="condition"
                                     class="form-control @error('condition') is-invalid @enderror">
-                                    <option value="Neuf" {{ $product->condition === 'Neuf' ? 'selected' : '' }}>Neuf
+                                    <option value="Neuf" {{ $product->condition === 'Neuf' ? 'selected' : '' }}>{{ __('Neuf')}}
                                     </option>
                                     <option value="Parfait" {{ $product->condition === 'Parfait' ? 'selected' : '' }}>
-                                        Parfait</option>
+                                        {{ __('Parfait')}}</option>
                                     <option value="Très bon" {{ $product->condition === 'Très bon' ? 'selected' : '' }}>
-                                        Très bon</option>
-                                    <option value="Bon" {{ $product->condition === 'Bon' ? 'selected' : '' }}>Bon
+                                        {{ __('Très bon')}}</option>
+                                    <option value="Bon" {{ $product->condition === 'Bon' ? 'selected' : '' }}>{{ __('Bon')}}
                                     </option>
-                                    <option value="Moyen" {{ $product->condition === 'Moyen' ? 'selected' : '' }}>Moyen
+                                    <option value="Moyen" {{ $product->condition === 'Moyen' ? 'selected' : '' }}>{{ __('Moyen')}}
                                     </option>
                                     <option value="Mauvais" {{ $product->condition === 'Mauvais' ? 'selected' : '' }}>
-                                        Mauvais</option>
+                                        {{ __('Mauvais')}}</option>
                                     <option value="Très Mauvais"
-                                        {{ $product->condition === 'Très Mauvais' ? 'selected' : '' }}>Très Mauvais
+                                        {{ $product->condition === 'Très Mauvais' ? 'selected' : '' }}>{{ __('Très Mauvais')}}
                                     </option>
                                 </select>
                                 @error('condition')
@@ -129,9 +129,9 @@
                                 <select id="type_transaction" name="type_transaction"
                                     class="form-control @error('type_transaction') is-invalid @enderror">
                                     <option value="Vente" {{ $product->type_transaction === 'Vente' ? 'selected' : '' }}>
-                                        Vente</option>
+                                        {{ __('Vente')}}</option>
                                     <option value="Echange"
-                                        {{ $product->type_transaction === 'Echange' ? 'selected' : '' }}>Échange</option>
+                                        {{ $product->type_transaction === 'Echange' ? 'selected' : '' }}>{{ __('Échange')}}</option>
                                 </select>
                                 @error('type_transaction')
                                     <span class="invalid-feedback" role="alert">
@@ -158,7 +158,7 @@
                             </div>
                         @endif
 
-                        <nav><a href="{{ route('product.userProduct') }}">{{ __('Retour à l\'index') }}</a></nav>
+                        <nav><a href="{{ route('welcome') }}">{{ __('Page d\'acceuil') }}</a></nav>
                     </div>
                 </div>
             </div>

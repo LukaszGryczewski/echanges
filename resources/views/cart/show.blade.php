@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
+@section('description', __('Panier'))
+
 @section('content')
-    <h1>Votre panier</h1>
+    <h1>{{ __('Votre panier') }}</h1>
     <table>
         <thead>
             <tr>
-                <th>Nom du produit</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Actions</th>
+                <th>{{ __('Nom du produit') }}</th>
+                <th>{{ __('Prix') }}</th>
+                <th>{{ __('Quantité') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -34,21 +36,21 @@
                             <form action="{{ route('cart.removeProduct', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Supprimer</button>
+                                <button type="submit">{{ __('Supprimer') }}</button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
                 <tr>
                     <td colspan="4">
-                        <p>Prix total: {{ $totalPrice }} €</p>
+                        <p>{{ __('Prix total: ') }}{{ $totalPrice }} €</p>
                         <form action="{{ route('order.confirm') }}" method="GET">
-                            <button type="submit" class="btn btn-success">Valider le panier</button>
+                            <button type="submit" class="btn btn-success">{{ __('Valider le panier') }}</button>
                         </form>
                     </td>
                 </tr>
             @else
-                <p>Votre panier est vide.</p>
+                <p>{{ __('Votre panier est vide') }}</p>
             @endif
         </tbody>
     </table>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('description', 'Ajouter un Produit')
+@section('description', __('Ajouter un Produit'))
 
 @section('content')
     <div class="container">
@@ -13,7 +13,7 @@
                         <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="name">{{ __('Name') }}</label>
+                                <label for="name">{{ __('Nom') }}</label>
                                 <input type="text" id="name" name="name"
                                     class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
                                     required autofocus>

@@ -7,18 +7,18 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ url('/product') }}">Produit</a>
+                <a class="nav-link" href="{{ url('/product') }}">{{ __('Produit') }}</a>
             </li>
             @auth
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('/my-product') }}">Mes Produit</a>
+                    <a class="nav-link" href="{{ url('/my-product') }}">{{ __('Mes Produit') }}</a>
                 </li>
             @endauth
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/user') }}">Utilisateurs</a>
+                <a class="nav-link" href="{{ url('/user') }}">{{ __('Utilisateurs') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
+                <a class="nav-link" href="{{ url('/contact') }}">{{ __('Contact') }}</a>
             </li>
         </ul>
 
@@ -29,9 +29,19 @@
 
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('set-locale', 'fr') }}">FR</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('set-locale', 'en') }}">EN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('set-locale', 'nl') }}">NL</a>
+            </li>
+
             @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/cart') }}">Panier</a>
+                    <a class="nav-link" href="{{ url('/cart') }}">{{ __('Panier') }}</a>
                 </li>
             @endauth
             <!-- Authentication Links -->
@@ -55,7 +65,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('user.profile') }}">Mon Profile</a>
+                        <a class="dropdown-item" href="{{ route('user.profile') }}">{{ __('Mon Profile') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">

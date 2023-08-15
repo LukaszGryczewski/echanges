@@ -77,7 +77,7 @@ class ProductController extends Controller
 
         ]);
 
-        $user = Auth::user(); // Get the authenticated user
+        $user = Auth::user();
 
         // Récupérez l'ID du type à partir de la requête
         $typeId = $request->input('type');
@@ -88,7 +88,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         } else {
-            $imagePath = 'default_image.png'; // Utiliser une image par défaut si aucune n'a été téléchargée
+            $imagePath = 'default_image.png';
         }
         $product = Product::create([
             'name' => $request->name,

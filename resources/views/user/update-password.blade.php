@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('email', 'Modifier son profile')
+@section('email', __('Modifier son profile'))
 
 @section('content')
     <div class="container">

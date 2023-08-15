@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Détails de l\'utilisatreur')
+@section('title', __('Détails de l\'utilisatreur'))
 
 @section('content')
     <div class="container">
@@ -13,44 +13,43 @@
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
-                                    <td><strong>Prénom</strong></td>
+                                    <td><strong>{{ __('Prénom') }}</strong></td>
                                     <td>{{ $user->firstname }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Nom</strong></td>
+                                    <td><strong>{{ __('Nom') }}</strong></td>
                                     <td>{{ $user->lastname }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Adresse</strong></td>
+                                    <td><strong>{{ __('Adresse') }}</strong></td>
                                     <td>{{ $user->address->street }} {{ $user->address->number }}
                                         {{ $user->address->municipalitie }} {{ $user->address->postal_code }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Mail</strong></td>
+                                    <td><strong>{{ __('Mail') }}</strong></td>
                                     <td>{{ $user->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Télephone</strong></td>
+                                    <td><strong>{{ __('Télephone') }}</strong></td>
                                     <td>{{ $user->phone }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Crée le</strong></td>
+                                    <td><strong>{{ __('Crée le') }}</strong></td>
                                     <td>{{ $user->created_at }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Modifiée le</strong></td>
+                                    <td><strong>{{ __('Modifiée le') }}</strong></td>
                                     <td>{{ $user->updated_at }}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <a class="nav-link" href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">Modifier le
-                            profil</a>
+                        <a class="nav-link" href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">{{ __('Modifier le profil') }}</a>
                         <form action="{{ route('user.destroy', auth()->user()->id) }}" method="POST"
-                            onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.');">
+                            onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.'') }}'';">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+                            <button type="submit" class="btn btn-danger">{{ __('Supprimer mon compte') }}</button>
                         </form>
                     </div>
                 </div>

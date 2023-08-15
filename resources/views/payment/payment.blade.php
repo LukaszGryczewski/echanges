@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-    <h2>Effectuer le paiement</h2>
+    <h2>{{ __('Effectuer le paiement') }}</h2>
 
     <form action="{{ route('payment.process', ['orderId' => $order->id]) }}" method="POST" id="payment-form">
         {{ csrf_field() }}
 
         <div class="form-group">
-            <label for="card-element">Informations de carte de crédit:</label>
+            <label for="card-element">{{ __('Informations de carte de crédit') }}:</label>
             <div id="card-element">
                 <!-- Un div où Stripe UI s'affichera -->
             </div>
@@ -16,7 +16,7 @@
             <div id="card-errors" role="alert"></div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Payer et finaliser la commande</button>
+        <button type="submit" class="btn btn-primary">{{ __('Payer et finaliser la commande') }}</button>
     </form>
 </div>
 

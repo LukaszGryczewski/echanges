@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facture</title>
+    <title>__('Facture')</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,20 +33,20 @@
 </head>
 
 <body>
-    <h1>Facture N° {{ $order->invoice->id }}</h1>
-    <p>Date de facturation : {{ $order->order_date }}</p>
-    <p>Adresse de livraison : {{ $order->delivery_address }}</p>
-    <p>Montant : {{ $order->total_price }} EUR</p>
+    <h1>{{ __('Facture N° ') }}{{ $order->invoice->id }}</h1>
+    <p>{{ __('Date de facturation') }} : {{ $order->order_date }}</p>
+    <p>{{ __('Adresse de livraison') }} : {{ $order->delivery_address }}</p>
+    <p>{{ __('Montant') }} : {{ $order->total_price }} EUR</p>
 
-    <h2>Détails de la commande :</h2>
+    <h2>{{ __('Détails de la commande') }} :</h2>
     <table>
         <thead>
             <tr>
-                <th>Produit</th>
-                <th>Description</th>
-                <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Total</th>
+                <th>{{ __('Produit') }}</th>
+                <th>{{ __('Description') }}</th>
+                <th>{{ __('Quantité') }}</th>
+                <th>{{ __('Prix unitaire') }}</th>
+                <th>{{ __('Total') }}</th>
             </tr>
         </thead>
         <tbody>

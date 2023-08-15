@@ -2,21 +2,21 @@
 
 @section('content')
     <div class="container">
-        <h2>Facture n° {{ $invoice->id }}</h2>
-        <p>Commande ID: {{ $invoice->order_id }}</p>
-        <p>Montant: {{ $invoice->amount }} {{ $invoice->currency }}</p>
-        <p>Date de facturation: {{ $invoice->billing_date }}</p>
-        <p>Détails : {{ $invoice->details }}</p>
+        <h2>{{ __('Facture n°') }} {{ $invoice->id }}</h2>
+        <p>{{ __('Commande ID') }} : {{ $invoice->order_id }}</p>
+        <p>{{ __('Montant') }} : {{ $invoice->amount }} {{ $invoice->currency }}</p>
+        <p>{{ __('Date de facturation') }} : {{ $invoice->billing_date }}</p>
+        <p>{{ __('Détails') }} : {{ $invoice->details }}</p>
 
-        <h3>Produits commandés:</h3>
+        <h3>{{ __('Produits commandés') }} :</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nom du produit</th>
-                    <th>Description</th>
-                    <th>Quantité</th>
-                    <th>Prix unitaire</th>
-                    <th>Total</th>
+                    <th>{{ __('Nom du produit') }}</th>
+                    <th>{{ __('Description') }}</th>
+                    <th>{{ __('Quantité') }}</th>
+                    <th>{{ __('Prix unitaire') }}</th>
+                    <th>{{ __('Total') }}</th>
                 </tr>
             </thead>
             <tbody>

@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Confirmez votre panier</h1>
+    <h1>{{ __('Confirmez votre panier') }}</h1>
     <table>
         <thead>
             <tr>
-                <th>Nom du produit</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Total pour ce produit</th>
+                <th>{{ __('Nom du produit') }}</th>
+                <th>{{ __('Prix') }}</th>
+                <th>{{ __('Quantité') }}</th>
+                <th>{{ __('Total pour ce produit') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -23,11 +23,11 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4">Votre panier est vide.</td>
+                    <td colspan="4">{{ __('Votre panier est vide') }}.</td>
                 </tr>
             @endif
         </tbody>
     </table>
-    <p>Prix total: {{ $totalPrice }} €</p>
-    <a href="{{ route('order.address-payment') }}" class="btn btn-primary">Continuer</a>
+    <p>{{ __('Prix total') }}: {{ $totalPrice }} €</p>
+    <a href="{{ route('order.address-payment') }}" class="btn btn-primary">{{ __('Continuer') }}</a>
 @endsection
