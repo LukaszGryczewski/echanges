@@ -21,6 +21,12 @@ class CartController extends Controller
 
     public function addProduct(Request $request, $productId)
     {
+
+        // Verif is the user is connected
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $user = Auth::user();
         $quantityToAdd = $request->input('quantity', 1);
         $product = Product::find($productId);
