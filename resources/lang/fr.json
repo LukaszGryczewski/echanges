@@ -131,5 +131,11 @@
     "Modifier son mot de passe": "Modifier son mot de passe",
     "Nouveau mot de passe": "Nouveau mot de passe",
     "Confirmation du nouveau mot de passe": "Confirmation du nouveau mot de passe",
-    "Ton navigateur ne suporte pas se format de video" : "Ton navigateur ne suporte pas se format de video"
+
+    "Ton navigateur ne suporte pas se format de video" : "Ton navigateur ne suporte pas se format de video",
+    "Aucun problème. Indiquez-nous simplement votre adresse e-mail et nous vous enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en choisir un nouveau." : "Aucun problème. Indiquez-nous simplement votre adresse e-mail et nous vous enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en choisir un nouveau.",
+    "Mot de passe oublié?" : "Mot de passe oublié?",
+    "Mot de passe oubliée" : "Mot de passe oubliée",
+    "Recupere mot de passe" : "Recupere mot de passe"
+
 }
