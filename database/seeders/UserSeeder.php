@@ -23,7 +23,9 @@ class UserSeeder extends Seeder
 
         // Utiliser la bibliothèque Faker pour générer des données aléatoires
         $faker = Faker::create();
-        $users = [
+
+        // Vos 6 utilisateurs manuels
+        $manualUsers = [
             [
                 'login' => 'Tom',
                 'firstname' => 'Tom',
@@ -90,8 +92,50 @@ class UserSeeder extends Seeder
                 'phone' => '0465412348',
                 'created_at' => now(),
             ],
-
         ];
+
+        $users = []; // Ceci stockera tous vos utilisateurs, y compris les 6 manuels et les 100 Faker
+
+        // Pour éviter les duplications, ajoutez d'abord vos utilisateurs manuels
+        $usedLogins = array_column($manualUsers, 'login');
+        $usedEmails = array_column($manualUsers, 'email');
+        $usedPhones = array_column($manualUsers, 'phone');
+
+        // Ajouter les utilisateurs manuels à la liste principale
+        $users = array_merge($users, $manualUsers);
+
+        for ($i = 0; $i < 100; $i++) {
+            // Assurez-vous que le login est unique
+            do {
+                $login = $faker->userName;
+            } while (in_array($login, $usedLogins));
+            $usedLogins[] = $login;
+
+            // Assurez-vous que le courriel est unique
+            do {
+                $email = $faker->unique()->safeEmail;
+            } while (in_array($email, $usedEmails));
+            $usedEmails[] = $email;
+
+            // Assurez-vous que le téléphone est unique
+            do {
+                $phone = $faker->phoneNumber;
+            } while (in_array($phone, $usedPhones));
+            $usedPhones[] = $phone;
+
+            $users[] = [
+                'login' => $login,
+                'firstname' => $faker->firstName,
+                'lastname' => $faker->lastName,
+                'role_id' => 1,
+                'address_id' => $faker->numberBetween(1, 170),
+                'email' => $email,
+                'password' => Hash::make('rootroot'),
+                'phone' => $phone,
+                'created_at' => now(),
+            ];
+        }
+
         DB::table('users')->insert($users);
     }
 }
