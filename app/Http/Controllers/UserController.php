@@ -143,6 +143,19 @@ class UserController extends Controller
             return back()->with('error', 'Utilisateur non trouvé.');
         }
 
+
+        // Before delete user i need delete every product that the user has
+        foreach ($user->products as $product) {
+            $product->delete();
+        }
+
+        // Before delete user i need delete every product in the cart that the user add
+        $cart = $user->cart;
+        if ($cart) {
+            foreach ($cart->orders as $order) {
+                $order->delete();
+            }
+        }
         $user->delete();
 
         return redirect()->route('welcome')->with('status', 'Utilisateur supprimé avec succès.');

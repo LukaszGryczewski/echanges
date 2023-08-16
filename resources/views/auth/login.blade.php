@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('description', __('Login') )
+@section('description', __('Login'))
 
 @section('content')
     <div class="container mt-5">
@@ -15,7 +15,9 @@
                             <!-- Email Address -->
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('Email') }}</label>
-                                <input id="email" class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" />
+                                <input id="email" class="form-control @error('email') is-invalid @enderror"
+                                    type="email" name="email" value="{{ old('email') }}" required autofocus
+                                    autocomplete="username" />
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -26,7 +28,8 @@
                             <!-- Password -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">{{ __('Mot de Passe') }}</label>
-                                <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password" />
+                                <input id="password" class="form-control @error('password') is-invalid @enderror"
+                                    type="password" name="password" required autocomplete="current-password" />
                                 @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}

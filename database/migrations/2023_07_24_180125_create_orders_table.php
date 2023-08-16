@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('order_date');
             $table->string('delivery_address');
             $table->string('order_status');
+            $table->softDeletes();
 
             $table->foreign('user_id')
                   ->references('id')
@@ -38,6 +39,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };
