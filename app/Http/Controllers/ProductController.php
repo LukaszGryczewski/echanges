@@ -25,15 +25,15 @@ class ProductController extends Controller
     }*/
 
     public function index()
-{
-    $user = Auth::user();
-    //$products = Product::all();
-    $products = Product::where('isAvailable', 1)->get();
+    {
+        $user = Auth::user();
+        //$products = Product::all();
+        $products = Product::where('isAvailable', 1)->get();
 
-    // Récupérez le panier de l'utilisateur
-    //$cart = Cart::where('user_id', $user->id)->first();
-    $maxQuantities = [];
-    /*if ($cart) {
+        // Récupérez le panier de l'utilisateur
+        //$cart = Cart::where('user_id', $user->id)->first();
+        $maxQuantities = [];
+        /*if ($cart) {
         foreach ($products as $product) {
             $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
             $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
@@ -44,31 +44,31 @@ class ProductController extends Controller
         }
     }*/
 
-    if ($user) {
-        $cart = Cart::where('user_id', $user->id)->first();
+        if ($user) {
+            $cart = Cart::where('user_id', $user->id)->first();
 
-        if ($cart) {
-            foreach ($products as $product) {
-                $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
-                $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
+            if ($cart) {
+                foreach ($products as $product) {
+                    $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
+                    $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
+                }
+            } else {
+                foreach ($products as $product) {
+                    $maxQuantities[$product->id] = $product->quantity;
+                }
             }
         } else {
             foreach ($products as $product) {
                 $maxQuantities[$product->id] = $product->quantity;
             }
         }
-    } else {
-        foreach ($products as $product) {
-            $maxQuantities[$product->id] = $product->quantity;
-        }
-    }
 
-    return view('product.index', [
-        'products' => $products,
-        'resource' => 'produits',
-        'maxQuantities' => $maxQuantities,
-    ]);
-}
+        return view('product.index', [
+            'products' => $products,
+            'resource' => 'produits',
+            'maxQuantities' => $maxQuantities,
+        ]);
+    }
 
     /**
      * product the form for creating a new resource.
@@ -216,42 +216,48 @@ class ProductController extends Controller
     }
 
     public function search(Request $request)
-{
-    $query = $request->input('query');
+    {
+        $query = $request->input('query');
 
-    // Recherchez les produits en fonction du nom ou de la description
-    $products = Product::where(function ($q) use ($query) {
-        $q->where('name', 'LIKE', "%$query%")
-          ->orWhere('description', 'LIKE', "%$query%");
-    })->where('isAvailable', 1)->get();
+        // Recherchez les produits en fonction des attributs et du login de l'utilisateur
+        $products = Product::where(function ($q) use ($query) {
+            $q->where('name', 'LIKE', "%$query%")
+                ->orWhere('description', 'LIKE', "%$query%")
+                ->orWhere('price', 'LIKE', "%$query%")
+                ->orWhere('edition', 'LIKE', "%$query%");
+        })
+            ->orWhereHas('user', function ($q) use ($query) {
+                $q->where('login', 'LIKE', "%$query%");
+            })
+            ->where('isAvailable', 1)
+            ->get();
 
-    $user = Auth::user();
-    $maxQuantities = [];
+        $user = Auth::user();
+        $maxQuantities = [];
 
-    if ($user) {
-        $cart = Cart::where('user_id', $user->id)->first();
+        if ($user) {
+            $cart = Cart::where('user_id', $user->id)->first();
 
-        if ($cart) {
-            foreach ($products as $product) {
-                $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
-                $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
+            if ($cart) {
+                foreach ($products as $product) {
+                    $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
+                    $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
+                }
+            } else {
+                foreach ($products as $product) {
+                    $maxQuantities[$product->id] = $product->quantity;
+                }
             }
         } else {
             foreach ($products as $product) {
                 $maxQuantities[$product->id] = $product->quantity;
             }
         }
-    } else {
-        foreach ($products as $product) {
-            $maxQuantities[$product->id] = $product->quantity;
-        }
+
+        return view('product.index', [
+            'products' => $products,
+            'resource' => 'résultats de la recherche pour : ' . $query,
+            'maxQuantities' => $maxQuantities,
+        ]);
     }
-
-    return view('product.index', [
-        'products' => $products,
-        'resource' => 'résultats de la recherche pour : ' . $query,
-        'maxQuantities' => $maxQuantities,
-    ]);
-}
-
 }
