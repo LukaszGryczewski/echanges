@@ -14,9 +14,11 @@
                     <a class="nav-link" href="{{ url('/my-product') }}">{{ __('Mes Produit') }}</a>
                 </li>
             @endauth
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/user') }}">{{ __('Utilisateurs') }}</a>
-            </li>
+            @if (Auth::user() && Auth::user()->role && Auth::user()->role->role == 'admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('admin/user') }}">{{ __('Utilisateurs') }}</a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/contact') }}">{{ __('Contact') }}</a>
             </li>

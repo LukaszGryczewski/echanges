@@ -70,9 +70,9 @@ class User extends Authenticatable
         return $this->belongsTo(Address::class);
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class,'role_id');
     }
 
     public function products()

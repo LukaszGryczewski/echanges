@@ -127,7 +127,7 @@ class UserSeeder extends Seeder
                 'login' => $login,
                 'firstname' => $faker->firstName,
                 'lastname' => $faker->lastName,
-                'role_id' => 1,
+                'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => $email,
                 'password' => Hash::make('rootroot'),

@@ -1,6 +1,25 @@
-/*@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*admin/user/index.blade.php*/
+.button-container {
+    display: flex;
+    align-items: center;
+}
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
-*/
+.button-container a, .button-container form {
+    margin-right: 10px;
+}
+
+/* Ajuste l'espacement du tableau */
+table {
+    width: 100%; /* Assurez-vous que le tableau prend toute la largeur */
+    border-collapse: collapse; /* Supprime les espaces entre les bordures */
+}
+
+table th, table td {
+    padding: 8px 12px; /* Ajustez comme souhaité pour réduire/ajouter de l'espacement */
+    border: 1px solid #ddd; /* Bordure pour chaque cellule */
+}
+
+/* Style pour les en-têtes du tableau */
+table th {
+    background-color: #f2f2f2; /* Couleur d'arrière-plan pour les en-têtes */
+}

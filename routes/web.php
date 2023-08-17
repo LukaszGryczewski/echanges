@@ -10,6 +10,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\PasswordController;
 //use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
@@ -45,8 +46,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/update-password', [PasswordController::class, 'update'])->name('profile.update-password');
 });
 
-Route::get('/user', [UserController::class, 'index'])
-    ->name('user.index');
+Route::get('admin/user', [AdminUserController::class, 'index'])
+    ->name('admin.user.index');
+Route::delete('admin/user/{id}', [AdminUserController::class, 'adminDestroy'])
+    ->name('admin.user.adminDestroy');
+Route::get('admin/user/{id}', [AdminUserController::class, 'show'])
+    ->where('id', '[0-9]+')
+    ->name('admin.user.show');
+
 Route::get('/user/{id}', [UserController::class, 'show'])
     ->where('id', '[0-9]+')
     ->name('user.show');
@@ -138,20 +145,8 @@ Route::get('/invoice/download/{invoiceId}', [InvoiceController::class, 'download
     ->name('invoice.download')->middleware('auth');
 
 //Multilanguage
-
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])->name('set-locale');
 
 Route::get('/products/search', [ProductController::class, 'search'])->name('product.search');
 
-/*Route::group([
-    'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-], function(){
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-    Route::get('/product', [ProductController::class, 'index'])
-        ->name('product.index');
-});*/
 require __DIR__ . '/auth.php';

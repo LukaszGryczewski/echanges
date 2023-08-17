@@ -9,17 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $users = User::paginate(20);
-        return view('user.index', [
-            'users'    => $users,
-            'resource' => 'Utilisateurs'
-        ]);
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -160,4 +150,5 @@ class UserController extends Controller
 
         return redirect()->route('welcome')->with('status', 'Utilisateur supprimé avec succès.');
     }
+
 }
