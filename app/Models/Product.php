@@ -44,7 +44,7 @@ class Product extends Model
 
     /*public function orders()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Order::class);
     }*/
 
     /*public function carts()
@@ -57,6 +57,7 @@ class Product extends Model
                     ->withPivot('quantity', 'unit_price')
                     ->withTimestamps();
                 }
+
     public function getImageUrlAttribute()
 {
     if ($this->image) {

@@ -214,4 +214,44 @@ class ProductController extends Controller
         $myProducts = Product::where('user_id', $connectedUser->id)->get();
         return view('product.userProduct', compact('myProducts'));
     }
+
+    public function search(Request $request)
+{
+    $query = $request->input('query');
+
+    // Recherchez les produits en fonction du nom ou de la description
+    $products = Product::where(function ($q) use ($query) {
+        $q->where('name', 'LIKE', "%$query%")
+          ->orWhere('description', 'LIKE', "%$query%");
+    })->where('isAvailable', 1)->get();
+
+    $user = Auth::user();
+    $maxQuantities = [];
+
+    if ($user) {
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        if ($cart) {
+            foreach ($products as $product) {
+                $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
+                $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
+            }
+        } else {
+            foreach ($products as $product) {
+                $maxQuantities[$product->id] = $product->quantity;
+            }
+        }
+    } else {
+        foreach ($products as $product) {
+            $maxQuantities[$product->id] = $product->quantity;
+        }
+    }
+
+    return view('product.index', [
+        'products' => $products,
+        'resource' => 'résultats de la recherche pour : ' . $query,
+        'maxQuantities' => $maxQuantities,
+    ]);
+}
+
 }

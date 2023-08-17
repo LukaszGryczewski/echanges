@@ -81,6 +81,9 @@
                         </ul>
                         <div class="card">
                             <div class="card-body">
+                                @if (Auth::check())
+                                <button id="show-comments" class="btn btn-primary">{{ __('Ajouter un commentaire') }}</button>
+                                <div id="comments-section" style="display: none;">
                                 <h5 class="card-title">{{ __('Ajouter un commentaire') }}</h5>
                                 <form action="{{ route('comment.store', ['product_id' => $product->id]) }}" method="post">
                                     @csrf
@@ -109,6 +112,8 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">{{ __('Ajouter le commentaire') }}</button>
                                 </form>
+                            </div>
+                            @endif
                             </div>
                         </div>
                     </div>

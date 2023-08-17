@@ -141,6 +141,7 @@ Route::get('/invoice/download/{invoiceId}', [InvoiceController::class, 'download
 
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])->name('set-locale');
 
+Route::get('/products/search', [ProductController::class, 'search'])->name('product.search');
 
 /*Route::group([
     'prefix' => LaravelLocalization::setLocale(),

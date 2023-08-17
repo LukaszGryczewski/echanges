@@ -1,8 +1,8 @@
-import Alpine from 'alpinejs';
+/*import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-Alpine.start();
+Alpine.start();*/
 
 //Button view hiden password
 $(document).ready(function () {
@@ -13,3 +13,13 @@ $(document).ready(function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function(){
+    const showCommentsButton = document.getElementById('show-comments');
+    const commentsSection = document.getElementById('comments-section');
+
+    if (showCommentsButton && commentsSection) {
+        showCommentsButton.addEventListener('click', function(){
+            commentsSection.style.display = commentsSection.style.display === 'none' ? '' : 'none';
+        });
+    }
+});

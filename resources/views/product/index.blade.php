@@ -4,6 +4,10 @@
 
 @section('content')
     <h1>{{ __('Liste des :resource', ['resource' => $resource]) }}</h1>
+    <form action="{{ route('product.search') }}" method="GET" class="mb-3">
+        <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un produit...') }}" value="{{ request('query') }}">
+        <button type="submit" class="mt-2 btn btn-primary">{{ __('Rechercher') }}</button>
+    </form>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
