@@ -37,5 +37,32 @@
         </main>
     </div>
 </body>
+<<footer class="py-3 mt-auto container-fluid footer-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Contact</h3>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-envelope-fill"></i> info@iccbxl.be</li>
+                    <li><i class="bi bi-telephone-fill"></i> 02/279.58.40</li>
+                </ul>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <a class="navbar-brand" href="{{ url('https://www.iccbxl.be/web/') }}">
+                    <img src="{{ asset('storage/images/logoICC.png') }}" alt="Logo Geek Treasures"
+                        style="height:30px; width:auto;">
+                </a>
+            </div>
+            <div class="col-md-4 ">
+                <h3>Adresse</h3>
+                <ul class="list-unstyled ">
+                    <li><i class="bi bi-envelope-fill"></i> Palais du Midi</li>
+                    <li><i class="bi bi-telephone-fill"></i> 4 Rue de la Fontaine</li>
+                    <li><i class="bi bi-telephone-fill"></i> 1000 Bruxelles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </footer>
 
 </html>

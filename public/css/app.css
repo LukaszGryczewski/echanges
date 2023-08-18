@@ -23,3 +23,36 @@ table th, table td {
 table th {
     background-color: #f2f2f2; /* Couleur d'arrière-plan pour les en-têtes */
 }
+
+
+/*Menu*/
+.custom-light-green {
+    background-color: #3FFD5D; /* Ceci est un exemple de vert clair. */
+}
+
+.navbar-brand img {
+    height: 60px !important;
+    width: auto !important;
+    margin-right: 0px !important;
+}
+
+.footer-container {
+    background-color: #3FFD5D;
+}
+
+.footer-container .row {
+    justify-content: space-between; /* Distribuez l'espace entre les éléments */
+}
+
+.footer-container .row .col-md-4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement le contenu de chaque colonne */
+}
+
+.footer-container .row .col-md-4.justify-content-end {
+    align-items: flex-end; /* Aligner le contenu de la colonne de l'adresse à droite */
+}
+
+/*#45FF44;*/
+

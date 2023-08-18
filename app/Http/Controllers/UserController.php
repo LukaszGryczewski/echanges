@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -133,7 +132,6 @@ class UserController extends Controller
             return back()->with('error', 'Utilisateur non trouvé.');
         }
 
-
         // Before delete user i need delete every product that the user has
         foreach ($user->products as $product) {
             $product->delete();
@@ -150,7 +148,4 @@ class UserController extends Controller
 
         return redirect()->route('welcome')->with('status', 'Utilisateur supprimé avec succès.');
     }
-
-
-
 }
