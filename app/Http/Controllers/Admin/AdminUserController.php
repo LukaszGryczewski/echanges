@@ -56,6 +56,29 @@ class AdminUserController extends Controller
 
         return redirect()->route('admin.user.index')->with('status', 'Utilisateur supprimé avec succès.');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Serach user by login, firstname, lastname
+        $users = User::where('login', 'LIKE', "%$query%")
+            ->orWhere('firstname', 'LIKE', "%$query%")
+            ->orWhere('lastname', 'LIKE', "%$query%")
+            ->paginate(20);
+
+        return view('admin.user.index', [
+            'users'    => $users,
+            'resource' => 'Résultats de la recherche pour : ' . $query
+        ]);
+    }
+
+    public function showProductPerUser(string $id)
+    {
+        $user = User::with('products')->find($id);
+
+        return view('admin.user.show', [
+            'user' => $user
+        ]);
+    }
 }
-
-

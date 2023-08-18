@@ -53,6 +53,8 @@ Route::delete('admin/user/{id}', [AdminUserController::class, 'adminDestroy'])
 Route::get('admin/user/{id}', [AdminUserController::class, 'show'])
     ->where('id', '[0-9]+')
     ->name('admin.user.show');
+Route::get('admin/user/search', [AdminUserController::class, 'search'])
+    ->name('admin.user.search');
 
 Route::get('/user/{id}', [UserController::class, 'show'])
     ->where('id', '[0-9]+')
@@ -97,6 +99,8 @@ Route::put('/product/{id}', [ProductController::class, 'update'])
 Route::delete('/product/{id}', [ProductController::class, 'destroy'])
     ->where('id', '[0-9]+')
     ->name('product.delete');
+Route::get('/products/search', [ProductController::class, 'search'])
+    ->name('product.search');
 
 Route::post('/product/{product_id}/comment', [CommentController::class, 'store'])
     ->where('product_id', '[0-9]+')
@@ -145,8 +149,10 @@ Route::get('/invoice/download/{invoiceId}', [InvoiceController::class, 'download
     ->name('invoice.download')->middleware('auth');
 
 //Multilanguage
-Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])->name('set-locale');
+Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])
+    ->name('set-locale');
 
-Route::get('/products/search', [ProductController::class, 'search'])->name('product.search');
+Route::get('/products/search', [ProductController::class, 'search'])
+    ->name('product.search');
 
 require __DIR__ . '/auth.php';

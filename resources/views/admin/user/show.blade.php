@@ -44,6 +44,43 @@
                                     <td>{{ $user->updated_at }}</td>
                                 </tr>
                             </tbody>
+                            <tbody>
+                                @if ($user->products->count() > 0)
+                                    <div class="mt-4">
+                                        <table class="table table-bordered">
+                                            <h2>{{ __('Produits de l\'utilisateur') }}</h2>
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ __('Image') }}</th>
+                                                    <th>{{ __('Nom') }}</th>
+                                                    <th>{{ __('Description') }}</th>
+                                                    <th>{{ __('Prix') }}</th>
+                                                    <th>{{ __('Quantité') }}</th>
+                                                    <th>{{ __('Type de Transaction') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($user->products as $product)
+                                                    <tr>
+                                                        <td>
+                                                            @if ($product->image)
+                                                                <img src="{{ $product->image_url }}"
+                                                                    alt="{{ $product->name }}" class="img-thumbnail"
+                                                                    style="max-width: 100px;">
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $product->name }}</td>
+                                                        <td>{{ $product->description }}</td>
+                                                        <td>{{ $product->price }}€</td>
+                                                        <td>{{ $product->quantity }}</td>
+                                                        <td>{{ $product->type_transaction }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -151,4 +151,6 @@ class UserController extends Controller
         return redirect()->route('welcome')->with('status', 'Utilisateur supprimé avec succès.');
     }
 
+
+
 }

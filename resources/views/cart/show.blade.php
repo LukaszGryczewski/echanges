@@ -23,7 +23,6 @@
                             <form action="{{ route('cart.updateProduct', $product->id) }}" method="POST">
                                 @csrf
                                 <select name="quantity" onchange="this.form.submit()">
-
                                     @for ($i = 1; $i <= min($product->quantity, 10); $i++)
                                         <option value="{{ $i }}"
                                             {{ $product->pivot->quantity == $i ? 'selected' : '' }}>{{ $i }}
@@ -47,6 +46,7 @@
                         <form action="{{ route('order.confirm') }}" method="GET">
                             <button type="submit" class="btn btn-success">{{ __('Valider le panier') }}</button>
                         </form>
+                        <nav><a href="{{ route('product.index') }}">{{ __('Continuer mes achats') }}</a></nav>
                     </td>
                 </tr>
             @else

@@ -12,38 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    /*public function index()
-    {
-        $products = Product::all();
-        return view('product.index', [
-            'products' => $products,
-            'resource' => 'produits',
-        ]);
-    }*/
 
     public function index()
     {
         $user = Auth::user();
-        //$products = Product::all();
         $products = Product::where('isAvailable', 1)->get();
-
-        // Récupérez le panier de l'utilisateur
-        //$cart = Cart::where('user_id', $user->id)->first();
         $maxQuantities = [];
-        /*if ($cart) {
-        foreach ($products as $product) {
-            $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
-            $maxQuantities[$product->id] = $product->quantity - $quantityInCart;
-        }
-    } else {
-        foreach ($products as $product) {
-            $maxQuantities[$product->id] = $product->quantity;
-        }
-    }*/
 
+        // Recup the cart of the user
         if ($user) {
             $cart = Cart::where('user_id', $user->id)->first();
 
@@ -98,12 +74,12 @@ class ProductController extends Controller
 
         $user = Auth::user();
 
-        // Récupérez l'ID du type à partir de la requête
+        // Recup the id of the type
         $typeId = $request->input('type');
-        // Trouvez le type correspondant dans la base de données
+
         $type = Type::findOrFail($typeId);
 
-        // Traitement de l'upload de l'image
+        // Upload image
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         } else {
@@ -159,7 +135,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //Validation des données du formulaire
+        //Validation od the form
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
@@ -178,7 +154,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $product->fill($validated); // Remplit les attributs modifiés
-        $product->save(); // Enregistre les modifications
+        $product->save();
 
         return view('product.show', [
             'product' => $product,
@@ -194,12 +170,10 @@ class ProductController extends Controller
         Product::destroy($id);
         $product = Product::with('comments')->find($id);
         if ($product) {
-            // Supprimer les commentaires associés au produit
+            // Delete the comment of the product
             foreach ($product->comments as $comment) {
                 $comment->delete();
             }
-
-            // Supprimer le produit
             $product->delete();
         }
         return redirect()->route('product.userProduct');
@@ -219,7 +193,7 @@ class ProductController extends Controller
     {
         $query = $request->input('query');
 
-        // Recherchez les produits en fonction des attributs et du login de l'utilisateur
+        // Search the product by name, description, price, edition
         $products = Product::where(function ($q) use ($query) {
             $q->where('name', 'LIKE', "%$query%")
                 ->orWhere('description', 'LIKE', "%$query%")
