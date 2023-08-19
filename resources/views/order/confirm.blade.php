@@ -8,7 +8,7 @@
                 <th>{{ __('Nom du produit') }}</th>
                 <th>{{ __('Prix') }}</th>
                 <th>{{ __('Quantité') }}</th>
-                <th>{{ __('Total pour ce produit') }}</th>
+                <th>{{ __('Total de la commande') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -18,9 +18,15 @@
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->pivot->unit_price }} €</td>
                         <td>{{ $product->pivot->quantity }}</td>
-                        <td>{{ $product->pivot->unit_price * $product->pivot->quantity }} €</td>
+                        <td>{{ ($product->pivot->unit_price * $product->pivot->quantity)}} €</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td>{{ __('Frais de livraison') }}</td>
+                    <td></td>
+                    <td></td>
+                    <td>6.99 €</td>
+                </tr>
             @else
                 <tr>
                     <td colspan="4">{{ __('Votre panier est vide') }}.</td>

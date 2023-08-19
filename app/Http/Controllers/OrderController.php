@@ -20,6 +20,8 @@ class OrderController extends Controller
     public function confirm() {
         $cart = $this->cartService->getCart();
         $totalPrice = $this->cartService->getTotalPrice($cart);
+        $shippingCost = 6.99;
+        $totalPrice = $totalPrice + $shippingCost;
         return view('order.confirm', ['cart' => $cart, 'totalPrice' => $totalPrice]);
     }
 
@@ -34,13 +36,15 @@ class OrderController extends Controller
         // 1. Création de la commande dans la base de données
         $cart = auth()->user()->cart;
         $totalPrice = $this->cartService->getTotalPrice($cart);
+        $shippingCost = 6.99;  // Tarif fixe
 
         $order = Order::create([
             'user_id' => auth()->id(),
             'cart_id' => auth()->user()->cart->id,
-            'total_price' => $totalPrice,
+            'total_price' => $totalPrice + $shippingCost,
             'order_date' => now(),
             'delivery_address' => $request->input('delivery_address'),
+            'shipping_cost' => $shippingCost,
             'order_status' => 'pending',  // statut initial
         ]);
 

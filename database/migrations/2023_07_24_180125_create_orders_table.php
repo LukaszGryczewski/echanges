@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('total_price');
             $table->dateTime('order_date');
             $table->string('delivery_address');
+            $table->decimal('shipping_cost', 8, 2)->default(6.99);
             $table->string('order_status');
             $table->softDeletes();
 

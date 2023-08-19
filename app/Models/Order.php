@@ -21,6 +21,7 @@ class Order extends Model
         'total_price',
         'order_date',
         'delivery_address',
+        'shipping_cost',
         'order_status',
         'deleted_at'
     ];
