@@ -3,16 +3,28 @@
 @section('title', __('Liste des Produits'))
 
 @section('content')
-    <h1>{{ __('Liste des :resource', ['resource' => $resource]) }}</h1>
-    <form action="{{ route('product.search') }}" method="GET" class="mb-3">
-        <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un produit...') }}"
-            value="{{ request('query') }}">
-        <button type="submit" class="mt-2 btn btn-primary">{{ __('Rechercher') }}</button>
-    </form>
-    <!-- Bouton pour ouvrir le modal de recherche -->
-    <button type="button" class="mb-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal">
-        Recherche avancée
-    </button>
+    <div class="mb-3 search-container">
+        <form action="{{ route('product.search') }}" method="GET">
+            <div class="row">
+                <div class="col-sm-5">
+                    <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un produit...') }}"
+                        value="{{ request('query') }}">
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-custom-search w-100">{{ __('Rechercher') }}</button>
+                </div>
+                <div class="col-sm-4">
+                    <!-- Bouton pour ouvrir le modal de recherche -->
+                    <button type="button" class="btn btn-custom-advanced w-100" data-bs-toggle="modal"
+                        data-bs-target="#searchModal">
+                        {{ __('Recherche avancée') }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
 
     <!-- Modal de recherche -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
@@ -26,7 +38,6 @@
                     <form action="{{ route('product.search') }}" method="GET">
                         <input type="text" name="query" placeholder="Rechercher..." class="mb-2 form-control">
 
-                        <!-- Éditions -->
                         <!-- Éditions -->
                         <select name="edition" class="mb-2 form-control">
                             <option value="">Sélectionner une édition</option>
@@ -46,7 +57,6 @@
                                 @endforeach
                             @endisset
                         </select>
-
 
                         <!-- Types de produits -->
                         <select name="type_id" class="mb-2 form-control">
@@ -71,21 +81,19 @@
                             @endforeach
                         </select>
 
-                        <!-- Ajoutez d'autres critères comme vous le souhaitez -->
-
-                        <button type="submit" class="mt-2 btn btn-primary">Rechercher</button>
+                        <button type="submit" class="mx-auto btn-custom w-50 d-block">Rechercher</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
     </div>
-
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
+                <tr class="table-title">
+                    <th colspan="9">{{ __('Liste des :resource', ['resource' => $resource]) }}</th>
+                </tr>
                 <tr>
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Nom du produit') }}</th>
@@ -95,6 +103,7 @@
                     <th>{{ __('Condition') }}</th>
                     <th>{{ __('Transaction') }}</th>
                     <th>{{ __('Prix (€)') }}</th>
+                    <th>{{ __('Action') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,14 +134,13 @@
                                 @else
                                     <input type="number" name="quantity" id="quantity" min="1"
                                         max="{{ $maxQuantities[$product->id] }}" value="1">
-                                    <button type="submit">{{ __('Ajouter au panier') }}</button>
+                                    <button type="submit" class="btn-custom w-70">{{ __('Ajouter au panier') }}</button>
                                 @endif
                             </form>
                         </td>
-
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-@endsection
+</div @endsection

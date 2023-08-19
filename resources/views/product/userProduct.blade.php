@@ -1,24 +1,29 @@
 @extends('layouts.app')
 
-@section('title', __('Liste des Produits') )
+@section('title', __('Liste des Produits'))
 
 @section('content')
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <a href="{{ route('product.create') }}" class="btn btn-custom-search">{{ __('Ajouter Produit') }}</a>
+    </div>
 
-    <ul>
-        <li><a href="{{ route('product.create') }}">{{ __('Ajouter Produit') }}</a></li>
-    </ul>
-    <h1>{{ __('Mes Produits') }}</h1>
     <div class="table-responsive">
+
         <table class="table table-bordered table-hover">
             <thead>
+                <tr class="table-title">
+                    <th colspan="9">{{ __('Mes Produits') }}</th>
+                </tr>
                 <tr>
                     <th>{{ __('Image') }}</th>
                     <th>{{ __('Nom du produit') }}</th>
                     <th>{{ __('Edition') }}</th>
+                    <th>{{ __('Type') }}</th>
                     <th>{{ __('Utilisateur') }}</th>
                     <th>{{ __('Condition') }}</th>
                     <th>{{ __('Transaction') }}</th>
                     <th>{{ __('Prix ') }}(€)</th>
+                    <th>{{ __('Action') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,25 +38,29 @@
                             </td>
                             <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
                             <td>{{ $product->edition }}</td>
+                            <td>{{ $product->type->type }}</td>
                             <td>{{ $product->user->login }}</td>
                             <td>{{ $product->condition }}</td>
                             <td>{{ $product->type_transaction }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
-                                <div><a href="{{ route('product.edit', $product->id) }}">{{ __('Modifer') }}</a></div>
+                                <a href="{{ route('product.edit', $product->id) }}"
+                                    class="mb-1 btn btn-primary btn-sm">{{ __('Modifer') }}</a>
                                 @if (Auth::check() && $product->user_id === Auth::user()->id)
-                                    <form method="post" action="{{ route('product.delete', $product->id) }}">
+                                    <form method="post" action="{{ route('product.delete', $product->id) }}"
+                                        class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="method" value="DELETE">
-                                        <button>{{ __('Supprimer') }}</button>
+                                        <button class="btn btn-danger btn-sm">{{ __('Supprimer') }}</button>
                                     </form>
                                 @endif
                             </td>
                         </tr>
                     @endforeach
                 @else
-                    <p>{{ __('Aucun produit trouvé pour cet utilisateur') }}.</p>
+                    <tr>
+                        <td colspan="9">{{ __('Aucun produit trouvé pour cet utilisateur') }}.</td>
+                    </tr>
                 @endif
             </tbody>
         </table>

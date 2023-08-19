@@ -142,5 +142,10 @@
     "Produits de l'utilisateur" : "Produits de l'utilisateur",
     "Continuer mes achats" : "Continuer mes achats",
     "Total de la commande" : "Total de la commande",
-    "Frais de livraison" : "Frais de livraison"
+    "Frais de livraison" : "Frais de livraison",
+    "Recherche avancée" : "Recherche avancée",
+    "Action" : "Action",
+
+    "L'adresse doit être au format \"Rue numéro code postal ville\"." : "L'adresse doit être une adresse belge et au format \"Rue numéro code postal ville\".",
+    "delivery_address_format": "L'adresse doit être au format \"Rue numéro code postal ville\"."
 }

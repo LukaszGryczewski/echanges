@@ -13,11 +13,13 @@ class OrderController extends Controller
 {
     protected $cartService;
 
-    public function __construct(CartService $cartService) {
+    public function __construct(CartService $cartService)
+    {
         $this->cartService = $cartService;
     }
 
-    public function confirm() {
+    public function confirm()
+    {
         $cart = $this->cartService->getCart();
         $totalPrice = $this->cartService->getTotalPrice($cart);
         $shippingCost = 6.99;
@@ -33,7 +35,21 @@ class OrderController extends Controller
 
     public function finalize(Request $request)
     {
-        // 1. Création de la commande dans la base de données
+        // Message error
+        $messages = [
+            'delivery_address.regex' => __('delivery_address_format'),
+        ];
+
+        // Add a validation for the belgish address
+        $validatedData = $request->validate([
+            'delivery_address' => [
+                'required',
+                'regex:/^[A-Za-z\s]+ \d+ [1-9][0-9]{3} [A-Za-z\s]+$/' // Ceci est une regex simple pour les codes postaux belges
+            ],
+            'payment_method' => 'required',
+        ], $messages);
+
+        // Create the order
         $cart = auth()->user()->cart;
         $totalPrice = $this->cartService->getTotalPrice($cart);
         $shippingCost = 6.99;  // Tarif fixe
@@ -51,54 +67,6 @@ class OrderController extends Controller
         // Redirigez vers la page de paiement avec l'ID de commande
         return redirect()->route('payment.show', ['orderId' => $order->id]);
     }
-
-    /*public function finalize(Request $request)
-{
-    // 1. Création de la commande dans la base de données
-    $cart = auth()->user()->cart;
-    $totalPrice = $this->cartService->getTotalPrice($cart);
-
-    $order = Order::create([
-        'user_id' => auth()->id(),
-        'cart_id' => auth()->user()->cart->id,
-        'total_price' => $totalPrice,
-        'order_date' => now(),
-        'delivery_address' => $request->input('delivery_address'),
-        'order_status' => 'pending',  // statut initial
-    ]);
-
-    try {
-        // 2. Tentative de paiement via Stripe
-        Stripe::setApiKey(config('services.stripe.secret'));
-
-        $token = $request->input('stripeToken');
-
-        $charge = Charge::create([
-            'amount' => $totalPrice * 100,
-            'currency' => 'eur',
-            'description' => 'Description du paiement',
-            'source' => $token,
-        ]);
-
-        // Si le paiement réussit, mettez à jour le statut
-        $order->update(['order_status' => 'paid']);
-
-        return redirect()->route('order.success');
-
-    } catch (\Stripe\Exception\CardException $e) {
-        // 3. Gestion des erreurs de paiement
-        // La carte a été refusée
-        return back()->withErrors('Erreur de paiement : ' . $e->getError()->message);
-    } catch (\Exception $e) {
-        // Autres erreurs (comme des problèmes réseau ou des erreurs internes du serveur)
-        return back()->withErrors('Erreur : ' . $e->getMessage());
-    }
-
-}*/
-/*public function success()
-{
-    return view('order.success');
-}*/
 
     /**
      * Display a listing of the resource.

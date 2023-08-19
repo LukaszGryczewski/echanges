@@ -54,5 +54,49 @@ table th {
     align-items: flex-end; /* Aligner le contenu de la colonne de l'adresse à droite */
 }
 
+/*Product index*/
+.table-title {
+    background-color: #3FFD5D;
+    color: black; /* Texte en blanc */
+    font-size: 1.5em; /* Augmenter la taille de la police */
+    text-align: center; /* Centrer le texte */
+}
+ /*Table*/
+ .table-responsive {
+    max-width: 80%; /* Ajustez cette valeur selon vos préférences */
+    margin: 0 auto; /* Centrer le conteneur */
+}
+/*Product index search + button*/
+.search-container {
+    max-width: 800px; /* Définissez la largeur maximale que vous souhaitez pour le conteneur de recherche */
+    margin: 0 auto; /* Centrer le conteneur sur la page */
+}
+
+.btn-custom {
+    background-color: #3FFD5D; /* Remplacez par votre code couleur vert personnalisé */
+    color: black; /* Couleur du texte du bouton */
+    border: none;
+}
+
+.btn-custom-search {
+    background-color: #3FFD5D; /* Remplacez par votre code couleur vert personnalisé */
+    color: black; /* Couleur du texte du bouton */
+    border: none;
+}
+
+.btn-custom-search:hover, .btn-custom-search:focus {
+    background-color: #3FFD5D; /* Une nuance légèrement plus foncée pour le survol et le focus */
+}
+
+.btn-custom-advanced {
+    background-color: #3FFD5D; /* Remplacez par votre code couleur vert personnalisé */
+    color: black; /* Couleur du texte du bouton */
+    border: none;
+}
+
+.btn-custom-advanced:hover, .btn-custom-advanced:focus {
+    background-color: #3FFD5D; /* Une nuance légèrement plus foncée pour le survol et le focus */
+}
+
 /*#45FF44;*/
 

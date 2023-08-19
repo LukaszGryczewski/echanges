@@ -136,5 +136,8 @@
     "Aucun problème. Indiquez-nous simplement votre adresse e-mail et nous vous enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en choisir un nouveau." : "No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
     "Mot de passe oublié?" : "Forgot your password?",
     "Mot de passe oubliée" : "Forgot your password",
-    "Recupere mot de passe" : "Recover password"
+    "Recupere mot de passe" : "Recover password",
+
+    "L'adresse doit être au format \"Rue numéro code postal ville\"." : "The address format must be \"Street number postal code city\".",
+    "delivery_address_format": "The address must be a belgish address and in the format \"Street number postal code city\"."
 }
