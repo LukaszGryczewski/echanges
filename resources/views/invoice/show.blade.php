@@ -42,6 +42,7 @@
     <div class="container">
         <h2>{{ __('Facture n°') }} {{ $invoice->id }}</h2>
         <p>{{ __('Commande ID') }} : {{ $invoice->order_id }}</p>
+        <p>Vendu par : Geek Treasure</p>
         <p>{{ __('Montant') }} : {{ $invoice->amount }} {{ $invoice->currency }}</p>
         <p>{{ __('Date de facturation') }} : {{ $invoice->billing_date }}</p>
         <p>{{ __('Adresse de livraison') }} : {{ $invoice->order->delivery_address }}</p>

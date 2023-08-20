@@ -10,7 +10,7 @@
                     <div class="card-header">{{ __('Ajouter un produit') }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.product.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="name">{{ __('Nom') }}</label>
@@ -133,7 +133,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">{{ __('Ajouter') }}</button>
-                                <a href="{{ route('product.userProduct') }}"
+                                <a href="{{ route('admin.product.index') }}"
                                     class="btn btn-secondary">{{ __('Annuler') }}</a>
                             </div>
                         </form>
@@ -149,7 +149,7 @@
                             </div>
                         @endif
 
-                        <nav><a href="{{ route('product.userProduct') }}">{{ __('Retour à l\'index') }}</a></nav>
+                        <nav><a href="{{ route('admin.product.index') }}">{{ __('Retour à l\'index') }}</a></nav>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
         <form action="{{ route('admin.user.search') }}" method="GET" class="mb-3">
             <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un utilisateur') }}"
                 value="{{ request('query') }}">
-            <button type="submit" class="mt-2 btn btn-primary">{{ __('Rechercher') }}</button>
+            <button type="submit" class="mt-2 btn btn-success">{{ __('Rechercher') }}</button>
         </form>
         <table class="table table-bordered table-hover">
             <thead class="table-light">
@@ -32,7 +32,7 @@
                                 <div class="gap-2 d-flex align-items-center">
                                     <!-- Bouton Détails -->
                                     <a href="{{ route('admin.user.show', $user->id) }}"
-                                        class="btn btn-primary btn-sm">{{ __('Détails') }}</a>
+                                        class="btn btn-success btn-sm">{{ __('Détails') }}</a>
                                     <!-- Bouton Supprimer -->
                                     <form action="{{ route('admin.user.adminDestroy', $user->id) }}" method="POST"
                                         onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer l\'utilisateur? Cette action est irréversible.') }}')">

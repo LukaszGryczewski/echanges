@@ -13,21 +13,14 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            //$table->foreignId('product_id');
             $table->foreignId('user_id');
-            //$table->integer('quantity');
-            //$table->integer('price');
+            $table->softDeletes();
 
             $table->foreign('user_id')
-              ->references('id')
-              ->on('users')
-              ->onDelete('restrict')
-              ->onUpdate('restrict');
-            /*$table->foreign('product_id')
-                  ->references('id')
-                  ->on('products')
-                  ->onDelete('restrict')
-                  ->onUpdate('restrict');*/
+                ->references('id')
+                ->on('users')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
         });
     }
 
@@ -36,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

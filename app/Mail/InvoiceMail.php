@@ -18,15 +18,18 @@ class InvoiceMail extends Mailable
     public $invoice;
     public $pdf;
 
-    public function __construct(Invoice $invoice, $pdf)
+    protected $viewName;
+
+    public function __construct(Invoice $invoice, $pdf, $viewName = 'invoice.show')
     {
         $this->invoice = $invoice;
         $this->pdf = $pdf;
+        $this->viewName = $viewName;
     }
 
     public function build()
     {
-        return $this->view('emails.invoice')
+        return $this->view($this->viewName)
             ->with([
                 'order' => $this->invoice->order,
                 'cart' => $this->invoice->order->cart

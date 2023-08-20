@@ -10,7 +10,7 @@
                     <div class="card-header">{{ __('Modifier un produit') }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('product.update', $product->id) }}" method="post"
+                        <form action="{{ route('admin.product.update', $product->id) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -90,20 +90,24 @@
                                 <label for="condition">{{ __('Condition') }}</label>
                                 <select id="condition" name="condition"
                                     class="form-control @error('condition') is-invalid @enderror">
-                                    <option value="Neuf" {{ $product->condition === 'Neuf' ? 'selected' : '' }}>{{ __('Neuf')}}
+                                    <option value="Neuf" {{ $product->condition === 'Neuf' ? 'selected' : '' }}>
+                                        {{ __('Neuf') }}
                                     </option>
                                     <option value="Parfait" {{ $product->condition === 'Parfait' ? 'selected' : '' }}>
-                                        {{ __('Parfait')}}</option>
+                                        {{ __('Parfait') }}</option>
                                     <option value="Très bon" {{ $product->condition === 'Très bon' ? 'selected' : '' }}>
-                                        {{ __('Très bon')}}</option>
-                                    <option value="Bon" {{ $product->condition === 'Bon' ? 'selected' : '' }}>{{ __('Bon')}}
+                                        {{ __('Très bon') }}</option>
+                                    <option value="Bon" {{ $product->condition === 'Bon' ? 'selected' : '' }}>
+                                        {{ __('Bon') }}
                                     </option>
-                                    <option value="Moyen" {{ $product->condition === 'Moyen' ? 'selected' : '' }}>{{ __('Moyen')}}
+                                    <option value="Moyen" {{ $product->condition === 'Moyen' ? 'selected' : '' }}>
+                                        {{ __('Moyen') }}
                                     </option>
                                     <option value="Mauvais" {{ $product->condition === 'Mauvais' ? 'selected' : '' }}>
-                                        {{ __('Mauvais')}}</option>
+                                        {{ __('Mauvais') }}</option>
                                     <option value="Très Mauvais"
-                                        {{ $product->condition === 'Très Mauvais' ? 'selected' : '' }}>{{ __('Très Mauvais')}}
+                                        {{ $product->condition === 'Très Mauvais' ? 'selected' : '' }}>
+                                        {{ __('Très Mauvais') }}
                                     </option>
                                 </select>
                                 @error('condition')
@@ -112,12 +116,13 @@
                                     </span>
                                 @enderror
                             </div>
-                            @if($product->image)
-    <div class="mb-3">
-        <label>{{ __('Image actuelle') }}</label>
-        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="200" class="img-thumbnail">
-    </div>
-@endif
+                            @if ($product->image)
+                                <div class="mb-3">
+                                    <label>{{ __('Image actuelle') }}</label>
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                        width="200" class="img-thumbnail">
+                                </div>
+                            @endif
 
                             <div class="form-group">
                                 <label for="image">{{ __('Image') }}</label>
@@ -135,9 +140,7 @@
                                 <select id="type_transaction" name="type_transaction"
                                     class="form-control @error('type_transaction') is-invalid @enderror">
                                     <option value="Vente" {{ $product->type_transaction === 'Vente' ? 'selected' : '' }}>
-                                        {{ __('Vente')}}</option>
-                                    <option value="Echange"
-                                        {{ $product->type_transaction === 'Echange' ? 'selected' : '' }}>{{ __('Échange')}}</option>
+                                        {{ __('Vente') }}</option>
                                 </select>
                                 @error('type_transaction')
                                     <span class="invalid-feedback" role="alert">
@@ -148,7 +151,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>
-                                <a href="{{ route('product.userProduct', $product->id) }}"
+                                <a href="{{ route('admin.product.index', $product->id) }}"
                                     class="btn btn-secondary">{{ __('Annuler') }}</a>
                             </div>
                         </form>

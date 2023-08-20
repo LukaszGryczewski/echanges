@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mb-3 d-flex justify-content-between align-items-center">
-        <a href="{{ route('product.create') }}" class="btn btn-custom-search">{{ __('Ajouter Produit') }}</a>
+        <a href="{{ route('admin.product.create') }}" class="btn btn-success">{{ __('Ajouter Produit') }}</a>
     </div>
 
     <div class="table-responsive">
@@ -27,8 +27,8 @@
                 </tr>
             </thead>
             <tbody>
-                @if (!empty($myProducts))
-                    @foreach ($myProducts as $product)
+                @if (!empty($products))
+                    @foreach ($products as $product)
                         <tr>
                             <td>
                                 @if ($product->image)
@@ -44,16 +44,14 @@
                             <td>{{ $product->type_transaction }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
-                                <a href="{{ route('product.edit', $product->id) }}"
-                                    class="mb-1 btn btn-primary btn-sm">{{ __('Modifer') }}</a>
-                                @if (Auth::check() && $product->user_id === Auth::user()->id)
-                                    <form method="post" action="{{ route('product.delete', $product->id) }}"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm">{{ __('Supprimer') }}</button>
-                                    </form>
-                                @endif
+                                <a href="{{ route('admin.product.edit', $product->id) }}"
+                                    class="mb-1 btn btn-success btn-sm">{{ __('Modifer') }}</a>
+                                <form method="post" action="{{ route('admin.product.delete', $product->id) }}"
+                                    class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm">{{ __('Supprimer') }}</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

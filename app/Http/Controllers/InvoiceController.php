@@ -11,82 +11,39 @@ class InvoiceController extends Controller
 {
 
     public function showInvoice($invoiceId)
-{
-    $invoice = Invoice::findOrFail($invoiceId);
-    $order = $invoice->order;
-    $cart = $order->cart;
-    return view('invoice.show', compact('invoice', 'order', 'cart'));
-}
-
-public function downloadInvoice($invoiceId) {
-    $invoice = Invoice::findOrFail($invoiceId);
-
-    // Just auth user can see the facture
-    if ($invoice->order->user_id != auth()->id()) {
-        abort(403, 'Unauthorized');
-    }
-
-    $path = $invoice->invoice_path;
-
-    if (Storage::exists($path)) {
-        return Storage::download($path);
-    } else {
-        abort(404, "File not found.");
-    }
-}
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
     {
-        //
+        $invoice = Invoice::with([
+            'order.cart' => function ($query) {
+                $query->withTrashed();
+            },
+            'order.cart.products.user'
+        ])->findOrFail($invoiceId);
+
+        $order = $invoice->order;
+        $cart = $order->cart;
+
+        if (!$cart) {
+            abort(404, 'Panier non trouvé.');
+        }
+
+        return view('invoice.show', compact('invoice', 'order', 'cart'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function downloadInvoice($invoiceId)
     {
-        //
-    }
+        $invoice = Invoice::findOrFail($invoiceId);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Just auth user can see the facture
+        if ($invoice->order->user_id != auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $path = $invoice->invoice_path;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if (Storage::exists($path)) {
+            return Storage::download($path);
+        } else {
+            abort(404, "File not found.");
+        }
     }
 }

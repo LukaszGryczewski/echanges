@@ -14,7 +14,7 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name','description','price','quantity','edition','user_id','type_id','condition','image','type_transaction','isAvailable'];
+    protected $fillable = ['name', 'description', 'price', 'quantity', 'edition', 'user_id', 'type_id', 'condition', 'image', 'type_transaction', 'isAvailable'];
 
     /**
      * The table addresses associated with the model Address.
@@ -30,40 +30,34 @@ class Product extends Model
      */
     public $timestamps = true;
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(Type::class);
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    /*public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }*/
-
-    /*public function carts()
-    {
-        return $this->belongsToMany(Cart::class);
-    }*/
     public function carts()
     {
-    return $this->belongsToMany(Cart::class, 'product_cart')
-                    ->withPivot('quantity', 'unit_price')
-                    ->withTimestamps();
-                }
+        return $this->belongsToMany(Cart::class, 'product_cart')
+            ->withPivot('quantity', 'unit_price')
+            ->withTimestamps();
+    }
 
     public function getImageUrlAttribute()
-{
-    if ($this->image) {
-        return asset('storage/' . $this->image);
-    } else {
-        return asset('storage/default_image.png');
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        } else {
+            return asset('storage/default_image.png');
+        }
     }
-}
 }

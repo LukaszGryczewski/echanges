@@ -17,18 +17,18 @@ return new class extends Migration
             $table->foreignId('product_id');
             $table->integer('quantity')->default(1);
             $table->double('unit_price');
+            //$table->softDeletes();
 
             $table->foreign('cart_id')
-                  ->references('id')
-                  ->on('carts')
-                  ->onDelete('restrict')
-                  ->onUpdate('restrict');
+                ->references('id')
+                ->on('carts')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
             $table->foreign('product_id')
-                  ->references('id')
-                  ->on('products')
-                  ->onDelete('restrict')
-                  ->onUpdate('restrict');
-
+                ->references('id')
+                ->on('products')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
         });
     }
 

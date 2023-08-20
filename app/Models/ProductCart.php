@@ -14,7 +14,8 @@ class ProductCart extends Model
         'cart_id',
         'product_id',
         'quantity',
-        'unit_price'
+        'unit_price',
+        'deleted_at'
     ];
 
     protected $table = 'product_cart';
@@ -32,5 +33,4 @@ class ProductCart extends Model
     {
         return $this->belongsTo(Cart::class);
     }
-
 }

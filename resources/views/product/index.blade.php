@@ -7,16 +7,15 @@
         <form action="{{ route('product.search') }}" method="GET">
             <div class="row">
                 <div class="col-sm-5">
-                    <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un produit...') }}"
+                    <input type="text" name="query" class="form-control " placeholder="{{ __('Chercher un produit...') }}"
                         value="{{ request('query') }}">
                 </div>
                 <div class="col-sm-3">
-                    <button type="submit" class="btn btn-custom-search w-100">{{ __('Rechercher') }}</button>
+                    <button type="submit" class="btn btn-success">{{ __('Rechercher') }}</button>
                 </div>
                 <div class="col-sm-4">
                     <!-- Bouton pour ouvrir le modal de recherche -->
-                    <button type="button" class="btn btn-custom-advanced w-100" data-bs-toggle="modal"
-                        data-bs-target="#searchModal">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#searchModal">
                         {{ __('Recherche avancée') }}
                     </button>
                 </div>
@@ -24,15 +23,14 @@
         </form>
     </div>
 
-
-
     <!-- Modal de recherche -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="searchModalLabel">Recherche avancée</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-success" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('product.search') }}" method="GET">
@@ -73,15 +71,7 @@
                             <option value="priceDesc">Décroissant</option>
                         </select>
 
-                        <!-- Utilisateurs ayant au moins un produit -->
-                        <select name="user_id" class="mb-2 form-control">
-                            <option value="">Sélectionner un utilisateur</option>
-                            @foreach (App\Models\User::has('products', '>', 0)->get() as $user)
-                                <option value="{{ $user->id }}">{{ $user->login }}</option>
-                            @endforeach
-                        </select>
-
-                        <button type="submit" class="mx-auto btn-custom w-50 d-block">Rechercher</button>
+                        <button type="submit" class="mx-auto btn btn-success d-block">Rechercher</button>
                     </form>
                 </div>
             </div>
@@ -99,7 +89,6 @@
                     <th>{{ __('Nom du produit') }}</th>
                     <th>{{ __('Edition') }}</th>
                     <th>{{ __('Type') }}</th>
-                    <th>{{ __('Utilisateur') }}</th>
                     <th>{{ __('Condition') }}</th>
                     <th>{{ __('Transaction') }}</th>
                     <th>{{ __('Prix (€)') }}</th>
@@ -118,7 +107,6 @@
                         <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
                         <td>{{ $product->edition }}</td>
                         <td>{{ $product->type->type }}</td>
-                        <td>{{ $product->user->login }}</td>
                         <td>{{ $product->condition }}</td>
                         <td>{{ $product->type_transaction }}</td>
                         <td>{{ $product->price }}</td>
@@ -134,7 +122,7 @@
                                 @else
                                     <input type="number" name="quantity" id="quantity" min="1"
                                         max="{{ $maxQuantities[$product->id] }}" value="1">
-                                    <button type="submit" class="btn-custom w-70">{{ __('Ajouter au panier') }}</button>
+                                    <button type="submit" class="btn btn-success">{{ __('Ajouter au panier') }}</button>
                                 @endif
                             </form>
                         </td>

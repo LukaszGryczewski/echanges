@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\Models\Cart;
 use App\Models\Order;
-//use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Invoice;
 use App\Models\Product;
 use Barryvdh\DomPDF\PDF;
@@ -21,11 +21,11 @@ use Illuminate\Support\Facades\Storage;
 class PaymentController extends Controller
 {
 
-
     public function __construct()
     {
         $this->middleware('auth');
     }
+
     public function showPaymentForm($orderId)
     {
         $order = Order::find($orderId);
@@ -53,16 +53,16 @@ class PaymentController extends Controller
             // If payement is succesfull update the variable order_status
             $order->update(['order_status' => 'paid']);
 
-            foreach($cartProducts as $cartProduct) {
+            foreach ($cartProducts as $cartProduct) {
                 $product = Product::find($cartProduct->pivot->product_id);
-    //dd($product);
-                // Déduire la quantité achetée
+
+                // Quantity buyed
                 $product->quantity -= $cartProduct->pivot->quantity;
 
-                // Vérifier si le produit est épuisé
+                // Verif if the quantity of product 0
                 if ($product->quantity <= 0) {
                     $product->isAvailable = 0;
-                    $product->quantity = 0; // pour garantir que la quantité ne devienne pas négative
+                    $product->quantity = 0;
                 }
 
                 $product->save();
@@ -75,7 +75,7 @@ class PaymentController extends Controller
                 'amount' => $order->total_price,
                 'currency' => 'eur',
                 'billing_date' => now(),
-                'details' => 'Détails de la facture' // Ajoutez les détails nécessaires
+                'details' => 'Détails de la facture'
             ]);
             $invoice->save();
 
@@ -115,12 +115,12 @@ class PaymentController extends Controller
     }
 
     protected function emptyUserCart($userId)
-{
-    $cart = Cart::where('user_id', $userId)->first();
-    if ($cart) {
-        $cart->products()->detach();
+    {
+        $cart = Cart::where('user_id', $userId)->first();
+        if ($cart) {
+            $cart->delete();
+        }
     }
-}
 
     public function success()
     {

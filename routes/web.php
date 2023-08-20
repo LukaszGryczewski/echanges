@@ -10,8 +10,9 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminProductController;
 //use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,22 @@ Route::get('admin/user/{id}', [AdminUserController::class, 'show'])
     ->name('admin.user.show');
 Route::get('admin/user/search', [AdminUserController::class, 'search'])
     ->name('admin.user.search');
+Route::get('/admin/products', [AdminProductController::class, 'index'])
+    ->middleware('auth')
+    ->name('admin.product.index');
+Route::get('admin/create-product', [AdminProductController::class, 'create'])
+    ->name('admin.product.create');
+Route::post('admin/product', [AdminProductController::class, 'store'])
+    ->name('admin.product.store');
+Route::delete('admin/product/{id}', [AdminProductController::class, 'destroy'])
+    ->where('id', '[0-9]+')
+    ->name('admin.product.delete');
+Route::get('admin/product/edit/{id}', [AdminProductController::class, 'edit'])
+    ->where('id', '[0-9]+')
+    ->name('admin.product.edit');
+Route::put('admin/product/{id}', [AdminProductController::class, 'update'])
+    ->where('id', '[0-9]+')
+    ->name('admin.product.update');
 
 Route::get('/user/{id}', [UserController::class, 'show'])
     ->where('id', '[0-9]+')
@@ -87,18 +104,8 @@ Route::get('/create-product', [ProductController::class, 'create'])
     ->name('product.create');
 Route::post('/product', [ProductController::class, 'store'])
     ->name('product.store');
-Route::get('/my-product', [ProductController::class, 'showProductsPerUser'])
-    ->middleware('auth')
-    ->name('product.userProduct');
-Route::get('/product/edit/{id}', [ProductController::class, 'edit'])
-    ->where('id', '[0-9]+')
-    ->name('product.edit');
-Route::put('/product/{id}', [ProductController::class, 'update'])
-    ->where('id', '[0-9]+')
-    ->name('product.update');
-Route::delete('/product/{id}', [ProductController::class, 'destroy'])
-    ->where('id', '[0-9]+')
-    ->name('product.delete');
+
+
 Route::get('/products/search', [ProductController::class, 'search'])
     ->name('product.search');
 
@@ -143,10 +150,14 @@ Route::get('/payment/success', [PaymentController::class, 'success'])
 Route::get('/payment/failed', [PaymentController::class, 'failed'])
     ->name('payment.failed');
 
+
+
 Route::get('/invoice/{invoiceId}', [InvoiceController::class, 'showInvoice'])
     ->name('invoice.show');
 Route::get('/invoice/download/{invoiceId}', [InvoiceController::class, 'downloadInvoice'])
     ->name('invoice.download')->middleware('auth');
+    Route::get('/seller-invoice/{invoiceId}', [InvoiceController::class,'showSellerInvoice'])
+    ->name('invoice.seller-show');
 
 //Multilanguage
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])

@@ -35,7 +35,7 @@
                             <form action="{{ route('cart.removeProduct', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">{{ __('Supprimer') }}</button>
+                                <button type="submit" class="btn btn-danger">{{ __('Supprimer') }}</button>
                             </form>
                         </td>
                     </tr>
@@ -46,7 +46,8 @@
                         <form action="{{ route('order.confirm') }}" method="GET">
                             <button type="submit" class="btn btn-success">{{ __('Valider le panier') }}</button>
                         </form>
-                        <nav><a href="{{ route('product.index') }}">{{ __('Continuer mes achats') }}</a></nav>
+                        <a class="btn btn-success"
+                            href="{{ route('product.index') }}">{{ __('Continuer mes achats') }}</a>
                     </td>
                 </tr>
             @else

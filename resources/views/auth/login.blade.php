@@ -44,7 +44,8 @@
                             </div>
 
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">{{ __('Authentifier') }}</button>
+                                <button type="submit"
+                                    class="mx-auto btn btn-success d-block">{{ __('Authentifier') }}</button>
                             </div>
                         </form>
                     </div>

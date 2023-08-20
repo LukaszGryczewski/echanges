@@ -5,6 +5,7 @@
     <table>
         <thead>
             <tr>
+                <th>{{ __('Vendeur') }}</th>
                 <th>{{ __('Nom du produit') }}</th>
                 <th>{{ __('Prix') }}</th>
                 <th>{{ __('Quantité') }}</th>
@@ -12,24 +13,37 @@
             </tr>
         </thead>
         <tbody>
-            @if ($cart)
-                @foreach ($cart->products as $product)
+            @if ($groupedProducts->isNotEmpty())
+                @foreach ($groupedProducts as $vendorId => $products)
+                    @php
+                        $vendorName = \App\Models\User::find($vendorId)->login;
+                        $vendorShippingCost =
+                            $products->sum(function ($product) {
+                                return $product->pivot->quantity * $product->pivot->unit_price;
+                            }) + $shippingCostPerVendor;
+                    @endphp
+                    @foreach ($products as $product)
+                        <tr>
+                            @if ($loop->first)
+                                <td rowspan="{{ $products->count() }}">{{ $vendorName }}</td>
+                            @endif
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->pivot->unit_price }} €</td>
+                            <td>{{ $product->pivot->quantity }}</td>
+                            <td>{{ $product->pivot->unit_price * $product->pivot->quantity }} €</td>
+                        </tr>
+                    @endforeach
                     <tr>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->pivot->unit_price }} €</td>
-                        <td>{{ $product->pivot->quantity }}</td>
-                        <td>{{ ($product->pivot->unit_price * $product->pivot->quantity)}} €</td>
+                        <td>{{ __('Frais de livraison pour') }} {{ $vendorName }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ $shippingCostPerVendor }} €</td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td>{{ __('Frais de livraison') }}</td>
-                    <td></td>
-                    <td></td>
-                    <td>6.99 €</td>
-                </tr>
             @else
                 <tr>
-                    <td colspan="4">{{ __('Votre panier est vide') }}.</td>
+                    <td colspan="5">{{ __('Votre panier est vide') }}.</td>
                 </tr>
             @endif
         </tbody>

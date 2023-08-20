@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cart extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,6 +17,7 @@ class Cart extends Model
      */
     protected $fillable = [
         'user_id',
+        'deleted_at'
     ];
 
     /**
@@ -32,20 +34,10 @@ class Cart extends Model
      */
     public $timestamps = false;
 
-    /*public function order()
-    {
-        return $this->belongsTo(Order::class);
-    }*/
-
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
-
-    /*public function produits()
-    {
-        return $this->belongsToMany(Produit::class);
-    }*/
 
     //relation OneToOne betwen Cart and User
     public function products()

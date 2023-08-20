@@ -21,11 +21,14 @@ class OrderController extends Controller
     public function confirm()
     {
         $cart = $this->cartService->getCart();
-        $totalPrice = $this->cartService->getTotalPrice($cart);
-        $shippingCost = 6.99;
-        $totalPrice = $totalPrice + $shippingCost;
-        return view('order.confirm', ['cart' => $cart, 'totalPrice' => $totalPrice]);
+        $groupedProducts = $cart->products->groupBy('user_id');
+        $shippingCostPerVendor = 6.99;
+        $shippingCost = $groupedProducts->count() * $shippingCostPerVendor;
+        $totalPrice = $this->cartService->getTotalPrice($cart) + $shippingCost;
+        return view('order.confirm', ['groupedProducts' => $groupedProducts, 'totalPrice' => $totalPrice, 'shippingCostPerVendor' => $shippingCostPerVendor]);
     }
+
+
 
     public function addressPayment()
     {
@@ -64,63 +67,6 @@ class OrderController extends Controller
             'order_status' => 'pending',  // statut initial
         ]);
 
-        // Redirigez vers la page de paiement avec l'ID de commande
         return redirect()->route('payment.show', ['orderId' => $order->id]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
