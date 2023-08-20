@@ -145,6 +145,7 @@
     "Frais de livraison" : "Frais de livraison",
     "Recherche avancée" : "Recherche avancée",
     "Action" : "Action",
+    "Mes Facture" : "Mes Facture",
 
     "L'adresse doit être au format \"Rue numéro code postal ville\"." : "L'adresse doit être une adresse belge et au format \"Rue numéro code postal ville\".",
     "delivery_address_format": "L'adresse doit être au format \"Rue numéro code postal ville\"."

@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Storage;
 class InvoiceController extends Controller
 {
 
+    public function index()
+    {
+        $invoices = Invoice::whereHas('order', function ($query) {
+            $query->where('user_id', auth()->id());
+        })->get();
+
+        return view('invoice.index', compact('invoices'));
+    }
+
     public function showInvoice($invoiceId)
     {
         $invoice = Invoice::with([

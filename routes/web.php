@@ -156,8 +156,10 @@ Route::get('/invoice/{invoiceId}', [InvoiceController::class, 'showInvoice'])
     ->name('invoice.show');
 Route::get('/invoice/download/{invoiceId}', [InvoiceController::class, 'downloadInvoice'])
     ->name('invoice.download')->middleware('auth');
-    Route::get('/seller-invoice/{invoiceId}', [InvoiceController::class,'showSellerInvoice'])
+Route::get('/seller-invoice/{invoiceId}', [InvoiceController::class,'showSellerInvoice'])
     ->name('invoice.seller-show');
+Route::get('/invoices', [InvoiceController::class, 'index'])
+    ->name('invoice.index');
 
 //Multilanguage
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])
