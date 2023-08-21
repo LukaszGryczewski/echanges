@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($invoices as $invoice)
+            @forelse ($invoices as $invoice)
                 <tr>
                     <td>{{ $invoice->id }}</td>
                     <td>{{ $invoice->amount }} {{ $invoice->currency }}</td>
@@ -23,7 +23,11 @@
                         <a href="{{ route('invoice.download', $invoice->id) }}">{{ __('Télécharger') }}</a>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">{{ __('Aucune facture trouvée.') }}</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 @endsection

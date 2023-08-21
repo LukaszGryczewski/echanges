@@ -22,6 +22,7 @@ class Order extends Model
         'order_date',
         'delivery_address',
         'shipping_cost',
+        'weight',
         'order_status',
         'deleted_at'
     ];

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('price');
             $table->integer('quantity');
             $table->string('edition',60);
+            $table->double('weight');
             $table->foreignId('user_id');
             $table->foreignId('type_id');
             $table->string('condition',255);

@@ -26,4 +26,11 @@ class CartService
         }
         return $totalPrice;
     }
+
+    public function getTotalWeight($cart)
+    {
+        return $cart->products->sum(function ($product) {
+            return $product->weight * $product->pivot->quantity;
+        });
+    }
 }

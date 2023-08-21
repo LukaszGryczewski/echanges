@@ -1,53 +1,86 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ __('Confirmez votre panier') }}</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>{{ __('Vendeur') }}</th>
-                <th>{{ __('Nom du produit') }}</th>
-                <th>{{ __('Prix') }}</th>
-                <th>{{ __('Quantité') }}</th>
-                <th>{{ __('Total de la commande') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($groupedProducts->isNotEmpty())
-                @foreach ($groupedProducts as $vendorId => $products)
-                    @php
-                        $vendorName = \App\Models\User::find($vendorId)->login;
-                        $vendorShippingCost =
-                            $products->sum(function ($product) {
-                                return $product->pivot->quantity * $product->pivot->unit_price;
-                            }) + $shippingCostPerVendor;
-                    @endphp
-                    @foreach ($products as $product)
-                        <tr>
-                            @if ($loop->first)
-                                <td rowspan="{{ $products->count() }}">{{ $vendorName }}</td>
-                            @endif
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->pivot->unit_price }} €</td>
-                            <td>{{ $product->pivot->quantity }}</td>
-                            <td>{{ $product->pivot->unit_price * $product->pivot->quantity }} €</td>
-                        </tr>
-                    @endforeach
+    <div class="container">
+        <h1>{{ __('Confirmez votre panier') }}</h1>
+
+        <div class="delivery-options">
+            <label>{{ __('Choisissez une option de livraison') }}:</label>
+            <select name="delivery_option" id="deliveryOptions">
+                @foreach ($availableOptions as $type => $cost)
+                    <option value="{{ $type }}" data-cost="{{ $cost }}">{{ ucfirst($type) }} -
+                        {{ $cost }} €</option>
+                @endforeach
+            </select>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{{ __('Vendeur') }}</th>
+                    <th>{{ __('Nom du produit') }}</th>
+                    <th>{{ __('Prix') }}</th>
+                    <th>{{ __('Quantité') }}</th>
+                    <th>{{ __('Total de la commande') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($preparedProducts as $productData)
                     <tr>
-                        <td>{{ __('Frais de livraison pour') }} {{ $vendorName }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ $shippingCostPerVendor }} €</td>
+                        @if ($productData['isFirst'])
+                            <td rowspan="{{ $productData['rowCount'] }}">{{ $productData['vendorName'] }}</td>
+                        @endif
+                        <td>{{ $productData['productName'] }}</td>
+                        <td>{{ $productData['unitPrice'] }} €</td>
+                        <td>{{ $productData['quantity'] }}</td>
+                        <td>{{ $productData['totalOrderPrice'] }} €</td>
                     </tr>
                 @endforeach
-            @else
-                <tr>
-                    <td colspan="5">{{ __('Votre panier est vide') }}.</td>
+                <tr id="deliveryCostRow" style="display: none;">
+                    <td colspan="4">{{ __('Coût de livraison') }}</td>
+                    <td id="deliveryCost">0 €</td>
                 </tr>
+
+                @if ($groupedProducts->isEmpty())
+                    <tr>
+                        <td colspan="5">{{ __('Votre panier est vide') }}.</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
+
+        <p>{{ __('Prix total') }}: <span id="totalPriceDisplay">{{ $totalPrice }} €</span></p>
+
+        <h2>{{ __('Informations de livraison et paiement') }}</h2>
+
+        <form action="{{ route('order.finalize') }}" method="POST">
+            {{ csrf_field() }}
+
+            <div class="form-group">
+                <label for="delivery_address">{{ __('Adresse de livraison') }}:</label>
+                <input type="text" class="form-control" name="delivery_address" id="delivery_address"
+                    placeholder="exemple: Rue de la soie 45 1000 Bruxelles" required>
+            </div>
+            <div>
+                <label for="payment_method">{{ __('Méthode de Paiement') }}:</label>
+                <select name="payment_method" required>
+                    <option value="card">{{ __('Carte bancaire') }}</option>
+                    <option value="paypal">{{ __('PayPal') }}</option>
+                </select>
+            </div>
+
+            <input type="hidden" name="chosen_delivery_cost" id="chosenDeliveryCost" value="0">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
-        </tbody>
-    </table>
-    <p>{{ __('Prix total') }}: {{ $totalPrice }} €</p>
-    <a href="{{ route('order.address-payment') }}" class="btn btn-primary">{{ __('Continuer') }}</a>
+
+            <button type="submit" class="btn btn-primary">{{ __('Continuer vers le paiement') }}</button>
+        </form>
+    </div>
 @endsection

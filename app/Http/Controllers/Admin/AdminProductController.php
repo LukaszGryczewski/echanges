@@ -24,7 +24,6 @@ class AdminProductController extends Controller
             'products' => $products,
             'resource' => 'produits',
         ]);
-
     }
 
     /**
@@ -47,6 +46,7 @@ class AdminProductController extends Controller
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],
             'edition' => ['required', 'string', 'max:60'],
+            'weight' => ['required', 'numeric'],
             'condition' => ['required', 'string', 'in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
             'image' => ['required', 'image'],
             'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
@@ -72,6 +72,7 @@ class AdminProductController extends Controller
             'price' => $request->price,
             'quantity' => $request->quantity,
             'edition' => $request->edition,
+            'weight' => $request->weight,
             'user_id' => $user->id,
             'type_id' => $type->id,
             'condition' => $request->condition,
@@ -111,6 +112,7 @@ class AdminProductController extends Controller
             'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],
+            'weight' => ['required', 'numeric'],
             'edition' => ['required', 'string', 'max:60'],
             'condition' => ['required', 'string', 'in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
             'image' => ['nullable', 'image'],
@@ -133,24 +135,19 @@ class AdminProductController extends Controller
 
     public function destroy(string $id)
     {
-
-        // Product::destroy($id);
         $product = Product::find($id);
 
-    if ($product) {
-        // Supprime les associations du produit dans la table product_cart
-        $product->carts()->detach();
+        if ($product) {
+            // Delete carts
+            $product->carts()->detach();
 
-        // Supprime les commentaires du produit
-        foreach ($product->comments as $comment) {
-            $comment->delete();
+            // Delete comments
+            foreach ($product->comments as $comment) {
+                $comment->delete();
+            }
+
+            $product->delete();
         }
-
-        // Supprime le produit lui-même
-        $product->delete();
-    }
         return redirect()->route('admin.product.index');
     }
-
-
 }

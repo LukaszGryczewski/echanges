@@ -75,6 +75,18 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="weight">{{ __('Poids') }}</label>
+                                <input type="text" id="weight" name="weight"
+                                    class="form-control @error('weight') is-invalid @enderror"
+                                    value="{{ old('weight', $product->weight) }}" required>
+                                @error('weight')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="type_id">{{ __('Type de produit') }}</label>
                                 <input type="text" id="type_id" name="type_id"
                                     class="form-control @error('type_id') is-invalid @enderror"
