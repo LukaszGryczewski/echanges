@@ -7,7 +7,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="shadow card">
-                    <img src="{{ asset('storage/' . $user->profile_image) }}" alt="{{ $user->login }}" class="card-img-top">
+                    <div class="mt-3 text-center"> <!-- Centrer l'image -->
+                        <img src="{{ asset('storage/' . $user->profile_image) }}" alt="{{ $user->login }}"
+                            class="card-img-top img-fluid rounded-circle profile-image">
+                    </div>
                     <div class="card-body">
                         <h1 class="mb-4 card-title">{{ $user->login }}</h1>
                         <table class="table table-bordered">
@@ -44,7 +47,8 @@
                             </tbody>
                         </table>
 
-                        <a class="nav-link" href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">{{ __('Modifier le profil') }}</a>
+                        <a class="nav-link"
+                            href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">{{ __('Modifier le profil') }}</a>
                         <form action="{{ route('user.destroy', auth()->user()->id) }}" method="POST"
                             onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.') }}'">
                             @csrf

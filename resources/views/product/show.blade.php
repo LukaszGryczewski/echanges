@@ -58,62 +58,74 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <span class="font-weight-bold"><a
-                                                    href="{{ route('user.show', $comment->user->id) }}">{{ $comment->user->login }}</a>
-                                                :</span> {{ $comment->comment }}
+                                                    href="{{ route('user.show', $comment->user->id) }}">{{ $comment->user->login }}</a>:</span>
+                                            {{ $comment->comment }}
                                         </div>
-                                        <div class="text-muted">
-                                            {{ $comment->score }} / 5
-                                            <small class="d-block">{{ $comment->created_at }}</small>
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3 text-muted">
+                                                {{ $comment->score }} / 5
+                                                <small class="d-block">{{ $comment->created_at }}</small>
+                                            </div>
+                                            @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                                                <a href="{{ route('comment.edit', $comment->id) }}"
+                                                    class="mr-1 btn btn-sm btn-success">{{ __('Modifier') }}</a>
+                                                <form method="post" action="{{ route('comment.delete', $comment->id) }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="method" value="DELETE">
+                                                    <button class="btn btn-sm btn-danger">{{ __('Supprimer') }}</button>
+                                                </form>
+                                            @endif
                                         </div>
-                                        @if (Auth::check() && Auth::user()->id === $comment->user_id)
-                                            <a href="{{ route('comment.edit', $comment->id) }}"
-                                                class="btn btn-sm btn-primary">{{ __('Modifier') }}</a>
-                                            <form method="post" action="{{ route('comment.delete', $comment->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="method" value="DELETE">
-                                                <button>{{ __('Supprimer') }}</button>
-                                            </form>
-                                        @endif
                                     </div>
                                 </li>
                             @endforeach
                         </ul>
+
+
+
+
+
                         <div class="card">
                             <div class="card-body">
                                 @if (Auth::check())
-                                <button id="show-comments" class="btn btn-primary">{{ __('Ajouter un commentaire') }}</button>
-                                <div id="comments-section" style="display: none;">
-                                <h5 class="card-title">{{ __('Ajouter un commentaire') }}</h5>
-                                <form action="{{ route('comment.store', ['product_id' => $product->id]) }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <div class="form-group">
-                                        <label for="comment">{{ __('Commentaire') }}</label>
-                                        <textarea class="form-control @error('comment') is-invalid @enderror" id="comment" name="comment" rows="3"></textarea>
-                                        @error('comment')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                    <button id="show-comments"
+                                        class="btn btn-success">{{ __('Ajouter un commentaire') }}</button>
+                                    <div id="comments-section" style="display: none;">
+                                        <h5 class="card-title">{{ __('Ajouter un commentaire') }}</h5>
+                                        <form action="{{ route('comment.store', ['product_id' => $product->id]) }}"
+                                            method="post">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <div class="form-group">
+                                                <label for="comment">{{ __('Commentaire') }}</label>
+                                                <textarea class="form-control @error('comment') is-invalid @enderror" id="comment" name="comment" rows="3"></textarea>
+                                                @error('comment')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="score">Score</label>
+                                                <select class="form-control @error('score') is-invalid @enderror"
+                                                    id="score" name="score">
+                                                    <option value="" disabled selected>
+                                                        {{ __('Choisissez une note') }}</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                @error('score')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <button type="submit"
+                                                class="btn btn-success">{{ __('Ajouter le commentaire') }}</button>
+                                        </form>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="score">Score</label>
-                                        <select class="form-control @error('score') is-invalid @enderror" id="score"
-                                            name="score">
-                                            <option value="" disabled selected>{{ __('Choisissez une note') }}</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                        @error('score')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">{{ __('Ajouter le commentaire') }}</button>
-                                </form>
-                            </div>
-                            @endif
+                                @endif
                             </div>
                         </div>
                     </div>

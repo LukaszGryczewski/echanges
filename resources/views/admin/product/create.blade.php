@@ -144,9 +144,9 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">{{ __('Ajouter') }}</button>
+                                <button type="submit" class="btn btn-success">{{ __('Ajouter') }}</button>
                                 <a href="{{ route('admin.product.index') }}"
-                                    class="btn btn-secondary">{{ __('Annuler') }}</a>
+                                    class="btn btn-danger">{{ __('Annuler') }}</a>
                             </div>
                         </form>
 
@@ -160,8 +160,6 @@
                                 </ul>
                             </div>
                         @endif
-
-                        <nav><a href="{{ route('admin.product.index') }}">{{ __('Retour à l\'index') }}</a></nav>
                     </div>
                 </div>
             </div>

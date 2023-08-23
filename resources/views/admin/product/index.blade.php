@@ -3,12 +3,26 @@
 @section('title', __('Liste des Produits'))
 
 @section('content')
-    <div class="mb-3 d-flex justify-content-between align-items-center">
-        <a href="{{ route('admin.product.create') }}" class="btn btn-success">{{ __('Ajouter Produit') }}</a>
+
+    <div class="mb-3 search-container">
+        <form action="{{ route('product.search') }}" method="GET">
+            <div class="row align-items-center">
+                <div class="col-sm-5">
+                    <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un produit...') }}"
+                        value="{{ request('query') }}">
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-success">{{ __('Rechercher') }}</button>
+                </div>
+                <div class="col-sm-4 text-end">
+                    <a href="{{ route('admin.product.create') }}" class="btn btn-success">{{ __('Ajouter Produit') }}</a>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <div class="table-responsive">
 
+    <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="table-title">
@@ -47,6 +61,7 @@
                                 <a href="{{ route('admin.product.edit', $product->id) }}"
                                     class="mb-1 btn btn-success btn-sm">{{ __('Modifer') }}</a>
                                 <form method="post" action="{{ route('admin.product.delete', $product->id) }}"
+                                    onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cet produit? Cette action est irréversible.') }}')"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -62,5 +77,8 @@
                 @endif
             </tbody>
         </table>
+        <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
+            {{ $products->links() }}
+        </div>
     </div>
 @endsection

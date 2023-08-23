@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
                 'email' => 'tom@gmail.com',
                 'password' => Hash::make('rootroot'),
                 'phone' => '0412345678',
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ],
             [
@@ -46,6 +47,7 @@ class UserSeeder extends Seeder
                 'email' => 'marc@gmail.com',
                 'password' => Hash::make('rootroot'),
                 'phone' => '0475189642',
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ],
             [
@@ -57,6 +59,7 @@ class UserSeeder extends Seeder
                 'email' => 'philip@gmail.com',
                 'password' => Hash::make('rootroot'),
                 'phone' => '0436184275',
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ],
             [
@@ -68,6 +71,7 @@ class UserSeeder extends Seeder
                 'email' => 'eric@gmail.com',
                 'password' => Hash::make('rootroot'),
                 'phone' => '0464891587',
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ],
             [
@@ -79,6 +83,7 @@ class UserSeeder extends Seeder
                 'email' => 'mathieu@gmail.com',
                 'password' => Hash::make('rootroot'),
                 'phone' => '0441574157',
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ],
             [
@@ -90,6 +95,7 @@ class UserSeeder extends Seeder
                 'email' => 'enrico@gmail.com',
                 'password' => Hash::make('rootroot'),
                 'phone' => '0465412348',
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ],
         ];
@@ -132,6 +138,7 @@ class UserSeeder extends Seeder
                 'email' => $email,
                 'password' => Hash::make('rootroot'),
                 'phone' => $phone,
+                'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
             ];
         }

@@ -1,3 +1,5 @@
+
+
 /*admin/user/index.blade.php*/
 .button-container {
     display: flex;
@@ -10,24 +12,23 @@
 
 /* Ajuste l'espacement du tableau */
 table {
-    width: 100%; /* Assurez-vous que le tableau prend toute la largeur */
-    border-collapse: collapse; /* Supprime les espaces entre les bordures */
+    width: 100%;
+    border-collapse: collapse;
 }
 
 table th, table td {
-    padding: 8px 12px; /* Ajustez comme souhaité pour réduire/ajouter de l'espacement */
-    border: 1px solid #ddd; /* Bordure pour chaque cellule */
+    padding: 8px 12px;
 }
 
 /* Style pour les en-têtes du tableau */
 table th {
-    background-color: #f2f2f2; /* Couleur d'arrière-plan pour les en-têtes */
+    background-color: #f2f2f2;
 }
 
 
 /*Menu*/
 .custom-light-green {
-    background-color: #3FFD5D; /* Ceci est un exemple de vert clair. */
+    background-color: #6B8DA5;
 }
 
 .navbar-brand img {
@@ -36,67 +37,91 @@ table th {
     margin-right: 0px !important;
 }
 
-.footer-container {
-    background-color: #3FFD5D;
-}
-
-.footer-container .row {
-    justify-content: space-between; /* Distribuez l'espace entre les éléments */
-}
-
-.footer-container .row .col-md-4 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centre verticalement le contenu de chaque colonne */
-}
-
-.footer-container .row .col-md-4.justify-content-end {
-    align-items: flex-end; /* Aligner le contenu de la colonne de l'adresse à droite */
+.container-fluid {
+    background-color:#6B8DA5;
 }
 
 /*Product index*/
 .table-title {
     background-color: #3FFD5D;
-    color: black; /* Texte en blanc */
-    font-size: 1.5em; /* Augmenter la taille de la police */
-    text-align: center; /* Centrer le texte */
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
 }
  /*Table*/
  .table-responsive {
-    max-width: 80%; /* Ajustez cette valeur selon vos préférences */
-    margin: 0 auto; /* Centrer le conteneur */
+    max-width: 80%;
+    margin: 0 auto;
 }
 /*Product index search + button*/
 .search-container {
-    max-width: 800px; /* Définissez la largeur maximale que vous souhaitez pour le conteneur de recherche */
-    margin: 0 auto; /* Centrer le conteneur sur la page */
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .btn-custom {
-    background-color: #3FFD5D; /* Remplacez par votre code couleur vert personnalisé */
-    color: black; /* Couleur du texte du bouton */
+    background-color: #3FFD5D;
+    color: black;
     border: none;
 }
 
 .btn-custom-search {
-    background-color: #3FFD5D; /* Remplacez par votre code couleur vert personnalisé */
-    color: black; /* Couleur du texte du bouton */
+    background-color: #3FFD5D;
+    color: black;
     border: none;
 }
 
 .btn-custom-search:hover, .btn-custom-search:focus {
-    background-color: #3FFD5D; /* Une nuance légèrement plus foncée pour le survol et le focus */
+    background-color: #3FFD5D;
 }
 
 .btn-custom-advanced {
-    background-color: #3FFD5D; /* Remplacez par votre code couleur vert personnalisé */
-    color: black; /* Couleur du texte du bouton */
+    background-color: #3FFD5D;
+    color: black;
     border: none;
 }
 
 .btn-custom-advanced:hover, .btn-custom-advanced:focus {
-    background-color: #3FFD5D; /* Une nuance légèrement plus foncée pour le survol et le focus */
+    background-color: #3FFD5D;
 }
 
-/*#45FF44;*/
 
+/*Taille ecran*/
+.header-menu {
+    height: 10vh;
+    /* Autres styles pour votre menu */
+}
+
+
+
+.footer {
+    height: 10vh;
+    /* Autres styles pour votre footer */
+}
+
+/*pagination*/
+/*.page-item .page-link {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}*/
+
+.custom-pagination img,
+    .custom-pagination svg,
+    .custom-pagination .page-link {
+        font-size: 0.8em; /* Ceci affectera la taille des flèches si elles sont basées sur la taille de la police */
+    }
+
+    .custom-pagination img,
+    .custom-pagination svg {
+        width: 20px; /* ou n'importe quelle autre taille que vous souhaitez */
+        height: auto;
+    }
+    .profile-image {
+        max-width: 200px; /* ou la taille que vous préférez */
+        margin: auto; /* pour centrer l'image horizontalement */
+    }

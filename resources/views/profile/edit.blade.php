@@ -93,12 +93,13 @@
 
                             <div class="form-group">
                                 <label for="password_confirmation">{{ __('Confirmer le nouveau mot de passe') }}</label>
-                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
-                                    required>
+                                <input type="password" id="password_confirmation" name="password_confirmation"
+                                    class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">{{ __('Modifier le mot de passe') }}</button>
+                                <button type="submit"
+                                    class="btn btn-primary">{{ __('Modifier le mot de passe') }}</button>
                             </div>
                         </form>
                     </div>

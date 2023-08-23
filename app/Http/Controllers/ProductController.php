@@ -16,7 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::where('isAvailable', 1)->get();
+        $products = Product::where('isAvailable', 1)->paginate(15);
+
         $maxQuantities = [];
 
         // Recup the cart of the user
@@ -96,7 +97,7 @@ class ProductController extends Controller
             $productsQuery->orderBy('price', 'desc');
         }
 
-        $products = $productsQuery->get();
+        $products = $productsQuery->paginate(15);
 
         $user = Auth::user();
         $maxQuantities = [];

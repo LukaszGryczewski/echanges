@@ -64,8 +64,7 @@
             <div>
                 <label for="payment_method">{{ __('Méthode de Paiement') }}:</label>
                 <select name="payment_method" required>
-                    <option value="card">{{ __('Carte bancaire') }}</option>
-                    <option value="paypal">{{ __('PayPal') }}</option>
+                    <option value="card">{{ __('Carte') }}</option>
                 </select>
             </div>
 
@@ -80,7 +79,7 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary">{{ __('Continuer vers le paiement') }}</button>
+            <button type="submit" class="btn btn-success">{{ __('Continuer vers le paiement') }}</button>
         </form>
     </div>
 @endsection

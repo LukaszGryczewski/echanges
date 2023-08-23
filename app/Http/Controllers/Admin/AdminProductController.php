@@ -18,7 +18,7 @@ class AdminProductController extends Controller
     public function index()
     {
         //$user = Auth::user();
-        $products = Product::where('isAvailable', 1)->get();
+        $products = Product::where('isAvailable', 1)->paginate(15);
 
         return view('admin.product.index', [
             'products' => $products,

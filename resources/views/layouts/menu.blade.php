@@ -19,10 +19,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/user') }}">{{ __('Panel Utilisateur') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('admin/refund') }}">{{ __('Remboursement') }}</a>
+                </li>
             @endif
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/contact') }}">{{ __('Contact') }}</a>
-            </li>
         </ul>
 
         <!-- Left Side Of Navbar -->

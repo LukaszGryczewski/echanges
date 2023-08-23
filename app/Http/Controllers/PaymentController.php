@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Log;
 use Stripe\Charge;
+use Stripe\Refund;
 use Stripe\Stripe;
 use App\Models\Cart;
 use App\Models\Order;
@@ -96,13 +97,11 @@ class PaymentController extends Controller
             $invoice->invoice_path = $path;
             $invoice->save();
 
+
+
             if ($order->order_status === 'paid') {
                 $this->emptyUserCart($order->user_id);
             }
-
-            //Send mail in format PDF
-            /*$invoiceMail = new InvoiceMail($invoice, $pdf);
-            Mail::to($order->user->email)->send($invoiceMail);*/
 
             return redirect()->route('payment.success');
         } catch (\Stripe\Exception\CardException $e) {
@@ -119,6 +118,44 @@ class PaymentController extends Controller
         $cart = Cart::where('user_id', $userId)->first();
         if ($cart) {
             $cart->delete();
+        }
+    }
+
+    public function showRefundForm()
+    {
+        $orders = Order::all(); // ou tout autre moyen pour récupérer les commandes
+        return view('admin.payment.refund', compact('orders'));
+    }
+
+    public function refund(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $orderId = $request->input('order_id');
+        $order = Order::findOrFail($orderId);
+        //$chargeId = $order->payment_id;
+        $invoice = $order->invoice;
+
+
+        if (!$invoice) {
+            return back()->withErrors(['error' => "Aucune facture trouvée pour cette commande."]);
+        }
+
+        $chargeId = $invoice->payment_id;
+
+        $amountToRefund = $request->input('refund_amount') * 100;
+
+        try {
+            $refund = Refund::create([
+                'charge' => $chargeId,
+                'amount' => $amountToRefund,
+            ]);
+
+            // Gérer le remboursement avec succès
+
+            return back()->with('status', 'Remboursement effectué avec succès!');
+        } catch (\Exception $e) {
+            // Gérer les erreurs
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 

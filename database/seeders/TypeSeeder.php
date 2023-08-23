@@ -33,6 +33,9 @@ class TypeSeeder extends Seeder
             [
                 'type' => 'manga',
             ],
+            [
+                'type' => 'console',
+            ],
 
         ];
         DB::table('types')->insert($types);

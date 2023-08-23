@@ -27,22 +27,6 @@
                                     <td>{{ $user->address->street }} {{ $user->address->number }}
                                         {{ $user->address->municipalitie }} {{ $user->address->postal_code }}</td>
                                 </tr>
-                                <tr>
-                                    <td><strong>{{ __('Mail') }}</strong></td>
-                                    <td>{{ $user->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>{{ __('Télephone') }}</strong></td>
-                                    <td>{{ $user->phone }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>{{ __('Crée le') }}</strong></td>
-                                    <td>{{ $user->created_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>{{ __('Modifiée le') }}</strong></td>
-                                    <td>{{ $user->updated_at }}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

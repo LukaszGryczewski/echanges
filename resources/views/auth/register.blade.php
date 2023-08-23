@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="shadow-sm card">
-                    <div class="text-white card-header bg-primary">{{ __('S\'enregistrer') }}</div>
+                    <div class="card-header ">{{ __('S\'enregistrer') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf

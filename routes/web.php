@@ -172,6 +172,13 @@ Route::middleware(['admin'])->group(function () {
     Route::put('admin/product/{id}', [AdminProductController::class, 'update'])
         ->where('id', '[0-9]+')
         ->name('admin.product.update');
+
+    /* Refound */
+    Route::post('admin/refund/', [PaymentController::class,'refund'])
+        ->name('admin.payment.refund');
+
+        Route::get('admin/refund', [PaymentController::class,'showRefundForm'])
+    ->name('admin.payment.refund.form');
 });
 
 require __DIR__ . '/auth.php';

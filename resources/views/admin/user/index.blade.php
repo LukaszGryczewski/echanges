@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4 text-center">{{ __('Liste des ') }} {{ $resource }}</h1>
         <form action="{{ route('admin.user.search') }}" method="GET" class="mb-3">
             <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un utilisateur') }}"
                 value="{{ request('query') }}">
@@ -12,7 +11,11 @@
         </form>
         <table class="table table-bordered table-hover">
             <thead class="table-light">
+                <tr class="table-title">
+                    <th colspan="9">{{ __('Liste des utilisateurs') }}</th>
+                </tr>
                 <tr>
+
                     <th>{{ __('Login') }}</th>
                     <th>{{ __('Prénom') }}</th>
                     <th>{{ __('Nom') }}</th>
@@ -35,10 +38,11 @@
                                         class="btn btn-success btn-sm">{{ __('Détails') }}</a>
                                     <!-- Bouton Supprimer -->
                                     <form action="{{ route('admin.user.adminDestroy', $user->id) }}" method="POST"
-                                        onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer l\'utilisateur? Cette action est irréversible.') }}')">
+                                        onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer le membre? Cette action est irréversible.') }}')"
+                                        class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">{{ __('Supprimer') }}</button>
                                     </form>
                                 </div>
                             </td>
@@ -47,5 +51,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
+            {{ $users->links() }}
+        </div>
     </div>
 @endsection

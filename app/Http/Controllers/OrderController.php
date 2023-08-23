@@ -92,7 +92,13 @@ class OrderController extends Controller
         $totalPrice = $this->cartService->getTotalPrice($cart);
 
 
+
         $totalPrice += $shippingCost;
+
+        $total_weight = 0;
+    foreach ($cart->products as $product) {
+        $total_weight += $product->pivot->quantity * $product->weight;
+    }
         $order = Order::create([
             'user_id' => auth()->id(),
             'cart_id' => auth()->user()->cart->id,
@@ -100,6 +106,7 @@ class OrderController extends Controller
             'order_date' => now(),
             'delivery_address' => $request->input('delivery_address'),
             'shipping_cost' => $shippingCost,
+            'weight' => $total_weight,
             'order_status' => 'pending',
         ]);
 

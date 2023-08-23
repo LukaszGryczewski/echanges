@@ -1,8 +1,4 @@
-/*import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();*/
+//import { initializeStripePayment } from './stripePayment';
 
 //Button view hiden password
 $(document).ready(function () {
@@ -52,4 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     deliveryOptionsSelect.dispatchEvent(new Event('change'));
 });
+
+/* Payment Strip */
+//initializeStripePayment();
 

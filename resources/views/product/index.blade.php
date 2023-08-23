@@ -28,17 +28,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="searchModalLabel">Recherche avancée</h5>
+                    <h5 class="modal-title" id="searchModalLabel">{{ __('Recherche avancée') }}</h5>
                     <button type="button" class="btn-close btn-success" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('product.search') }}" method="GET">
-                        <input type="text" name="query" placeholder="Rechercher..." class="mb-2 form-control">
+                        <input type="text" name="query" placeholder="{{ __('Rechercher') }}..."
+                            class="mb-2 form-control">
 
                         <!-- Éditions -->
                         <select name="edition" class="mb-2 form-control">
-                            <option value="">Sélectionner une édition</option>
+                            <option value="">{{ __('Sélectionner une édition') }}</option>
                             @isset($editions)
                                 @foreach ($editions as $edition)
                                     <option value="{{ $edition }}">{{ $edition }}</option>
@@ -48,7 +49,7 @@
 
                         <!-- Conditions -->
                         <select name="condition" class="mb-2 form-control">
-                            <option value="">Sélectionner une condition</option>
+                            <option value="">{{ __('Sélectionner une condition') }}</option>
                             @isset($conditions)
                                 @foreach ($conditions as $condition)
                                     <option value="{{ $condition }}">{{ $condition }}</option>
@@ -58,7 +59,7 @@
 
                         <!-- Types de produits -->
                         <select name="type_id" class="mb-2 form-control">
-                            <option value="">Sélectionner un type de produit</option>
+                            <option value="">{{ __('Sélectionner un type de produit') }}</option>
                             @foreach (App\Models\Type::all() as $type)
                                 <option value="{{ $type->id }}">{{ $type->type }}</option>
                             @endforeach
@@ -66,23 +67,22 @@
 
                         <!-- Tri par prix -->
                         <select name="price_order" class="mb-2 form-control">
-                            <option value="">Trier par prix</option>
-                            <option value="priceAsc">Croissant</option>
-                            <option value="priceDesc">Décroissant</option>
+                            <option value="">{{ __('Trier par prix') }}</option>
+                            <option value="priceAsc">{{ __('Croissant') }}</option>
+                            <option value="priceDesc">{{ __('Décroissant') }}</option>
                         </select>
 
-                        <button type="submit" class="mx-auto btn btn-success d-block">Rechercher</button>
+                        <button type="submit" class="mx-auto btn btn-success d-block">{{ __('Rechercher') }}</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="table-title">
-                    <th colspan="9">{{ __('Liste des :resource', ['resource' => $resource]) }}</th>
+                    <th colspan="9">{{ __('Liste des :resource produits') }}</th>
                 </tr>
                 <tr>
                     <th>{{ __('Image') }}</th>
@@ -122,13 +122,16 @@
                                 @else
                                     <input type="number" name="quantity" id="quantity" min="1"
                                         max="{{ $maxQuantities[$product->id] }}" value="1">
-                                    <button type="submit" class="btn btn-success">{{ __('Ajouter au panier') }}</button>
+                                    <button type="submit" class="btn btn-warning">{{ __('Ajouter au panier') }}</button>
                                 @endif
                             </form>
                         </td>
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
-    </div>
-</div @endsection
+        <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
+            {{ $products->links() }}
+        </div>
+    @endsection
