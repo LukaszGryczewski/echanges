@@ -82,6 +82,7 @@
                                 @endif
                             </tbody>
                         </table>
+                        <a class="btn btn-success" href="{{ route('admin.user.index') }}">{{ __('Retour') }}</a>
                     </div>
                 </div>
             </div>
