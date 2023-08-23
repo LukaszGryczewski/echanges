@@ -36,9 +36,9 @@
                             </div>
 
                             <!-- Bouton de remboursement -->
-                            <div class="text-center form-group">
-                                <button type="submit"
-                                    class="btn btn-danger">{{ __('Effectuer le remboursement') }}</button>
+                            <div class="d-flex justify-content-center form-group">
+                                <button type="submit" class="mr-2 btn btn-danger">{{ __('Effectuer le remboursement') }}</button>
+                                <a class="btn btn-success" href="{{ url('/') }}">{{ __('Retour vers l\'acceuil') }}</a>
                             </div>
 
                             @if (session('status'))

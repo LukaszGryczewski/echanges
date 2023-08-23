@@ -82,7 +82,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="table-title">
-                    <th colspan="9">{{ __('Liste des :resource produits') }}</th>
+                    <th colspan="9">{{ __('Liste des produits') }}</th>
                 </tr>
                 <tr>
                     <th>{{ __('Image') }}</th>

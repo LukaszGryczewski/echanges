@@ -50,7 +50,8 @@
                                     <button type="submit" class="btn btn-warning">{{ __('Valider le panier') }}</button>
                                 </form>
                                 <a class="btn btn-success"
-                                    href="{{ route('product.index') }}">{{ __('Continuer mes achats') }}</a>
+                                    href="{{ route('product.index') }}">{{ __('Continuer mes achats') }}
+                                </a>
                             </div>
                         </td>
                     </tr>
