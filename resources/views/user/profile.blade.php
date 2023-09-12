@@ -46,15 +46,16 @@
                                 </tr>
                             </tbody>
                         </table>
-
-                        <a class="nav-link"
+                        <div class="d-flex align-items-center">
+                        <a class="mr-1 btn btn-sm btn-success"
                             href="{{ route('user.edit', ['id' => Auth::user()->id]) }}">{{ __('Modifier le profil') }}</a>
                         <form action="{{ route('user.destroy', auth()->user()->id) }}" method="POST"
-                            onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.') }}'">
+                            onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.') }}'" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">{{ __('Supprimer mon compte') }}</button>
+                            <button type="submit" class="btn btn-sm btn-danger">{{ __('Supprimer mon compte') }}</button>
                         </form>
+                    </div>
                     </div>
                 </div>
             </div>

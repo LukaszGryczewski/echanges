@@ -39,7 +39,7 @@ class PaymentController extends Controller
         $cart = $order->cart;
         $cartProducts = $cart->products;
 
-        try {
+       try {
             // Payment with Stripe
             Stripe::setApiKey(config('services.stripe.secret'));
             $token = $request->input('stripeToken');
@@ -97,7 +97,8 @@ class PaymentController extends Controller
             $invoice->invoice_path = $path;
             $invoice->save();
 
-
+            /*$invoiceMail = new InvoiceMail($invoice, $pdf);
+            Mail::to($order->user->email)->send($invoiceMail);*/
 
             if ($order->order_status === 'paid') {
                 $this->emptyUserCart($order->user_id);

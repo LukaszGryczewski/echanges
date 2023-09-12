@@ -114,7 +114,7 @@
     "Télécharger votre facture": "Télécharger votre facture",
     "Modifier son profile": "Modifier son profile",
     "Ancien mot de passe": "Ancien mot de passe",
-    "Change Password": "Changer le mot de passe",
+
     "Telephone": "Téléphone",
     "Image de profil": "Image de profil",
     "Liste des utilisateurs": "Liste des utilisateurs",
@@ -173,5 +173,15 @@
     "Coût de livraison" : "Coût de livraison",
     "Informations de livraison et paiement" : "Informations de livraison et paiement",
     "Carte" : "Carte",
-    "Retour" : "Retour"
+    "Retour" : "Retour",
+    "S'authentifier" : "S'authentifier",
+
+    "Le produit n'existe pas" : "Le produit n'existe pas",
+    "Mot de passe" : "Mot de passe",
+    "Modifier son profile" : "Modifier son profile",
+    "Modifier le mot de passe" : "Modifier le mot de passe",
+    "Prix Total" : "Prix Total",
+    "Prix unitaire" : "Prix unitaire",
+    "Supprimer les produits sélectionnés" : "Supprimer les produits sélectionnés"
+
 }

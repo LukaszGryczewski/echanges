@@ -8,6 +8,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordController;
@@ -50,6 +51,10 @@ Route::get('/product/{id}', [ProductController::class, 'show'])
     ->name('product.show');
 Route::get('/products/search', [ProductController::class, 'search'])
     ->name('product.search');
+Route::get('/privacy', [PrivacyController::class, 'confidentiality'])
+    ->name('confidentiality.privacy');
+Route::get('/contact', [PrivacyController::class, 'contact'])
+    ->name('confidentiality.contact');
 
 //Multilanguage
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])
@@ -166,6 +171,11 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('admin/product/{id}', [AdminProductController::class, 'destroy'])
         ->where('id', '[0-9]+')
         ->name('admin.product.delete');
+    //Route::post('/admin/product/bulk-delete', [ProductController::class, 'bulkDelete'])
+    //    ->name('admin.product.bulkDelete');
+    Route::match(['post'], '/admin/product/bulk-delete', [AdminProductController::class, 'bulkDelete'])
+    ->name('admin.product.bulkDelete');
+
     Route::get('admin/product/edit/{id}', [AdminProductController::class, 'edit'])
         ->where('id', '[0-9]+')
         ->name('admin.product.edit');

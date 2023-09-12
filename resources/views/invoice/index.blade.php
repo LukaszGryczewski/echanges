@@ -36,5 +36,8 @@
                 </table>
             </div>
         </div>
+        <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
+            {{ $invoices->links() }}
+        </div>
     </div>
 @endsection

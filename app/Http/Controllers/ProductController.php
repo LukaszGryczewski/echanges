@@ -64,7 +64,7 @@ class ProductController extends Controller
         $query = $request->input('query');
         $priceOrder = $request->input('price_order');
 
-        $productsQuery = Product::where('isAvailable', 1)
+        /*$productsQuery = Product::where('isAvailable', 1)
             ->where(function ($queryBuilder) use ($query) {
                 $queryBuilder->where('name', 'LIKE', "%$query%")
                     ->orWhere('description', 'LIKE', "%$query%")
@@ -73,7 +73,10 @@ class ProductController extends Controller
                     ->orWhereHas('user', function ($q) use ($query) {
                         $q->where('login', 'LIKE', "%$query%");
                     });
-            });
+            });*/
+
+        $productsQuery = Product::where('isAvailable', 1)
+            ->where('name', 'LIKE', "$query%");
 
         $productsQuery->where('quantity', '>', 0);
         // Appliquer le filtre par type

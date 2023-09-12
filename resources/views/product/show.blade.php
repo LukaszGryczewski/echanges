@@ -8,7 +8,7 @@
             <div class="col-md-8">
                 <div class="shadow card">
                     @if ($product->image)
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="card-img-top">
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product_image card-img-top">
                     @endif
                     <div class="card-body">
                         <h1 class="mb-4 card-title">{{ $product->name }}</h1>

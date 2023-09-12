@@ -49,6 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
     deliveryOptionsSelect.dispatchEvent(new Event('change'));
 });
 
+
+//
+document.querySelector('.btn-danger').addEventListener('click', function(e) {
+    const isConfirmed = confirm('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.');
+    if (!isConfirmed) {
+        e.preventDefault();
+    }
+});
 /* Payment Strip */
 //initializeStripePayment();
 

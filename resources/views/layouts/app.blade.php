@@ -38,33 +38,42 @@
         </main>
     </div>
 </body>
-<footer class="py-4 mt-auto bg-light">
+<footer class="py-3 mt-auto bg-light">
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center" id="section-de-contact">
-            <div class="text-center col-md-4 text-md-start">
-                <h3>{{ __('Contact') }}</h3>
-                <ul class="list-unstyled">
-                    <li><i class="bi bi-envelope-fill"></i> {{ __('Adresse électronique') }}: info@iccbxl.be</li>
-                    <li><i class="bi bi-telephone-fill"></i> {{ __('Téléphone') }}: 02/279.58.40</li>
-                </ul>
 
-                <h3>{{ __('Adresse') }}</h3>
-                <ul class="list-unstyled">
-                    <li><i class="bi bi-house-door-fill"></i> Palais du Midi</li>
-                    <li><i class="bi bi-geo-alt-fill"></i> 4 Rue de la Fontaine</li>
-                    <li><i class="bi bi-geo-alt-fill"></i> 1000 Bruxelles</li>
+            <!-- Section de liens -->
+            <div class="col-md-4">
+                <ul class="mb-0 list-unstyled">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ url('/privacy') }}">{{ __('Confidentialité') }}</a>
+                    </li>
                 </ul>
             </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <a class="navbar-brand" href="{{ url('https://www.iccbxl.be/web/') }}">
+
+            <!-- Logo au centre -->
+            <div class="mt-2 text-center col-md-4">
+                <a href="{{ url('https://www.iccbxl.be/web/') }}">
                     <img src="{{ asset('storage/images/logoICC.png') }}" alt="Logo ICC"
-                        style="height:60px; width:auto;">
+                        class="img-fluid" style="height:50px; width:auto;">
                 </a>
             </div>
-            <div class="text-center col-md-4 text-md-end">
+
+            <div class="col-md-4">
+                <ul class="mb-0 list-unstyled text-md-end"> <!-- text-md-end alignera le contenu à droite sur les écrans medium et plus larges -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ url('/contact') }}">{{ __('Contact') }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Ligne de droits d'auteur -->
+        <div class="mt-2 row">
+            <div class="text-center col-md-12">
+                <p class="mb-0 text-muted small">© 2023 ICCBXL. Tous droits réservés.</p>
             </div>
         </div>
     </div>
 </footer>
-
 </html>

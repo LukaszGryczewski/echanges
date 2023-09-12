@@ -89,14 +89,14 @@ table th {
 /*Taille ecran*/
 .header-menu {
     height: 10vh;
-    /* Autres styles pour votre menu */
+
 }
 
 
 
 .footer {
     height: 10vh;
-    /* Autres styles pour votre footer */
+
 }
 
 /*pagination*/
@@ -113,15 +113,31 @@ table th {
 .custom-pagination img,
     .custom-pagination svg,
     .custom-pagination .page-link {
-        font-size: 0.8em; /* Ceci affectera la taille des flèches si elles sont basées sur la taille de la police */
+        font-size: 0.8em;
     }
 
     .custom-pagination img,
     .custom-pagination svg {
-        width: 20px; /* ou n'importe quelle autre taille que vous souhaitez */
+        width: 20px;
         height: auto;
     }
     .profile-image {
-        max-width: 200px; /* ou la taille que vous préférez */
-        margin: auto; /* pour centrer l'image horizontalement */
+        max-width: 200px;
+        margin: auto;
+    }
+
+    .product_image {
+        max-width: 530px;
+        margin: auto;
+    }
+
+    /*Vue produit variable name */
+    .product-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /*Vue produit variable name effet survole */
+    .product-link:hover {
+        color: blue;
     }

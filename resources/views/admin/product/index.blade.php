@@ -23,6 +23,7 @@
 
 
     <div class="table-responsive">
+
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="table-title">
@@ -44,13 +45,16 @@
                 @if (!empty($products))
                     @foreach ($products as $product)
                         <tr>
+
                             <td>
                                 @if ($product->image)
-                                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-thumbnail"
-                                        style="max-width: 100px;">
+                                    <a href="{{ route('product.show', $product->id) }}">
+                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
+                                            class="img-thumbnail" style="max-width: 100px;">
+                                    </a>
                                 @endif
                             </td>
-                            <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
+                            <td><a href="{{ route('product.show', $product->id) }}" class="product-link">{{ $product->name }}</a></td>
                             <td>{{ $product->edition }}</td>
                             <td>{{ $product->type->type }}</td>
                             <td>{{ $product->user->login }}</td>
@@ -60,13 +64,7 @@
                             <td>
                                 <a href="{{ route('admin.product.edit', $product->id) }}"
                                     class="mb-1 btn btn-success btn-sm">{{ __('Modifer') }}</a>
-                                <form method="post" action="{{ route('admin.product.delete', $product->id) }}"
-                                    onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cet produit? Cette action est irréversible.') }}')"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm">{{ __('Supprimer') }}</button>
-                                </form>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('admin.product.delete', $product->id) }}')">{{ __('Supprimer') }}</button>
                             </td>
                         </tr>
                     @endforeach
@@ -77,8 +75,11 @@
                 @endif
             </tbody>
         </table>
+
         <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
             {{ $products->links() }}
         </div>
     </div>
+
 @endsection
+

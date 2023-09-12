@@ -11,6 +11,11 @@
                 {{ __('Ton navigateur ne suporte pas se format de video') }}.
         </video>
     </div>
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
 
 
 @endsection

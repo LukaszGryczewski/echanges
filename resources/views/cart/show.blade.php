@@ -10,8 +10,9 @@
                 <thead>
                     <tr>
                         <th>{{ __('Nom du produit') }}</th>
-                        <th>{{ __('Prix') }}</th>
                         <th>{{ __('Quantité') }}</th>
+                        <th>{{ __('Prix unitaire') }}</th>
+                        <th>{{ __('Prix total') }}</th>
                         <th>{{ __('Actions') }}</th>
                     </tr>
                 </thead>
@@ -19,7 +20,6 @@
                     @foreach ($cart->products as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->pivot->unit_price * $product->pivot->quantity }} €</td>
                             <td>
                                 <form action="{{ route('cart.updateProduct', $product->id) }}" method="POST">
                                     @csrf
@@ -33,6 +33,9 @@
                                     </select>
                                 </form>
                             </td>
+                            <td>{{ $product->pivot->unit_price }} €</td>
+                            <td>{{ $product->pivot->unit_price * $product->pivot->quantity }} €</td>
+
                             <td>
                                 <form action="{{ route('cart.removeProduct', $product->id) }}" method="POST">
                                     @csrf

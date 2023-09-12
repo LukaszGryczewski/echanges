@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Modifier son prodile') }}</div>
+                    <div class="card-header">{{ __('Modifier son profile') }}</div>
 
                     <div class="card-body">
                         <form action="{{ route('user.update', ['id' => $user->id]) }}" method="POST"
@@ -52,9 +52,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="old_password">{{ __('Ancien mot de passe') }}</label>
-                                <a href="{{ route('user.update-password', $user->id) }}" class="btn btn-primary">
-                                    {{ __('Change Password') }}
+                                <label for="old_password">{{ __('Mot de passe') }}</label>
+                                <a href="{{ route('user.update-password', $user->id) }}" class="btn btn-sm btn-success">
+                                    {{ __('Modifier le mot de passe') }}
                                 </a>
                                 @error('old_password')
                                     <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">{{ __('Modifier') }}</button>
+                                <button type="submit" class="btn btn-success">{{ __('Modifier') }}</button>
                                 <a href="{{ route('user.profile', $user->id) }}"
                                     class="btn btn-secondary">{{ __('Annuler') }}</a>
                             </div>

@@ -79,59 +79,67 @@
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr class="table-title">
-                    <th colspan="9">{{ __('Liste des produits') }}</th>
-                </tr>
-                <tr>
-                    <th>{{ __('Image') }}</th>
-                    <th>{{ __('Nom du produit') }}</th>
-                    <th>{{ __('Edition') }}</th>
-                    <th>{{ __('Type') }}</th>
-                    <th>{{ __('Condition') }}</th>
-                    <th>{{ __('Transaction') }}</th>
-                    <th>{{ __('Prix (€)') }}</th>
-                    <th>{{ __('Action') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($products as $product)
-                    <tr>
-                        <td>
-                            @if ($product->image)
-                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-thumbnail"
-                                    style="max-width: 100px;">
-                            @endif
-                        </td>
-                        <td><a href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a></td>
-                        <td>{{ $product->edition }}</td>
-                        <td>{{ $product->type->type }}</td>
-                        <td>{{ $product->condition }}</td>
-                        <td>{{ $product->type_transaction }}</td>
-                        <td>{{ $product->price }}</td>
-
-                        <td>
-                            <form action="{{ route('cart.addProduct', $product->id) }}" method="POST">
-                                @csrf
-                                <label for="quantity">{{ __('Quantité :') }}</label>
-                                @if ($maxQuantities[$product->id] == 0)
-                                    <input type="number" name="quantity" id="quantity" min="0" max="0"
-                                        value="0" disabled>
-                                    <span>{{ __('Produit épuisé') }}</span>
-                                @else
-                                    <input type="number" name="quantity" id="quantity" min="1"
-                                        max="{{ $maxQuantities[$product->id] }}" value="1">
-                                    <button type="submit" class="btn btn-warning">{{ __('Ajouter au panier') }}</button>
-                                @endif
-                            </form>
-                        </td>
+        @if ($products && $products->count())
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="table-title">
+                        <th colspan="9">{{ __('Liste des Produits') }}</th>
                     </tr>
-                @endforeach
+                    <tr>
+                        <th>{{ __('Image') }}</th>
+                        <th>{{ __('Nom du produit') }}</th>
+                        <th>{{ __('Edition') }}</th>
+                        <th>{{ __('Type') }}</th>
+                        <th>{{ __('Condition') }}</th>
+                        <th>{{ __('Prix (€)') }}</th>
+                        <th>{{ __('Action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($products as $product)
+                        <tr>
+                            <td>
+                                @if ($product->image)
+                                    <a href="{{ route('product.show', $product->id) }}">
+                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
+                                            class="img-thumbnail" style="max-width: 100px;">
+                                    </a>
+                                @endif
+                            </td>
+                            <td><a href="{{ route('product.show', $product->id) }}" class="product-link">{{ $product->name }}</a></td>
+                            <td>{{ $product->edition }}</td>
+                            <td>{{ $product->type->type }}</td>
+                            <td>{{ $product->condition }}</td>
+                            <td>{{ $product->price }} €</td>
 
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
-            {{ $products->links() }}
-        </div>
-    @endsection
+                            <td>
+                                <form action="{{ route('cart.addProduct', $product->id) }}" method="POST">
+                                    @csrf
+                                    <label for="quantity">{{ __('Quantité :') }}</label>
+                                    @if ($maxQuantities[$product->id] == 0)
+                                        <input type="number" name="quantity" id="quantity" min="0" max="0"
+                                            value="0" disabled>
+                                        <span>{{ __('Produit épuisé') }}</span>
+                                    @else
+                                        <input type="number" name="quantity" id="quantity" min="1"
+                                            max="{{ $maxQuantities[$product->id] }}" value="1"
+                                            oninvalid="this.setCustomValidity('Le stock de ce produit est de {{ $maxQuantities[$product->id] }}. Veuillez introduire un chiffre inférieur ou égal à {{ $maxQuantities[$product->id] }}.')"
+                                            onchange="this.setCustomValidity('')">
+                                        <button type="submit"
+                                            class="btn btn-warning">{{ __('Ajouter au panier') }}</button>
+                                    @endif
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        @else
+            <div class="text-center alert alert-info">{{ __('Le produit n\'existe pas') }}</div>
+        @endif
+    </div>
+    <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
+        {{ $products->links() }}
+    </div>
+@endsection
