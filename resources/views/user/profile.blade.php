@@ -53,7 +53,7 @@
                             onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.') }}'" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">{{ __('Supprimer mon compte') }}</button>
+                            <button id="delete-account-btn" type="submit" class="btn btn-sm btn-danger">{{ __('Supprimer mon compte') }}</button>
                         </form>
                     </div>
                     </div>

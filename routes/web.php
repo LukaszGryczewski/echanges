@@ -171,11 +171,8 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('admin/product/{id}', [AdminProductController::class, 'destroy'])
         ->where('id', '[0-9]+')
         ->name('admin.product.delete');
-    //Route::post('/admin/product/bulk-delete', [ProductController::class, 'bulkDelete'])
-    //    ->name('admin.product.bulkDelete');
-    Route::match(['post'], '/admin/product/bulk-delete', [AdminProductController::class, 'bulkDelete'])
-    ->name('admin.product.bulkDelete');
-
+    Route::match(['post'], '/admin/product/productsCheck-delete', [AdminProductController::class, 'productsCheckDelete'])
+        ->name('admin.product.productsCheckDelete');
     Route::get('admin/product/edit/{id}', [AdminProductController::class, 'edit'])
         ->where('id', '[0-9]+')
         ->name('admin.product.edit');

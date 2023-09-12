@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const deliveryCostRow = document.getElementById('deliveryCostRow');
     const deliveryCostDisplay = document.getElementById('deliveryCost');
     const totalPriceDisplay = document.getElementById('totalPriceDisplay');
-    const chosenDeliveryCostInput = document.getElementById('chosenDeliveryCost'); // Nouveau
+    const chosenDeliveryCostInput = document.getElementById('chosenDeliveryCost');
 
     let initialTotalPrice = parseFloat(totalPriceDisplay.textContent);
 
@@ -44,19 +44,45 @@ document.addEventListener('DOMContentLoaded', function() {
         deliveryCostDisplay.textContent = deliveryCost.toFixed(2) + ' €';
         deliveryCostRow.style.display = 'table-row';
         totalPriceDisplay.textContent = (initialTotalPrice + deliveryCost).toFixed(2) + ' €';
-        chosenDeliveryCostInput.value = deliveryCost.toFixed(2); // Nouveau
+        chosenDeliveryCostInput.value = deliveryCost.toFixed(2);
     });
     deliveryOptionsSelect.dispatchEvent(new Event('change'));
 });
 
 
-//
-document.querySelector('.btn-danger').addEventListener('click', function(e) {
-    const isConfirmed = confirm('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.');
-    if (!isConfirmed) {
-        e.preventDefault();
+document.addEventListener("DOMContentLoaded", function() {
+    // Écouteur pour le bouton de suppression de compte
+    const deleteBtn = document.getElementById('delete-account-btn');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', function(e) {
+            const isConfirmed = confirm('Êtes-vous sûr de vouloir supprimer votre compte? Cette action est irréversible.');
+            if (!isConfirmed) {
+                e.preventDefault();
+            }
+        });
     }
-});
-/* Payment Strip */
-//initializeStripePayment();
 
+    // Écouteur pour le bouton "sélectionner tout"
+    const selectAllBtn = document.getElementById('select-all');
+    if (selectAllBtn) {
+        selectAllBtn.addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for(const checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        });
+    }
+
+});
+
+
+function confirmDelete(actionUrl) {
+    if (window.confirm('Êtes-vous sûr de vouloir supprimer cet produit? Cette action est irréversible.')) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = actionUrl;
+        form.innerHTML = '<input type="hidden" name="_token" value="' + document.querySelector('meta[name="csrf-token"]').getAttribute('content') + '"><input type="hidden" name="_method" value="DELETE">';
+        document.body.appendChild(form);
+        form.submit();
+    }
+}

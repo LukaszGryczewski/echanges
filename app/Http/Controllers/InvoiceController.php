@@ -14,7 +14,7 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::whereHas('order', function ($query) {
             $query->where('user_id', auth()->id());
-        })->pagination(20);
+        })->paginate(20);
 
         return view('invoice.index', compact('invoices'));
     }

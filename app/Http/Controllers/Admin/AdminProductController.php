@@ -150,4 +150,29 @@ class AdminProductController extends Controller
         }
         return redirect()->route('admin.product.index');
     }
+
+    public function productsCheckDelete(Request $request)
+    {
+        $selectedProducts = $request->input('selected_products');
+
+        if ($selectedProducts) {
+            foreach ($selectedProducts as $productId) {
+                $product = Product::find($productId);
+
+                if ($product) {
+                    $product->carts()->detach();
+
+                    foreach ($product->comments as $comment) {
+                        $comment->delete();
+                    }
+
+                    $product->delete();
+                }
+            }
+
+            return redirect()->route('admin.product.index')->with('success', 'Les produits sélectionnés ont été supprimés avec succès.');
+        } else {
+            return redirect()->route('admin.product.index')->with('error', 'Aucun produit sélectionné.');
+        }
+    }
 }
