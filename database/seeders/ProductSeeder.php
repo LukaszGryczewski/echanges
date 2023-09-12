@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
         Product::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        // Utiliser la bibliothèque Faker pour générer des données aléatoires
+        // Bibliothèque Faker pour générer des données aléatoires
         $faker = Faker::create();
         $products = [
             [

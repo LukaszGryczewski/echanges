@@ -51,6 +51,31 @@
                                 @enderror
                             </div>
 
+                            <!-- Gender -->
+                            <div class="mb-3 d-flex align-items-center">
+                                <label class="form-label me-3">{{ __('Sexe') }}</label>
+                                <div class="form-check me-2">
+                                    <input class="form-check-input" type="radio" name="gender" id="madame"
+                                        value="Madame">
+                                    <label class="form-check-label" for="madame">
+                                        {{ __('Madame') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="monsieur"
+                                        value="Monsieur">
+                                    <label class="form-check-label" for="monsieur">
+                                        {{ __('Monsieur') }}
+                                    </label>
+                                </div>
+                                @error('gender')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+
                             <!-- Address of the user -->
                             <div class="row">
                                 <!-- Street -->

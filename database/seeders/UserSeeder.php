@@ -21,15 +21,16 @@ class UserSeeder extends Seeder
         User::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        // Utiliser la bibliothèque Faker pour générer des données aléatoires
+        // Bibliothèque Faker pour générer des données aléatoires
         $faker = Faker::create();
 
-        // Vos 6 utilisateurs manuels
+        // 6 utilisateurs manuels
         $manualUsers = [
             [
                 'login' => 'Tom',
                 'firstname' => 'Tom',
                 'lastname' => 'Didier',
+                'gender' => 'Monsieur',
                 'role_id' => 1,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'tom@gmail.com',
@@ -37,11 +38,13 @@ class UserSeeder extends Seeder
                 'phone' => '0412345678',
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ],
             [
                 'login' => 'Marc',
                 'firstname' => 'Marc',
                 'lastname' => 'Mettio',
+                'gender' => 'Monsieur',
                 'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'marc@gmail.com',
@@ -49,11 +52,13 @@ class UserSeeder extends Seeder
                 'phone' => '0475189642',
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ],
             [
                 'login' => 'Philip',
                 'firstname' => 'Philip',
                 'lastname' => 'Pilihp',
+                'gender' => 'Monsieur',
                 'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'philip@gmail.com',
@@ -61,11 +66,13 @@ class UserSeeder extends Seeder
                 'phone' => '0436184275',
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ],
             [
                 'login' => 'Eric',
                 'firstname' => 'Eric',
                 'lastname' => 'Krik',
+                'gender' => 'Monsieur',
                 'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'eric@gmail.com',
@@ -73,11 +80,13 @@ class UserSeeder extends Seeder
                 'phone' => '0464891587',
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ],
             [
                 'login' => 'Mathieu',
                 'firstname' => 'Mathieu',
                 'lastname' => 'Laubo',
+                'gender' => 'Monsieur',
                 'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'mathieu@gmail.com',
@@ -85,11 +94,13 @@ class UserSeeder extends Seeder
                 'phone' => '0441574157',
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ],
             [
                 'login' => 'Enrico',
                 'firstname' => 'Enrico',
                 'lastname' => 'Paco',
+                'gender' => 'Monsieur',
                 'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => 'enrico@gmail.com',
@@ -97,33 +108,32 @@ class UserSeeder extends Seeder
                 'phone' => '0465412348',
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ],
         ];
 
-        $users = []; // Ceci stockera tous vos utilisateurs, y compris les 6 manuels et les 100 Faker
+        $users = [];
 
-        // Pour éviter les duplications, ajoutez d'abord vos utilisateurs manuels
         $usedLogins = array_column($manualUsers, 'login');
         $usedEmails = array_column($manualUsers, 'email');
         $usedPhones = array_column($manualUsers, 'phone');
 
-        // Ajouter les utilisateurs manuels à la liste principale
         $users = array_merge($users, $manualUsers);
 
         for ($i = 0; $i < 100; $i++) {
-            // Assurez-vous que le login est unique
+            // Login est unique
             do {
                 $login = $faker->userName;
             } while (in_array($login, $usedLogins));
             $usedLogins[] = $login;
 
-            // Assurez-vous que le courriel est unique
+            // Courriel est unique
             do {
                 $email = $faker->unique()->safeEmail;
             } while (in_array($email, $usedEmails));
             $usedEmails[] = $email;
 
-            // Assurez-vous que le téléphone est unique
+            // Téléphone est unique
             do {
                 $phone = $faker->phoneNumber;
             } while (in_array($phone, $usedPhones));
@@ -133,6 +143,7 @@ class UserSeeder extends Seeder
                 'login' => $login,
                 'firstname' => $faker->firstName,
                 'lastname' => $faker->lastName,
+                'gender' => $faker->randomElement(['Madame', 'Monsieur']),
                 'role_id' => 2,
                 'address_id' => $faker->numberBetween(1, 170),
                 'email' => $email,
@@ -140,6 +151,7 @@ class UserSeeder extends Seeder
                 'phone' => $phone,
                 'profile_image' => 'images/default.jpg',
                 'created_at' => now(),
+                'isBlocked' => false,
             ];
         }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('login', 60)->unique();
             $table->string('firstname', 60);
             $table->string('lastname', 60);
+            $table->string('gender', 60);
             $table->foreignId('role_id');
             $table->foreignId('address_id');
             $table->string('email')->unique();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('isBlocked');
             $table->softDeletes();
 
             $table->foreign('role_id')

@@ -23,12 +23,14 @@ class User extends Authenticatable
         'login',
         'firstname',
         'lastname',
+        'gender',
         'role_id',
         'address_id',
         'email',
         'password',
         'phone',
         'profile_image',
+        'isBlocked',
         'deleted_at'
     ];
 
