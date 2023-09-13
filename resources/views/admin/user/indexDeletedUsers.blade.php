@@ -12,7 +12,7 @@
         <table class="table table-bordered table-hover">
             <thead class="table-light">
                 <tr class="table-title">
-                    <th colspan="9">{{ __('Liste des utilisateurs') }}</th>
+                    <th colspan="9">{{ __('Liste des utilisateurs supprimée') }}</th>
                 </tr>
                 <tr>
 
@@ -35,16 +35,12 @@
                         @if (Auth::user() && Auth::user()->role && Auth::user()->role->role == 'admin')
                             <td>
                                 <div class="gap-2 d-flex align-items-center">
-                                    <!-- Bouton Détails -->
-                                    <a href="{{ route('admin.user.show', $user->id) }}"
-                                        class="btn btn-success btn-sm">{{ __('Détails') }}</a>
-                                    <!-- Bouton Supprimer -->
-                                    <form action="{{ route('admin.user.adminDestroy', $user->id) }}" method="POST"
-                                        onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer le membre? Cette action est irréversible.') }}')"
+                                    <!-- Bouton Restaurer -->
+                                    <form action="{{ route('admin.user.restore', $user->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">{{ __('Supprimer') }}</button>
+                                        <button type="submit"
+                                            class="btn btn-warning btn-sm">{{ __('Restaurer') }}</button>
                                     </form>
                                 </div>
                             </td>

@@ -21,6 +21,16 @@ class AdminUserController extends Controller
         ]);
     }
 
+    public function indexDeletedUsers()
+    {
+        $users = User::onlyTrashed()->paginate(20);
+
+        return view('admin.user.indexDeletedUsers', [
+            'users'    => $users,
+            'resource' => 'Utilisateurs Supprimés'
+        ]);
+    }
+
     public function show(string $id)
     {
         $user = User::find($id);
@@ -56,6 +66,15 @@ class AdminUserController extends Controller
 
         return redirect()->route('admin.user.index')->with('status', 'Utilisateur supprimé avec succès.');
     }
+
+    public function restore($id)
+{
+    $user = User::onlyTrashed()->findOrFail($id);
+    $user->restore();
+
+    return redirect()->route('admin.user.index')->with('success', 'Utilisateur restauré avec succès!');
+}
+
 
     public function search(Request $request)
     {

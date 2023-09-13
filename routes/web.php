@@ -153,8 +153,12 @@ Route::middleware(['admin'])->group(function () {
     /* Admin Panle for users */
     Route::get('admin/user', [AdminUserController::class, 'index'])
         ->name('admin.user.index');
+    Route::get('admin/usersDeleted', [AdminUserController::class, 'indexDeletedUsers'])
+        ->name('admin.user.indexDeletedUsers');
     Route::delete('admin/user/{id}', [AdminUserController::class, 'adminDestroy'])
         ->name('admin.user.adminDestroy');
+    Route::post('/admin/user/restore/{id}', [AdminUserController::class, 'restore'])
+        ->name('admin.user.restore');
     Route::get('admin/user/{id}', [AdminUserController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('admin.user.show');
