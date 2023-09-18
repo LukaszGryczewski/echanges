@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $products = Product::where('isAvailable', 1)->paginate(15);
+        $products = Product::where('isAvailable', 1)->orderBy('name', 'asc')->paginate(15);
 
         $maxQuantities = [];
 

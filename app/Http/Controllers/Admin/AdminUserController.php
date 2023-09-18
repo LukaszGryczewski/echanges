@@ -17,7 +17,7 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(20);
+        $users = User::orderBy('login', 'asc')->orderBy('email', 'asc')->paginate(20);
         return view('admin.user.index', [
             'users'    => $users,
             'resource' => 'Utilisateurs'
