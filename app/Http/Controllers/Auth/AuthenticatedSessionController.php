@@ -27,6 +27,14 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        // if user is blocked
+        if (Auth::user()->isBlocked) {
+            Auth::logout();
+
+            return redirect()->route('login')
+                ->with('error', __('Votre compte a été bloqué. Contactez l\'administrateur pour plus d\'informations.'));
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);

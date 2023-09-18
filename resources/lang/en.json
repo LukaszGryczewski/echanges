@@ -175,5 +175,7 @@
     "Informations de livraison et paiement": "Delivery and payment information",
     "Carte": "Card",
     "Retour" : "Retour",
-    "S'authentifier" : "Login"
+    "S'authentifier" : "Login",
+
+    "Votre compte a été bloqué. Contactez l'administrateur pour plus d'informations.": "Your account has been blocked. Contact the administrator for more information."
 }
