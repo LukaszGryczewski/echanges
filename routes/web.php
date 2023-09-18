@@ -164,6 +164,8 @@ Route::middleware(['admin'])->group(function () {
         ->name('admin.user.show');
     Route::get('admin/user/search', [AdminUserController::class, 'search'])
         ->name('admin.user.search');
+    Route::put('/admin/users/toggleBlock', [AdminUserController::class, 'toggleBlock'])
+        ->name('admin.user.toggleBlock');
 
     /* Admin Panel for products */
     Route::get('/admin/products', [AdminProductController::class, 'index'])

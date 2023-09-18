@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\BlockedUserMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\UserUnblockedNotification;
 
 class AdminUserController extends Controller
 {
@@ -68,12 +71,12 @@ class AdminUserController extends Controller
     }
 
     public function restore($id)
-{
-    $user = User::onlyTrashed()->findOrFail($id);
-    $user->restore();
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
 
-    return redirect()->route('admin.user.index')->with('success', 'Utilisateur restauré avec succès!');
-}
+        return redirect()->route('admin.user.index')->with('success', 'Utilisateur restauré avec succès!');
+    }
 
 
     public function search(Request $request)
@@ -99,5 +102,30 @@ class AdminUserController extends Controller
         return view('admin.user.show', [
             'user' => $user
         ]);
+    }
+
+    public function toggleBlock(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $reason = $request->block_reason;
+
+        $wasBlocked = $user->isBlocked;
+
+        // Update the status of user
+        $user->update(['isBlocked' => !$user->isBlocked]);
+
+        if ($user->isBlocked && $reason) {
+            $details = [
+                'username' => $user->login,
+                'reason' => $reason
+            ];
+            Mail::to($user->email)->send(new BlockedUserMail($details));
+            return redirect()->back()->with('status', 'Utilisateur bloqué.');
+        } elseif (!$user->isBlocked && $wasBlocked) {
+            $user->notify(new UserUnblockedNotification());
+            return redirect()->back()->with('status', 'Utilisateur débloqué.');
+        }
+
+        return redirect()->back();
     }
 }

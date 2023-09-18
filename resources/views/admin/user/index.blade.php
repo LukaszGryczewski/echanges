@@ -38,6 +38,17 @@
                                     <!-- Bouton Détails -->
                                     <a href="{{ route('admin.user.show', $user->id) }}"
                                         class="btn btn-success btn-sm">{{ __('Détails') }}</a>
+                                    <!-- Bouton Bloquer et debloquer -->
+                                    <form action="{{ route('admin.user.toggleBlock') }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <!-- Bouton pour ouvrir le modal -->
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#blockModal" data-userid="{{ $user->id }}"
+                                            data-username="{{ $user->login }}" data-useremail="{{ $user->email }}">
+                                            {{ $user->isBlocked ? __('Débloquer') : __('Bloquer') }}
+                                        </button>
+                                    </form>
                                     <!-- Bouton Supprimer -->
                                     <form action="{{ route('admin.user.adminDestroy', $user->id) }}" method="POST"
                                         onsubmit="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer le membre? Cette action est irréversible.') }}')"
@@ -55,6 +66,33 @@
         </table>
         <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">
             {{ $users->links() }}
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="blockModal" tabindex="-1" aria-labelledby="blockModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.user.toggleBlock') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="user_id" id="user_id">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="blockModalLabel">{{ __('Bloquer Utilisateur') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ __('Bloquer') }}: <span id="username"></span> (<span id="useremail"></span>)</p>
+                        <textarea class="form-control" name="block_reason" placeholder="{{ __('Raison du blocage...') }}"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                        <button type="submit" class="btn btn-warning" id="modalConfirmButton">
+                            {{ __('Confirmer le blocage') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
