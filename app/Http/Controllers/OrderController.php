@@ -18,6 +18,32 @@ class OrderController extends Controller
         $this->cartService = $cartService;
     }
 
+    public function index()
+    {
+        $orders = Order::where('order_status', 'paid')
+            ->orderBy('order_date', 'desc')
+            ->paginate(20);
+        return view('order.index', ['orders' => $orders]);
+    }
+
+    public function show(string $id)
+    {
+        $order = Order::with([
+            'cart' => function ($query) {
+                $query->withTrashed();
+            },
+            'cart.products.user'
+        ])->findOrFail($id);
+
+        $cart = $order->cart;
+
+        if (!$cart) {
+            abort(404, 'Panier non trouvé.');
+        }
+
+        return view('order.show', compact('order', 'cart'));
+    }
+
     public function confirm(Request $request)
     {
         $cart = $this->cartService->getCart();
@@ -69,7 +95,6 @@ class OrderController extends Controller
 
     public function finalize(Request $request)
     {
-        //dd($request->all());
         $shippingCost = $request->input('chosen_delivery_cost');
 
         // Message error
@@ -96,9 +121,9 @@ class OrderController extends Controller
         $totalPrice += $shippingCost;
 
         $total_weight = 0;
-    foreach ($cart->products as $product) {
-        $total_weight += $product->pivot->quantity * $product->weight;
-    }
+        foreach ($cart->products as $product) {
+            $total_weight += $product->pivot->quantity * $product->weight;
+        }
         $order = Order::create([
             'user_id' => auth()->id(),
             'cart_id' => auth()->user()->cart->id,
@@ -122,7 +147,7 @@ class OrderController extends Controller
                 list($maxWeight, $cost) = $pair;
                 if ($totalWeight <= $maxWeight) {
                     $availableOptions[$option] = $cost;
-                    break;  // Left when we match
+                    break;
                 }
             }
         }

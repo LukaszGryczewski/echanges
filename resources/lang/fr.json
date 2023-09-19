@@ -184,6 +184,23 @@
     "Prix unitaire" : "Prix unitaire",
     "Supprimer les produits sélectionnés" : "Supprimer les produits sélectionnés",
     "Liste des utilisateurs supprimée" : "Liste des utilisateurs supprimée",
-    "Votre compte a été bloqué. Contactez l'administrateur pour plus d'informations.": "Votre compte a été bloqué. Contactez l'administrateur pour plus d'informations."
+    "Votre compte a été bloqué. Contactez l'administrateur pour plus d'informations.": "Votre compte a été bloqué. Contactez l'administrateur pour plus d'informations.",
+    "N° commande : " : "N° commande : ",
+    "Utilisateur" : "Utilisateur",
+    "Date de commande" : "Date de commande",
+    "Prix total" : "Prix total",
+    "Adresse de livraison" : "Adresse de livraison",
+    "Poids" : "Poids",
+    "Status" : "Status",
+    "Liste des commandes" : "Liste des commandes",
+    "Prix de livraison" : "Prix de livraison",
+    "Commandes" : "Commandes",
+    "ID produit" : "ID produit",
+    "Nom du produit" : "Nom du produit",
+    "Quantité" : "Quantité",
+    "Prix unitaire" : "Prix unitaire",
+    "Total" : "Total",
+    "Liste des commandes" : "List des commandes",
+    "Détails de la commande" : "Détails de la commande"
 
 }

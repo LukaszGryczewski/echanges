@@ -56,6 +56,7 @@ Route::get('/privacy', [PrivacyController::class, 'confidentiality'])
 Route::get('/contact', [PrivacyController::class, 'contact'])
     ->name('confidentiality.contact');
 
+
 //Multilanguage
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])
     ->name('set-locale');
@@ -185,6 +186,12 @@ Route::middleware(['admin'])->group(function () {
     Route::put('admin/product/{id}', [AdminProductController::class, 'update'])
         ->where('id', '[0-9]+')
         ->name('admin.product.update');
+    /* Admin panel for orders */
+    Route::get('/orders', [OrderController::class,'index'])
+        ->name('order.index');
+    Route::get('order/{id}', [OrderController::class, 'show'])
+        ->where('id', '[0-9]+')
+        ->name('order.show');
 
     /* Refound */
     Route::post('admin/refund/', [PaymentController::class,'refund'])
