@@ -28,6 +28,11 @@ class RoleSeeder extends Seeder
                 'role' => 'user',
                 'name' => 'Utilisateur',
             ],
+            [
+                'role' => 'gestionnaire_commandes',
+                'name' => 'Gestionnaire des commandes',
+            ],
+
         ];
 
         DB::table('roles')->insert($roles);

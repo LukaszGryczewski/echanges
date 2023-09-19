@@ -201,4 +201,14 @@ Route::middleware(['admin'])->group(function () {
     ->name('admin.payment.refund.form');
 });
 
+Route::middleware(['order-manager'])->group(function () {
+
+    /* order-manager panel for orders */
+    Route::get('/orders', [OrderController::class,'index'])
+        ->name('order.index');
+    Route::get('order/{id}', [OrderController::class, 'show'])
+        ->where('id', '[0-9]+')
+        ->name('order.show');
+});
+
 require __DIR__ . '/auth.php';

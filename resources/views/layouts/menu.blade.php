@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/refund') }}">{{ __('Remboursement') }}</a>
                 </li>
+            @endif
+
+            @if (Auth::user() && Auth::user()->role && (Auth::user()->role->role == 'admin' || Auth::user()->role->role == 'gestionnaire_commandes'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/orders') }}">{{ __('Commandes') }}</a>
                 </li>
