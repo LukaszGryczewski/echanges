@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -47,7 +48,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
         ],
@@ -75,4 +76,9 @@ class Kernel extends HttpKernel
         'order-manager' => \App\Http\Middleware\EnsureUserIsOrderManager::class,
         'admin_or_order_manager' => \App\Http\Middleware\EnsureUserIsAdminOrOrderManager::class,
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('users:delete-soft-deleted')->daily();
+    }
 }
