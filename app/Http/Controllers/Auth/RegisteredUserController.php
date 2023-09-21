@@ -33,15 +33,12 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            //'name' => ['required', 'string', 'max:255'],
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'login' => ['required', 'string', 'max:60', 'unique:users'],
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::min(8)->mixedCase()->numbers()->symbols()],
             'street' => ['required', 'string', 'max:60'],
             'number' => ['required', 'string', 'max:10'],
             'city' => ['required', 'string', 'max:60'],
@@ -49,7 +46,7 @@ class RegisteredUserController extends Controller
             'postal_code' => ['required', 'string', 'max:15'],
             'phone' => ['required', 'string', 'max:60'],
         ]);
-        //$role = Role::find($request->role);
+
         $address = Address::create([
             'street' => $request->street,
             'number' => $request->number,

@@ -71,7 +71,7 @@
         <!-- Ligne de droits d'auteur -->
         <div class="mt-2 row">
             <div class="text-center col-md-12">
-                <p class="mb-0 text-muted small">© 2023 ICCBXL. Tous droits réservés.</p>
+                <p class="mb-0 text-muted small">© 2023 Lukasz Gryczewski ICCBXL. Tous droits réservés.</p>
             </div>
         </div>
     </div>
