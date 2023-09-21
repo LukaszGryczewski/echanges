@@ -59,4 +59,18 @@ class Order extends Model
     {
         return $this->hasOne(Invoice::class);
     }
+
+    public function getStatusClass()
+    {
+        switch ($this->order_status) {
+            case 'paid':
+                return 'paid-status';
+            case 'delivery':
+                return 'delivery-status';
+            case 'delivered':
+                return 'delivered-status';
+            default:
+                return '';
+        }
+    }
 }

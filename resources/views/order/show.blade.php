@@ -73,9 +73,25 @@
                             @endif
                         </div>
                         <a class="btn btn-success" href="{{ route('order.index') }}">{{ __('Retour') }}</a>
+                        <a href="{{ route('order.setstatus', ['id' => $order->id, 'status' => 'delivery']) }}"
+                            class="btn btn-primary">{{ __('Commande préparée') }}</a>
+                        <a href="{{ route('order.setstatus', ['id' => $order->id, 'status' => 'delivered']) }}"
+                            class="btn btn-secondary">{{ __('Confirmer livraison') }}</a>
                     </div>
                 </div>
             </div>
         </div>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
     </div>
 @endsection

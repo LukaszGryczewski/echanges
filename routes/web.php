@@ -186,12 +186,6 @@ Route::middleware(['admin'])->group(function () {
     Route::put('admin/product/{id}', [AdminProductController::class, 'update'])
         ->where('id', '[0-9]+')
         ->name('admin.product.update');
-    /* Admin panel for orders */
-    Route::get('/orders', [OrderController::class,'index'])
-        ->name('order.index');
-    Route::get('order/{id}', [OrderController::class, 'show'])
-        ->where('id', '[0-9]+')
-        ->name('order.show');
 
     /* Refound */
     Route::post('admin/refund/', [PaymentController::class,'refund'])
@@ -201,14 +195,16 @@ Route::middleware(['admin'])->group(function () {
     ->name('admin.payment.refund.form');
 });
 
-Route::middleware(['order-manager'])->group(function () {
+/* order-manager & admin panel for orders */
+Route::middleware(['admin_or_order_manager'])->group(function () {
 
-    /* order-manager panel for orders */
     Route::get('/orders', [OrderController::class,'index'])
         ->name('order.index');
     Route::get('order/{id}', [OrderController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('order.show');
+    Route::get('/order/setstatus/{id}/{status}', [OrderController::class, 'setStatus'])
+        ->name('order.setstatus');
 });
 
 require __DIR__ . '/auth.php';

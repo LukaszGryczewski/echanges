@@ -88,7 +88,7 @@ function confirmDelete(actionUrl) {
 }
 
 // Bloquer utilisateur avec message
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     var blockModal = document.getElementById('blockModal');
     var blockReasonTextArea = blockModal.querySelector('textarea[name="block_reason"]');
     var confirmButton = blockModal.querySelector('#modalConfirmButton');
@@ -117,7 +117,44 @@ document.addEventListener('DOMContentLoaded', function () {
         blockModal.querySelector('#username').textContent = userName;
         blockModal.querySelector('#useremail').textContent = userEmail;
     });
-});
+});*/
+
+function setupUserBlockModal() {
+    var blockModal = document.getElementById('blockModal');
+    if (!blockModal) return;
+
+    var blockReasonTextArea = blockModal.querySelector('textarea[name="block_reason"]');
+    var confirmButton = blockModal.querySelector('#modalConfirmButton');
+
+    blockModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-* attributes
+        var userId = button.getAttribute('data-userid');
+        var userName = button.getAttribute('data-username');
+        var userEmail = button.getAttribute('data-useremail');
+
+        if (button.textContent.trim() === 'Débloquer') {
+            blockModal.querySelector('.modal-title').textContent = 'Débloquer Utilisateur';
+            blockReasonTextArea.style.display = 'none';  // Hide the textarea
+            confirmButton.textContent = 'Confirmer le déblocage';
+        } else {
+            blockModal.querySelector('.modal-title').textContent = 'Bloquer Utilisateur';
+            blockReasonTextArea.style.display = 'block'; // Show the textarea
+            confirmButton.textContent = 'Confirmer le blocage';
+        }
+
+        // Update the modal's content
+        blockModal.querySelector('#user_id').value = userId;
+        blockModal.querySelector('#username').textContent = userName;
+        blockModal.querySelector('#useremail').textContent = userEmail;
+    });
+}
+
+// Call the function when the document is loaded
+document.addEventListener('DOMContentLoaded', setupUserBlockModal);
+
 
 
 

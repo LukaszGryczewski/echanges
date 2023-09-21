@@ -18,11 +18,25 @@ class OrderController extends Controller
         $this->cartService = $cartService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::where('order_status', 'paid')
-            ->orderBy('order_date', 'desc')
-            ->paginate(20);
+        if ($request->has('order_status')) {
+            $status = $request->order_status;
+
+            if ($status === 'all') {
+                $orders = Order::whereIn('order_status', ['paid', 'delivery', 'delivered'])
+                    ->orderBy('order_date', 'asc')
+                    ->paginate(20);
+            } else {
+                $orders = Order::where('order_status', $status)
+                    ->orderBy('order_date', 'asc')
+                    ->paginate(20);
+            }
+        } else {
+            $orders = Order::orderBy('order_date', 'asc')
+                ->paginate(20);
+        }
+
         return view('order.index', ['orders' => $orders]);
     }
 
@@ -42,6 +56,20 @@ class OrderController extends Controller
         }
 
         return view('order.show', compact('order', 'cart'));
+    }
+
+    public function setStatus($id, $status)
+    {
+        $order = Order::findOrFail($id);
+        if (in_array($status, ['delivery', 'delivered'])) {
+            $order->order_status = $status;
+            $order->save();
+
+            // Retournez à la même page avec un message de confirmation
+            return redirect()->back()->with('success', 'Statut de la commande mis à jour avec succès.');
+        }
+
+        return redirect()->back()->with('error', 'Statut de commande non valide.');
     }
 
     public function confirm(Request $request)

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="my-5 text-center">{{ __('Votre panier') }}</h1>
+        <h1 class="my-4 text-center">{{ __('Votre panier') }}</h1>
         @if ($cart && $cart->products->count())
             <table class="table table-bordered table-hover">
                 <thead>
