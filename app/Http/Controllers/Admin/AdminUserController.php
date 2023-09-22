@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Mail\BlockedUserMail;
+use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 use App\Notifications\UserUnblockedNotification;
 
 class AdminUserController extends Controller
@@ -84,10 +92,7 @@ class AdminUserController extends Controller
         $query = $request->input('query');
 
         // Serach user by login, firstname, lastname
-        $users = User::where('login', 'LIKE', "%$query%")
-            ->orWhere('firstname', 'LIKE', "%$query%")
-            ->orWhere('lastname', 'LIKE', "%$query%")
-            ->paginate(20);
+        $users = User::where('login', 'LIKE', "$query%")->paginate(20);
 
         return view('admin.user.index', [
             'users'    => $users,
@@ -127,5 +132,74 @@ class AdminUserController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /**
+     * Display form for create new user.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        $roles = Role::all();
+        return view('admin.user.create', compact('roles'));
+    }
+
+
+    /**
+     * Handle an incoming registration request.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'login' => ['required', 'string', 'max:60', 'unique:users'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:60'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::min(8)->mixedCase()->numbers()->symbols()],
+            'street' => ['required', 'string', 'max:60'],
+            'number' => ['required', 'string', 'max:10'],
+            'city' => ['required', 'string', 'max:60'],
+            'municipalitie' => ['nullable', 'string', 'max:60'],
+            'postal_code' => ['required', 'string', 'max:15'],
+            'phone' => ['required', 'string', 'max:60'],
+        ]);
+
+        $user = Auth::user();
+
+        $roleId = $request->input('role');
+
+        $role = Role::findOrFail($roleId);
+
+        $address = Address::create([
+            'street' => $request->street,
+            'number' => $request->number,
+            'city' => $request->city,
+            'municipalitie' => $request->municipalitie,
+            'postal_code' => $request->postal_code,
+        ]);
+
+        $address->save();
+
+        $user = User::create([
+            'login' => $request->login,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'gender' => $request->gender,
+            'role_id' => $role->id,
+            'address_id' => $address->id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'profile_image' => 'images/default.jpg',
+            'isBlocked' => false,
+        ]);
+
+        $user->save();
+
+        return redirect()->route('admin.user.index')->with('success', 'User created successfully.');
     }
 }

@@ -56,10 +56,10 @@ Route::get('/privacy', [PrivacyController::class, 'confidentiality'])
 Route::get('/contact', [PrivacyController::class, 'contact'])
     ->name('confidentiality.contact');
 
-
 //Multilanguage
 Route::get('set-locale/{locale}', [LocaleController::class, 'setLocale'])
     ->name('set-locale');
+
 Route::middleware(['auth'])->group(function () {
 
     /* User route*/
@@ -152,7 +152,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['admin'])->group(function () {
 
     /* Admin Panle for users */
-    Route::get('admin/user', [AdminUserController::class, 'index'])
+    Route::get('admin/users', [AdminUserController::class, 'index'])
         ->name('admin.user.index');
     Route::get('admin/usersDeleted', [AdminUserController::class, 'indexDeletedUsers'])
         ->name('admin.user.indexDeletedUsers');
@@ -167,6 +167,11 @@ Route::middleware(['admin'])->group(function () {
         ->name('admin.user.search');
     Route::put('/admin/users/toggleBlock', [AdminUserController::class, 'toggleBlock'])
         ->name('admin.user.toggleBlock');
+    Route::get('admin/create-user', [AdminUserController::class, 'create'])
+        ->name('admin.user.create');
+    Route::post('admin/user', [AdminUserController::class, 'store'])
+        ->name('admin.user.store');
+
 
     /* Admin Panel for products */
     Route::get('/admin/products', [AdminProductController::class, 'index'])

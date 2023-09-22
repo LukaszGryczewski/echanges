@@ -136,7 +136,7 @@
                 </tbody>
             </table>
         @else
-            <div class="text-center alert alert-info">{{ __('Le produit n\'existe pas') }}</div>
+            <div class="text-center alert alert-info">{{ __('La liste des produits est vide') }}</div>
         @endif
     </div>
     <div class="d-flex justify-content-center custom-pagination" style="font-size: 0.8em;">

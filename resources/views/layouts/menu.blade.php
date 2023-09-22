@@ -17,7 +17,7 @@
                     <a class="nav-link" href="{{ url('/admin/products') }}">{{ __('Panel Produit') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/user') }}">{{ __('Panel Utilisateur') }}</a>
+                    <a class="nav-link" href="{{ url('admin/users') }}">{{ __('Panel Utilisateur') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/usersDeleted') }}">{{ __('Panel deleted Utilisateur') }}</a>
