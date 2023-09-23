@@ -106,12 +106,12 @@
                                     </a>
                                 @endif
                             </td>
-                            <td><a href="{{ route('product.show', $product->id) }}" class="product-link">{{ $product->name }}</a></td>
+                            <td><a href="{{ route('product.show', $product->id) }}"
+                                    class="product-link">{{ $product->name }}</a></td>
                             <td>{{ $product->edition }}</td>
                             <td>{{ $product->type->type }}</td>
                             <td>{{ $product->condition }}</td>
                             <td>{{ $product->price }} €</td>
-
                             <td>
                                 <form action="{{ route('cart.addProduct', $product->id) }}" method="POST">
                                     @csrf

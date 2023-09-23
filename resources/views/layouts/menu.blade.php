@@ -20,7 +20,7 @@
                     <a class="nav-link" href="{{ url('admin/users') }}">{{ __('Panel Utilisateur') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/usersDeleted') }}">{{ __('Panel deleted Utilisateur') }}</a>
+                    <a class="nav-link" href="{{ url('admin/usersDeleted') }}">{{ __('Panel Utilisateur Supprimé') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/refund') }}">{{ __('Remboursement') }}</a>
