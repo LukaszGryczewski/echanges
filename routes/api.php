@@ -18,4 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('products', Api\ProductController::class);
+// Ici, nous appliquons le middleware 'cors' uniquement à la route des produits
+Route::group(['middleware' => ['cors']], function () {
+    Route::resource('products', Api\ProductController::class);
+});

@@ -12,6 +12,7 @@ use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminProductController;
 //use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -42,6 +43,8 @@ Route::get('/dashboard', function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 });*/
+
+Route::apiResource('products', ProductApiController::class);
 
 /* Product route guest*/
 Route::get('/product', [ProductController::class, 'index'])
