@@ -196,6 +196,53 @@
     "La liste des utilisateurs est vide" : "La liste des utilisateurs est vide",
     "La liste des produits est vide" : "La liste des produits est vide",
 
-    "Panel Utilisateur Supprimé" : "Panel Utilisateur Supprimé"
+    "Panel Utilisateur Supprimé" : "Panel Utilisateur Supprimé",
+    "Montant produits" : "Montant produits",
+    "Montant livraison" : "Montant livraison",
+    "Montant total" : "Montant total",
+    "Politique de Confidentialité" : "Politique de Confidentialité",
+    "Traitement des données" : "Traitement des données",
+    "Lorsque vous passez une commande via notre site web, nous collectons et traitons les informations personnelles que vous nous transmettez. Cela peut inclure des données d'identification telles que votre nom, adresse, adresse e-mail, ainsi que des informations relatives à votre mode de paiement. De plus, nous collectons des 'données de trafic' concernant les visiteurs de notre site web, ce qui implique l'enregistrement de l'adresse IP de votre ordinateur et l'analyse du comportement des utilisateurs. Ces données sont collectées dans le but exclusif de traiter votre commande, améliorer nos services, et optimiser le contenu de notre site web. Conformément au Règlement Général sur la Protection des Données (RGPD), nous conservons vos données uniquement pour la durée strictement nécessaire." : "Lorsque vous passez une commande via notre site web, nous collectons et traitons les informations personnelles que vous nous transmettez. Cela peut inclure des données d'identification telles que votre nom, adresse, adresse e-mail, ainsi que des informations relatives à votre mode de paiement. De plus, nous collectons des 'données de trafic' concernant les visiteurs de notre site web, ce qui implique l'enregistrement de l'adresse IP de votre ordinateur et l'analyse du comportement des utilisateurs. Ces données sont collectées dans le but exclusif de traiter votre commande, améliorer nos services, et optimiser le contenu de notre site web. Conformément au Règlement Général sur la Protection des Données (RGPD), nous conservons vos données uniquement pour la durée strictement nécessaire.",
+    "Protection des données" : "Protection des données",
+    "Des mesures de sécurité renforcées sont en place pour garantir la protection des données que nous traitons, afin d'éviter tout accès non autorisé à ces informations." : "Des mesures de sécurité renforcées sont en place pour garantir la protection des données que nous traitons, afin d'éviter tout accès non autorisé à ces informations.",
+    "Partage des données" : "Partage des données",
+    "Soyez assurés que nous ne vendons ni ne partageons vos données avec des tiers, à l'exception de ceux directement impliqués dans le processus d'exécution de votre commande. Tous nos collaborateurs et les tiers avec lesquels nous collaborons sont tenus de garantir la confidentialité de vos informations." : "Soyez assurés que nous ne vendons ni ne partageons vos données avec des tiers, à l'exception de ceux directement impliqués dans le processus d'exécution de votre commande. Tous nos collaborateurs et les tiers avec lesquels nous collaborons sont tenus de garantir la confidentialité de vos informations.",
+    "Tarifs" : "Tarifs",
+    "Les prix de nos produits sont indiqués en euros, toutes taxes comprises (TVA). La propriété des produits demeure celle de Treasures jusqu'au paiement complet du prix." : "Les prix de nos produits sont indiqués en euros, toutes taxes comprises (TVA). La propriété des produits demeure celle de Treasures jusqu'au paiement complet du prix.",
+    "La Validation" : "La Validation",
+    "En validant votre commande, vous confirmez avoir lu, compris et accepté nos Conditions générales de vente." : "En validant votre commande, vous confirmez avoir lu, compris et accepté nos Conditions générales de vente.",
+    "Livraison" : "Livraison",
+    "Les produits sont livrés à l'adresse que vous fournissez lors de votre commande avec un délai de 14 jours. En cas de retard d'expédition ou de livraison, nous vous informerons et proposerons une nouvelle date de livraison. Si la livraison accuse un retard de plus de 30 jours après la commande, vous pouvez résilier le contrat selon les conditions de l'Article L 216-2 du Code de la consommation." : "Les produits sont livrés à l'adresse que vous fournissez lors de votre commande avec un délai de 14 jours. En cas de retard d'expédition ou de livraison, nous vous informerons et proposerons une nouvelle date de livraison. Si la livraison accuse un retard de plus de 30 jours après la commande, vous pouvez résilier le contrat selon les conditions de l’Article L 216-2 du Code de la consommation.",
+    "Droit de rétractation" : "Droit de rétractation",
+    "En accord avec les lois en vigueur, vous disposez d'un délai de 14 jours pour révoquer votre achat sans justifier de motifs. Seul le prix du ou des produits et les frais d'expédition vous seront remboursés. Les produits retournés doivent être dans leur état original et complet, avec un justificatif d'achat. Le remboursement sera effectué dans un délai de 14 jours après la réception des produits retournés." :"En accord avec les lois en vigueur, vous disposez d'un délai de 14 jours pour révoquer votre achat sans justifier de motifs. Seul le prix du ou des produits et les frais d'expédition vous seront remboursés. Les produits retournés doivent être dans leur état original et complet, avec un justificatif d'achat. Le remboursement sera effectué dans un délai de 14 jours après la réception des produits retournés.",
+    "Paiement sécurisé" : "Paiement sécurisé",
+    "Pour garantir la sécurité de vos transactions, nous utilisons le système de paiement sécurisé de Stripe, qui accepte les cartes Visa et Mastercard." : "Pour garantir la sécurité de vos transactions, nous utilisons le système de paiement sécurisé de Stripe, qui accepte les cartes Visa et Mastercard.",
+    "Communications téléphoniques" : "Communications téléphoniques",
+    "Si vous choisissez de partager votre numéro de téléphone avec nous, nous ne l'utiliserons que pour discuter de questions pertinentes à vos commandes en ligne." : "Si vous choisissez de partager votre numéro de téléphone avec nous, nous ne l'utiliserons que pour discuter de questions pertinentes à vos commandes en ligne.",
+    "Pour toute question ou préoccupation concernant notre politique de confidentialité, n'hésitez pas à nous contacter par e-mail." : "Pour toute question ou préoccupation concernant notre politique de confidentialité, n'hésitez pas à nous contacter par e-mail.",
+    "Chercher un produit..." : "Chercher un produit...",
+    "Voir" : "Voir",
+    "Télécharger" : "Télécharger",
+    "Commande préparée" : "Commande préparée",
+    "Confirmer livraison" : "Confirmer livraison",
+    "Produits de la commande" : "Produits de la commande",
+    "Toutes les commandes" :"Toutes les commandes",
+    "Commandes Payées" : "Commandes Payées",
+    "Commandes en Livraison" : "Commandes en Livraison",
+    "Commandes Livrées" : "Commandes Livrées",
+    "Aucune facture trouvée." : "Aucune facture trouvée.",
+    "Bloquer" : "Bloquer",
+    "Débloquer" : "Débloquer",
+    "Raison du blocage..." : "Raison du blocage...",
+    "Confirmer le blocage" : "Confirmer le blocage",
+
+    "Êtes-vous sûr de vouloir supprimer le membre? Cette action est irréversible." : "Êtes-vous sûr de vouloir supprimer le membre? Cette action est irréversible."
+
+
+
+
+
+
+
 
 }

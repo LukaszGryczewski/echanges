@@ -100,6 +100,19 @@ class AdminUserController extends Controller
         ]);
     }
 
+    public function searchDelete(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Search user by login, firstname, lastname
+        $users = User::onlyTrashed()->where('login', 'LIKE', "$query%")->paginate(20);
+
+        return view('admin.user.indexDeletedUsers', [
+            'users'    => $users,
+            'resource' => 'Résultats de la recherche pour : ' . $query
+        ]);
+    }
+
     public function showProductPerUser(string $id)
     {
         $user = User::with('products')->find($id);

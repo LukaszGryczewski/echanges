@@ -23,11 +23,6 @@
                                     <td><strong>{{ __('Nom') }}</strong></td>
                                     <td>{{ $user->lastname }}</td>
                                 </tr>
-                                <tr>
-                                    <td><strong>{{ __('Adresse') }}</strong></td>
-                                    <td>{{ $user->address->street }} {{ $user->address->number }}
-                                        {{ $user->address->municipalitie }} {{ $user->address->postal_code }}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

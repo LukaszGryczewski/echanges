@@ -52,10 +52,24 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+        $user = Auth::user();
         $product = Product::with('comments.user')->find($id);
 
+        $maxQuantity = $product->quantity;
+
+
+        if ($user) {
+            $cart = Cart::where('user_id', $user->id)->first();
+
+            if ($cart) {
+                $quantityInCart = $cart->products->where('id', $product->id)->first()->pivot->quantity ?? 0;
+                $maxQuantity = $product->quantity - $quantityInCart;
+            }
+        }
+
         return view('product.show', [
-            'product' => $product
+            'product' => $product,
+            'maxQuantity' => $maxQuantity,
         ]);
     }
 

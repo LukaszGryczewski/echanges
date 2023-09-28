@@ -116,7 +116,7 @@ class AdminProductController extends Controller
             'edition' => ['required', 'string', 'max:60'],
             'condition' => ['required', 'string', 'in:Neuf,Parfait,Très bon,Bon,Moyen,Mauvais,Très Mauvais'],
             'image' => ['nullable', 'image'],
-            'type_transaction' => ['required', 'string', 'in:Vente,Echange'],
+
 
         ]);
         if ($request->hasFile('image')) {
@@ -128,9 +128,10 @@ class AdminProductController extends Controller
         $product->fill($validated); // Remplit les attributs modifiés
         $product->save();
 
-        return view('product.show', [
+        return redirect()->route('product.show', ['id' => $product->id]);
+        /*return view('product.show', [
             'product' => $product,
-        ]);
+        ]);*/
     }
 
     public function destroy(string $id)

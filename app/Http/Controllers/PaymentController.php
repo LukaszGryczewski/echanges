@@ -97,8 +97,8 @@ class PaymentController extends Controller
             $invoice->invoice_path = $path;
             $invoice->save();
 
-            /*$invoiceMail = new InvoiceMail($invoice, $pdf);
-            Mail::to($order->user->email)->send($invoiceMail);*/
+            $invoiceMail = new InvoiceMail($invoice, $pdf);
+            Mail::to($order->user->email)->send($invoiceMail);
 
             if ($order->order_status === 'paid') {
                 $this->emptyUserCart($order->user_id);

@@ -47,7 +47,7 @@
                         </table>
                         <div class="card-body">
                             @if ($cart)
-                                <h2 class="mb-4 card-title">Produits de la commande</h2>
+                                <h2 class="mb-4 card-title">{{ __('Produits de la commande') }}</h2>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -72,11 +72,11 @@
                                 </table>
                             @endif
                         </div>
-                        <a class="btn btn-success" href="{{ route('order.index') }}">{{ __('Retour') }}</a>
+                        <a class="btn btn-secondary" href="{{ route('order.index') }}">{{ __('Retour') }}</a>
                         <a href="{{ route('order.setstatus', ['id' => $order->id, 'status' => 'delivery']) }}"
                             class="btn btn-primary">{{ __('Commande préparée') }}</a>
                         <a href="{{ route('order.setstatus', ['id' => $order->id, 'status' => 'delivered']) }}"
-                            class="btn btn-secondary">{{ __('Confirmer livraison') }}</a>
+                            class="btn btn-success">{{ __('Confirmer livraison') }}</a>
                     </div>
                 </div>
             </div>

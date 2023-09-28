@@ -103,13 +103,11 @@
                                 <label for="condition">{{ __('Condition') }}</label>
                                 <select id="condition" name="condition"
                                     class="form-control @error('condition') is-invalid @enderror">
-                                    <option value="Neuf">Neuf</option>
+                                    <option value="Neuf">Neuf emballage d\'origine</option>
                                     <option value="Parfait">Parfait</option>
-                                    <option value="Très bon">Très bon</option>
                                     <option value="Bon">Bon</option>
                                     <option value="Moyen">Moyen</option>
                                     <option value="Mauvais">Mauvais</option>
-                                    <option value="Très Mauvais">Très Mauvais</option>
                                 </select>
                                 @error('condition')
                                     <span class="invalid-feedback" role="alert">

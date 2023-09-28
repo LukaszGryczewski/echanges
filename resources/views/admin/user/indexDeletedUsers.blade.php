@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('admin.user.search') }}" method="GET" class="mb-3">
+        <form action="{{ route('admin.user.searchDelete') }}" method="GET" class="mb-3">
             <input type="text" name="query" class="form-control" placeholder="{{ __('Chercher un utilisateur') }}"
                 value="{{ request('query') }}">
             <button type="submit" class="mt-2 btn btn-success">{{ __('Rechercher') }}</button>

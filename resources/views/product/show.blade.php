@@ -31,13 +31,6 @@
                                     <td>{{ $product->quantity }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>{{ __('Utilisateur') }}</strong></td>
-                                    <td><a
-                                            href="{{ route('user.show', $product->user->id) }}">{{ $product->user->login }}</a>
-                                    </td>
-
-                                </tr>
-                                <tr>
                                     <td><strong>{{ __('Condition') }}</strong></td>
                                     <td>{{ $product->condition }}</td>
                                 </tr>
@@ -49,6 +42,24 @@
                                     <td><strong>{{ __('Prix') }}</strong></td>
                                     <td>{{ $product->price }} €</td>
                                 </tr>
+                                <td>
+                                    <form action="{{ route('cart.addProduct', $product->id) }}" method="POST">
+                                        @csrf
+                                        <label for="quantity">{{ __('Quantité :') }}</label>
+                                        @if ($maxQuantity == 0)
+                                            <input type="number" name="quantity" id="quantity" min="0" max="0"
+                                                value="0" disabled>
+                                            <span>{{ __('Produit épuisé') }}</span>
+                                        @else
+                                            <input type="number" name="quantity" id="quantity" min="1"
+                                                max="{{ $maxQuantity }}" value="1"
+                                                oninvalid="this.setCustomValidity('Le stock de ce produit est de {{ $maxQuantity }}. Veuillez introduire un chiffre inférieur ou égal à {{ $maxQuantity }}.')"
+                                                onchange="this.setCustomValidity('')">
+                                            <button type="submit"
+                                                class="btn btn-warning">{{ __('Ajouter au panier') }}</button>
+                                        @endif
+                                    </form>
+                                </td>
                             </tbody>
                         </table>
                         <h3>{{ __('Commentaires') }}</h3>

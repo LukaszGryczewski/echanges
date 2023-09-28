@@ -106,9 +106,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">{{ __('Annuler') }}</button>
-                        <button type="submit" class="btn btn-warning" id="modalConfirmButton">
-                            {{ __('Confirmer le blocage') }}
-                        </button>
+                        <button type="submit" class="btn btn-warning" id="modalConfirmButton">{{ __('Confirmer le blocage') }}</button>
                     </div>
                 </form>
             </div>

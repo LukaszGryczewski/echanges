@@ -44,8 +44,6 @@ Route::get('/dashboard', function () {
         ->name('profile.destroy');
 });*/
 
-Route::apiResource('products', ProductApiController::class);
-
 /* Product route guest*/
 Route::get('/product', [ProductController::class, 'index'])
     ->name('product.index');
@@ -168,6 +166,8 @@ Route::middleware(['admin'])->group(function () {
         ->name('admin.user.show');
     Route::get('admin/user/search', [AdminUserController::class, 'search'])
         ->name('admin.user.search');
+        Route::get('admin/user/searchDelete', [AdminUserController::class, 'searchDelete'])
+        ->name('admin.user.searchDelete');
     Route::put('/admin/users/toggleBlock', [AdminUserController::class, 'toggleBlock'])
         ->name('admin.user.toggleBlock');
     Route::get('admin/create-user', [AdminUserController::class, 'create'])

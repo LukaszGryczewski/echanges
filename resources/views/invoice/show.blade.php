@@ -36,14 +36,15 @@
     <h1>Geek Treasures</h1>
     <ul class="list-unstyled">
         <li><i class="bi bi-envelope-fill"></i> Palais du Midi 4 Rue de la Fontaine 1000 Bruxelles</li>
-        <li><i class="bi bi-envelope-fill"></i> info@iccbxl.be</li>
+        <li><i class="bi bi-envelope-fill"></i> GeekTreasuresA@gmail.com</li>
         <li><i class="bi bi-telephone-fill"></i> 02/279.58.40</li>
     </ul>
     <div class="container">
         <h2>{{ __('Facture n°') }} {{ $invoice->id }}</h2>
         <p>{{ __('Commande ID') }} : {{ $invoice->order_id }}</p>
-        <p>Vendu par : Geek Treasure</p>
-        <p>{{ __('Montant') }} : {{ $invoice->amount }} {{ $invoice->currency }}</p>
+        <p>{{ __('Montant produits') }} : {{ $order->total_price - $order->shipping_cost }} {{ $invoice->currency }}</p>
+        <p>{{ __('Montant livraison') }} : {{ $order->shipping_cost }} {{ $invoice->currency }}</p>
+        <p>{{ __('Montant total') }} : {{ $order->total_price}} {{ $invoice->currency }}</p>
         <p>{{ __('Date de facturation') }} : {{ $invoice->billing_date }}</p>
         <p>{{ __('Adresse de livraison') }} : {{ $invoice->order->delivery_address }}</p>
         <p>{{ __('Détails') }} : {{ $invoice->details }}</p>

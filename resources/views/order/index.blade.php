@@ -6,12 +6,10 @@
     <div class="container">
         <h1 class="my-4 text-center">{{ __('Liste des commandes') }}</h1>
         <div class="mb-3">
-            <a href="{{ route('order.index') }}" class="btn btn-success">Toutes les commandes</a>
-            <a href="{{ route('order.index', ['order_status' => 'paid']) }}" class="btn btn-success">Commandes Payées</a>
-            <a href="{{ route('order.index', ['order_status' => 'delivery']) }}" class="btn btn-success">Commandes en
-                Livraison</a>
-            <a href="{{ route('order.index', ['order_status' => 'delivered']) }}" class="btn btn-success">Commandes
-                Livrées</a>
+            <a href="{{ route('order.index') }}" class="btn btn-success">{{ __('Toutes les commandes') }}</a>
+            <a href="{{ route('order.index', ['order_status' => 'paid']) }}" class="btn btn-success">{{ __('Commandes Payées') }}</a>
+            <a href="{{ route('order.index', ['order_status' => 'delivery']) }}" class="btn btn-success">{{ __('Commandes en Livraison') }}</a>
+            <a href="{{ route('order.index', ['order_status' => 'delivered']) }}" class="btn btn-success">{{ __('Commandes Livrées') }}</a>
         </div>
         @if ($orders && $orders->count())
             <table class="table table-bordered table-hover">

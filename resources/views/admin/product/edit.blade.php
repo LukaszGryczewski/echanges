@@ -102,13 +102,11 @@
                                 <label for="condition">{{ __('Condition') }}</label>
                                 <select id="condition" name="condition"
                                     class="form-control @error('condition') is-invalid @enderror">
-                                    <option value="Neuf" {{ $product->condition === 'Neuf' ? 'selected' : '' }}>
-                                        {{ __('Neuf') }}
+                                    <option value="Neuf" {{ $product->condition === 'Neuf emballage d\'origine' ? 'selected' : '' }}>
+                                        {{ __('Neuf emballage d\'origine') }}
                                     </option>
                                     <option value="Parfait" {{ $product->condition === 'Parfait' ? 'selected' : '' }}>
                                         {{ __('Parfait') }}</option>
-                                    <option value="Très bon" {{ $product->condition === 'Très bon' ? 'selected' : '' }}>
-                                        {{ __('Très bon') }}</option>
                                     <option value="Bon" {{ $product->condition === 'Bon' ? 'selected' : '' }}>
                                         {{ __('Bon') }}
                                     </option>
@@ -117,9 +115,6 @@
                                     </option>
                                     <option value="Mauvais" {{ $product->condition === 'Mauvais' ? 'selected' : '' }}>
                                         {{ __('Mauvais') }}</option>
-                                    <option value="Très Mauvais"
-                                        {{ $product->condition === 'Très Mauvais' ? 'selected' : '' }}>
-                                        {{ __('Très Mauvais') }}
                                     </option>
                                 </select>
                                 @error('condition')
@@ -141,20 +136,6 @@
                                 <input type="file" id="image" name="image"
                                     class="form-control @error('image') is-invalid @enderror">
                                 @error('image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="type_transaction">{{ __('Type transaction') }}</label>
-                                <select id="type_transaction" name="type_transaction"
-                                    class="form-control @error('type_transaction') is-invalid @enderror">
-                                    <option value="Vente" {{ $product->type_transaction === 'Vente' ? 'selected' : '' }}>
-                                        {{ __('Vente') }}</option>
-                                </select>
-                                @error('type_transaction')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
